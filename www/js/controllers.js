@@ -4,6 +4,7 @@ angular
     ])
 
     .controller('DashCtrl', function($scope, companies) {
+        $scope.companies = companies;
         console.log(companies);
     })
 

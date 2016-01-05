@@ -4,7 +4,12 @@
       <div class="item item-divider">Recent Updates</div>
       <div class="item item-body">
         <div>
-          There is a fire 2 in <b>sector 3</b>
+          There are {{ companies.length }} <b>companies</b>.
+          <ul>
+              <li ng-repeat="c in companies">
+                  {{ c._text }}
+              </li>
+          </ul>
         </div>
       </div>
     </div>
