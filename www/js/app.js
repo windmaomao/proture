@@ -63,6 +63,11 @@ angular
                     templateUrl: 'templates/tab-chats.html',
                     controller: 'ChatsCtrl'
                 }
+            },
+            resolve: {
+                companies: function(company) {
+                    return company.all();
+                }
             }
         })
         .state('tab.chat-detail', {
