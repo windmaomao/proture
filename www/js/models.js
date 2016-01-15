@@ -12,9 +12,21 @@ angular.module('starter.models', ['firebase'])
             return $q.when($firebaseArray(ref));
         };
     })
-    .service('company', function(pt) {
-        this.all = function() {
+    .service('company', function(pt, bnd, $q) {
+        this.all2 = function() {
             return pt.company2();
+        }
+        this.all = function() {
+            var deferred = $q.defer();
+            bnd.company.list()
+                .success(function(res) {
+                    return deferred.resolve(res.data);
+                })
+                .error(function(res) {
+                    return deferred.reject();
+                })
+            ;
+            return deferred.promise;
         };
     })
 ;

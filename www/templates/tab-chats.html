@@ -2,12 +2,9 @@
   <ion-content>
     <ion-list>
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="c in companies" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">
-        <img ng-src="img/{{ c._Code }}.png">
-        <h2>{{c._text}}</h2>
+        <img ng-src="img/{{ c.alias }}.png">
+        <h2>{{c.name}}</h2>
         <p>
-            <b>Type:</b> {{ c._Type }}
-            <b>Length:</b> {{ c._Length }}
-            <b>Updated:</b> {{ c._Latest }}
         </p>
         <p>{{c.__note}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
