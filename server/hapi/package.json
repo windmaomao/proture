@@ -1,0 +1,23 @@
+{
+  "name": "proture_api",
+  "version": "1.0.0",
+  "description": "Proture API",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bedwetter": "^1.8.2",
+    "blipp": "^2.3.0",
+    "dogwater": "^0.4.7",
+    "hapi": "^8.8.0",
+    "sails-memory": "^0.10.5",
+    "sails-mysql": "^0.11.2"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-nodemon": "^1.0.5"
+  }
+}
