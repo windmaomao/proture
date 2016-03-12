@@ -1,6 +1,8 @@
 const defaultConfig = {
     handler: {
-        bedwetter: {}
+        bedwetter: {
+            // populate: true
+        }
     }
 };
 module.exports = function(subject) {

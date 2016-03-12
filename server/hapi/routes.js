@@ -38,4 +38,5 @@ module.exports = function(server) {
     server.route(require('./routes/contact.js'));
     server.route(require('./routes/project.js'));
     server.route(require('./routes/account.js'));
+    server.route(require('./routes/crud')('transaction'));
 }

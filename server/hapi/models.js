@@ -28,7 +28,8 @@ module.exports = {
         require('./models/company.js'),
         require('./models/contact.js'),
         require('./models/project.js'),
-        require('./models/account')
+        require('./models/account'),
+        require('./models/transaction')
     ],
     fixtures: [
         {
