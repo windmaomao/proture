@@ -22,6 +22,9 @@
 
 module.exports.routes = {
 
+    'get /': 'IndexController.index',
+
+
   /***************************************************************************
   *                                                                          *
   * Make the view located at `views/homepage.ejs` (or `views/homepage.jade`, *
@@ -32,9 +35,9 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': {
-    view: 'homepage'
-  }
+  // '/': {
+  //   view: 'homepage'
+  // }
 
   /***************************************************************************
   *                                                                          *
