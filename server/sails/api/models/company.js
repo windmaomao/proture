@@ -2,8 +2,8 @@
  * Company model
  */
 module.exports = {
-    identity: 'company',
-    connection: 'db',
+    // identity: 'company',
+    // connection: 'db',
     migrate: 'safe',
     autoCreatedAt: false,
     autoUpdatedAt: false,
