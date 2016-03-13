@@ -1,31 +1,24 @@
-/**
- * Company model
- */
 module.exports = {
-    identity: 'company',
+    identity: 'project',
     connection: 'db',
     migrate: 'safe',
     autoCreatedAt: false,
     autoUpdatedAt: false,
     attributes: {
-        companyId: {
+        projectId: {
             type: 'integer',
             primaryKey: true,
             autoIncrement: true
+        },
+        companyId: {
+            model: 'company'
         },
         name: {
             type: 'string',
             required: true
         },
         url: 'string',
-        slogan: {
-            type: 'string',
-            required: true
-        },
-        alias: 'string',
-        active: 'boolean',
-        contactId: {
-            model: 'contact'
-        }
+        description: 'string',
+        active: 'boolean'
     }
 };

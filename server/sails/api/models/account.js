@@ -1,14 +1,11 @@
-/**
- * Company model
- */
 module.exports = {
-    identity: 'company',
+    identity: 'account',
     connection: 'db',
     migrate: 'safe',
     autoCreatedAt: false,
     autoUpdatedAt: false,
     attributes: {
-        companyId: {
+        accountId: {
             type: 'integer',
             primaryKey: true,
             autoIncrement: true
@@ -17,15 +14,13 @@ module.exports = {
             type: 'string',
             required: true
         },
-        url: 'string',
-        slogan: {
-            type: 'string',
-            required: true
+        companyId: {
+            model: 'company'
         },
-        alias: 'string',
-        active: 'boolean',
-        contactId: {
-            model: 'contact'
-        }
+        // accountTypeId: {
+        //     model: 'account'
+        // },
+        // started: 'date',
+        // ended: 'date'
     }
 };

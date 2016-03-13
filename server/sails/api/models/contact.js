@@ -1,31 +1,25 @@
-/**
- * Company model
- */
 module.exports = {
-    identity: 'company',
+    identity: 'contact',
     connection: 'db',
     migrate: 'safe',
     autoCreatedAt: false,
     autoUpdatedAt: false,
     attributes: {
-        companyId: {
+        contactId: {
             type: 'integer',
             primaryKey: true,
             autoIncrement: true
         },
-        name: {
+        firstName: {
             type: 'string',
             required: true
         },
-        url: 'string',
-        slogan: {
+        lastName: {
             type: 'string',
             required: true
         },
-        alias: 'string',
-        active: 'boolean',
-        contactId: {
-            model: 'contact'
-        }
+        title: 'string',
+        email: 'string',
+        phone: 'string'
     }
 };
