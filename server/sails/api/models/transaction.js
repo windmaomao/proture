@@ -1,5 +1,5 @@
 module.exports = {
-    identity: 'transaction',
+    // identity: 'transaction',
     connection: 'db',
     migrate: 'safe',
     autoCreatedAt: false,
