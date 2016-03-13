@@ -8,7 +8,7 @@ const server = new Hapi.Server();
 server.connection({ port: 3000 });
 
 // Server plugins
-const plugins = require('./plugins');
+const plugins = require('./config/plugins');
 
 // Start server
 server.register(plugins, function (err) {
