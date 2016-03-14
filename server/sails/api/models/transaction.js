@@ -1,9 +1,6 @@
 module.exports = {
-    // identity: 'transaction',
     connection: 'db',
     migrate: 'safe',
-    autoCreatedAt: false,
-    autoUpdatedAt: false,
     attributes: {
         transactionId: {
             type: 'integer',

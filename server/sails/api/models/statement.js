@@ -1,8 +1,6 @@
 module.exports = {
     connection: 'db',
     migrate: 'safe',
-    // autoCreatedAt: false,
-    // autoUpdatedAt: false,
     attributes: {
         statementId: {
             type: 'integer',
