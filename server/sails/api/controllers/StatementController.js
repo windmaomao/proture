@@ -8,8 +8,8 @@
 
 var moment = require('moment');
 
-var calcStatement = function(cb) {
-    transaction.find({}).exec(function(err, items) {
+var calcStatement = function(filter, cb) {
+    transaction.find(filter).exec(function(err, items) {
         if (err) {
             return cb(err);
         }
@@ -42,7 +42,12 @@ var calcStatement = function(cb) {
 module.exports = {
 
     calc: function(req, res, next) {
-        calcStatement(function(err, result) {
+        var accountId = req.param('accountId');
+        if (!accountId) {
+            return res.badRequest();
+        }
+
+        calcStatement({ accountId: accountId}, function(err, result) {
             if (err) {
                 return next(err);
             }
@@ -52,14 +57,19 @@ module.exports = {
     },
 
     update: function(req, res, next) {
-        calcStatement(function(err, result) {
+        var accountId = req.param('accountId');
+        if (!accountId) {
+            return res.badRequest();
+        }
+
+        calcStatement({ accountId: accountId }, function(err, result) {
             if (err) {
                 return next(err);
             }
 
             _.each(result, function(item, year) {
                 statement.create({
-                    accountId: 1,
+                    accountId: accountId,
                     date: year + '-1-1',
                     dateType: 1,
                     net: item.net
