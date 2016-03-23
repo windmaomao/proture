@@ -16,7 +16,8 @@ module.exports = {
     },
 
     database: {
-        mongo: 'mongodb://localhost/proture'
+        // mongo: 'mongodb://localhost/proture'
+        mongo: 'mongodb://root:root@ds021989.mlab.com:21989/proture'
     },
 
     model: {

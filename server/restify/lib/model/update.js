@@ -20,11 +20,8 @@ module.exports = {
         /**
          * Project
          */
-        project: {
-            type: ObjectId, ref: 'project',
-            autopopulate: {
-                select: 'name'
-            }
+        projectId: {
+            type: ObjectId, ref: 'project'
         }
     },
     options: {
