@@ -1,23 +1,27 @@
 /**
- * Config module
+ * Config settings
  *
  * @module config
  *
  * @date 3/18/16
- * @author Fang Jin <fang-a.jin@db.com>
+ * @author Fang Jin <windmaomao@gmail.com>
  */
 
 module.exports = {
     name: 'Proture',
     version: '0.0.1',
+    log: false,
 
     server: {
         port: 8182,
     },
 
     database: {
-        // mongo: 'mongodb://localhost/proture'
-        mongo: 'mongodb://root:root@ds021989.mlab.com:21989/proture'
+        mongo: 'mongodb://localhost/proture'
+    },
+
+    controller: {
+        path: '/controller'
     },
 
     model: {
@@ -25,11 +29,12 @@ module.exports = {
     },
 
     api: {
-        version: '/v1'
+        version: '/v1',
+        blueprint: true
     },
 
     app: {
         path: '/public',
         route: '/'
-    }
+    },
 }

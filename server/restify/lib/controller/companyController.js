@@ -1,13 +1,13 @@
 /**
- * Project controller module
+ * Company controller module
  *
  * @module controller
  *
- * @date 3/21/16
+ * @date 3/22/16
  * @author Fang Jin <windmaomao@gmail.com>
  */
 
-var name = 'project';
+var name = 'company';
 var routes = require('../utility/controllerRestify')(name);
 
 // expose routes

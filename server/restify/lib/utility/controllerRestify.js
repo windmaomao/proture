@@ -11,7 +11,6 @@
 var config = require('../config');
 var mongoose = require('mongoose');
 var restifyMongoose = require('restify-mongoose');
-var autopopulate = require('mongoose-autopopulate');
 var path = '..' + config.model.path + '/';
 
 var restify = function(modelName) {
@@ -21,9 +20,6 @@ var restify = function(modelName) {
         SchemaDef.fields,
         SchemaDef.options
     );
-
-    // load plugin
-    Schema.plugin(autopopulate);
 
     // define model
     var Model = mongoose.model(modelName,Schema);
@@ -39,6 +35,8 @@ var restify = function(modelName) {
         query:  Rest.query(),
         detail: Rest.detail(),
         insert: Rest.insert(),
+        patch:  Rest.update(),
+        del:    Rest.remove()
     }
 }
 

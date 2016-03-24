@@ -4,7 +4,7 @@
  * @module mongo
  *
  * @date 3/22/16
- * @author Fang Jin <fang-a.jin@db.com>
+ * @author Fang Jin <windmaomao@gmail.com>
  */
 
 var mongoose = require('mongoose');
@@ -21,7 +21,10 @@ module.exports = {
          * Project
          */
         projectId: {
-            type: ObjectId, ref: 'project'
+            type: ObjectId, ref: 'project',
+            // autopopulate: {
+            //     select: 'name'
+            // }
         }
     },
     options: {

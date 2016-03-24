@@ -4,7 +4,7 @@
  * @module controller
  *
  * @date 3/22/16
- * @author Fang Jin <fang-a.jin@db.com>
+ * @author Fang Jin <windmaomao@gmail.com>
  */
 
 var name = 'update';
