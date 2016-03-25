@@ -6,7 +6,7 @@
  * @date 03/25/16
  * @author Fang Jin <windmaomao@gmail.com>
 */
-*
+
 angular
     .module('myApp', ['ng-admin', 'ng-admin.config'])
     .config(function(NgAdminConfigurationProvider, NgAdminOptions) {
@@ -34,20 +34,26 @@ angular
             var id = op.id || 'id';
             var fields = op.fields;
             var listFields = op.list.fields || fields;
+            var showFields = op.show.fields || fields;
+            var creationFields = op.creation.fields || fields;
             var searchFields = op.search.fields || id;
 
             var entity = nga.entity(key).identifier(nga.field(id));
 
             entity.listView()
                 .fields(assembleFields(nga, listFields))
-                .listActions(['show'])
+                .listActions(['show', 'edit'])
                 .filters(assembleSearchFields(nga, searchFields))
             ;
             entity.creationView()
-                .fields(assembleFields(nga, fields))
+                .fields(assembleFields(nga, creationFields))
+            ;
+            entity.editionView()
+                .fields(assembleFields(nga, creationFields))
+                .title('Edit')
             ;
             entity.showView()
-                .fields(assembleFields(nga, fields))
+                .fields(assembleFields(nga, showFields))
                 .title('Detail')
             ;
 

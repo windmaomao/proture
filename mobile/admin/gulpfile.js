@@ -27,7 +27,7 @@ gulp.task('connect', [], function() {
         middleware: function(connect, opt) {
             return [
                 proxy('/v1', {
-                    target: 'http://qplot.com:8182'
+                    target: 'http://localhost:8182'
                 })
             ]
         }

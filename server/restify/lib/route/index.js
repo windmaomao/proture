@@ -83,7 +83,7 @@ module.exports = function(server) {
                     server.get(url, route.func.query);
                     server.get(url + '/:id', route.func.detail);
                     server.post(url, route.func.insert);
-                    server.patch(url + '/:id', route.func.patch);
+                    server.put(url + '/:id', route.func.patch);
                     server.del(url + '/:id', route.func.del);
                 default:
             }

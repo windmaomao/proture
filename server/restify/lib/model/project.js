@@ -33,7 +33,7 @@ module.exports = {
     options: {
         collection: 'project',
         versionKey: false,
-        timestamps: false
+        timestamps: {}
     },
     methods: {},
     indexes: {},

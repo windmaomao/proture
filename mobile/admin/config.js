@@ -17,13 +17,19 @@ angular
                 id: '_id',
                 fields: [
                     '_id', 'name', 'alias', 'active',
+                    'createdAt', 'updatedAt'
                 ],
                 list: {
                     fields: [
                         'name', 'alias', 'active',
                     ]
                 },
-                creation: {},
+                creation: {
+                    fields: [
+                        'name', 'alias', 'active',
+                    ]
+                },
+                edition: {},
                 show: {},
                 search: {
                     fields: [
