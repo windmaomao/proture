@@ -1,3 +1,12 @@
+/**
+ * NG Admin config module
+ *
+ * Use a script to define the setting for ng-admin
+ *
+ * @date 03/25/16
+ * @author Fang Jin <windmaomao@gmail.com>
+*/
+
 angular
     .module('ng-admin.config', [])
     .constant('NgAdminOptions', {
@@ -7,7 +16,7 @@ angular
             project: {
                 id: '_id',
                 fields: [
-                    'name', 'alias', 'active',
+                    '_id', 'name', 'alias', 'active',
                 ],
                 list: {
                     fields: [

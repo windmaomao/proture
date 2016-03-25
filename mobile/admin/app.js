@@ -1,3 +1,12 @@
+/**
+ * NG Admin module
+ *
+ * Use ng-admin to drive the admin website
+ *
+ * @date 03/25/16
+ * @author Fang Jin <windmaomao@gmail.com>
+*/
+*
 angular
     .module('myApp', ['ng-admin', 'ng-admin.config'])
     .config(function(NgAdminConfigurationProvider, NgAdminOptions) {
