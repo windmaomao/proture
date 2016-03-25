@@ -23,7 +23,7 @@ module.exports = {
     options: {
         collection: 'company',
         versionKey: false,
-        timestamps: false
+        timestamps: {}
     },
     methods: {},
     indexes: {},

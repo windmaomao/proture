@@ -13,6 +13,30 @@ angular
         site: 'Proture Admin',
         url: '/v1/',
         entities: {
+            company: {
+                id: '_id',
+                fields: [
+                    '_id', 'name', 'alias', 'slogan', 'active',
+                    'createdAt', 'updatedAt'
+                ],
+                list: {
+                    fields: [
+                        'name', 'slogan', 'alias', 'active',
+                    ]
+                },
+                creation: {
+                    fields: [
+                        'name', 'alias', 'slogan', 'active',
+                    ]
+                },
+                edition: {},
+                show: {},
+                search: {
+                    fields: [
+                        'name'
+                    ]
+                }
+            },
             project: {
                 id: '_id',
                 fields: [
