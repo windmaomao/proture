@@ -12,6 +12,7 @@ angular
     .config(function(NgAdminConfigurationProvider, NgAdminOptions) {
         var nga = NgAdminConfigurationProvider;
         var opt = NgAdminOptions;
+        var entities = {};
 
         // assemble nga fields based on field array
         var assembleFields = function(p, fields) {
@@ -23,6 +24,14 @@ angular
                     switch (field.type) {
                         case 'boolean':
                             f.push(p.field(field.field, field.type));
+                            break;
+                        case 'reference':
+                            f.push(
+                                p.field(field.field, field.type)
+                                    .label('Company')
+                                    .targetEntity(entities['company'])
+                                    .targetField(p.field('name'))
+                            );
                             break;
                         default:
 
@@ -67,6 +76,7 @@ angular
                 .title('Detail')
             ;
 
+            entities[key] = entity;
             admin.addEntity(entity);
         });
 

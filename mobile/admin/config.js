@@ -45,13 +45,14 @@ angular
                 ],
                 list: {
                     fields: [
+                        // 'companyId',
                         {
                             field: 'companyId',
                             type: 'reference',
                             targetEntity: 'company',
                             targetField: 'name'
                         },
-                        'companyId', 'name', 'alias',
+                        'name', 'alias',
                         // 'active',
                         {
                             field: 'active',
