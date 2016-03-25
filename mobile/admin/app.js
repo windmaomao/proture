@@ -17,7 +17,17 @@ angular
         var assembleFields = function(p, fields) {
             var f = [];
             _.each(fields, function(field) {
-                f.push(p.field(field));
+                if (!(field === Object(field))) {
+                    f.push(p.field(field));
+                } else {
+                    switch (field.type) {
+                        case 'boolean':
+                            f.push(p.field(field.field, field.type));
+                            break;
+                        default:
+
+                    }
+                }
             });
             return f;
         };

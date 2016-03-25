@@ -40,17 +40,28 @@ angular
             project: {
                 id: '_id',
                 fields: [
-                    '_id', 'name', 'alias', 'active',
+                    '_id', 'companyId', 'name', 'alias', 'active',
                     'createdAt', 'updatedAt'
                 ],
                 list: {
                     fields: [
-                        'name', 'alias', 'active',
+                        {
+                            field: 'companyId',
+                            type: 'reference',
+                            targetEntity: 'company',
+                            targetField: 'name'
+                        },
+                        'companyId', 'name', 'alias',
+                        // 'active',
+                        {
+                            field: 'active',
+                            type: 'boolean'
+                        }
                     ]
                 },
                 creation: {
                     fields: [
-                        'name', 'alias', 'active',
+                        'companyId', 'name', 'alias', 'active',
                     ]
                 },
                 edition: {},
