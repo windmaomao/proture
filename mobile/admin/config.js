@@ -25,9 +25,12 @@ angular
                     updatedAt: 'date'
                 },
                 id: '_id',
-                fields: [
-                    'name', 'alias', 'slogan', 'active',
-                ],
+                fields: {},
+                default: {
+                    fields: [
+                        'name', 'alias', 'slogan', 'active',
+                    ],
+                },
                 list: {},
                 creation: {},
                 edition: {},
@@ -56,20 +59,36 @@ angular
                     createdAt: 'date',
                     updatedAt: 'date'
                 },
-                id: '_id',
-                fields: [
-                    {
+                fields: {
+                    companyId: {
                         field: 'companyId',
                         type: 'reference',
                         targetEntity: 'company',
                         targetField: 'name'
-                    },
-                    'name', 'alias', 'active',
-                ],
+                    }
+                },
+                id: '_id',
+                default: {
+                    fields: [
+                        'companyId', 'name', 'alias', 'active',
+                    ],
+                },
                 list: {},
-                creation: {},
+                creation: {
+                    fields: [
+                        'companyId', 'name', 'alias', 'active',
+                        'description',
+                    ]
+                },
                 edition: {},
-                show: {},
+                show: {
+                    fields: [
+                        '_id',
+                        'companyId', 'name', 'alias', 'active',
+                        'description',
+                        'createdAt', 'updatedAt'
+                    ]
+                },
                 search: {
                     fields: [
                         'name'

@@ -52,7 +52,7 @@ angular
             return [p.field(fields[0]).label(fields[0]).pinned(true)];
         };
 
-        // convert model to nga fields
+        // convert model and merge with nga fields
         var fieldsFromModel = function(model) {
             var fields = _.keys(model);
             var updated = {};
@@ -82,7 +82,6 @@ angular
         var entityModelFields = function(entity, fields) {
             var nlist = [];
             _.each(fields, function(field) {
-                console.log(field);
                 var updated = {};
                 if (!(field === Object(field))) {
                     updated = models[entity][field];
@@ -116,13 +115,15 @@ angular
 
             var entityName = op.entity || key;
             // get model fields
-            models[entityName] = fieldsFromModel(op.model);
+            var fieldsDef = fieldsFromModel(op.model);
+            models[entityName] = _.defaults(op.fields, fieldsDef);
 
             var id = op.id || 'id';
             var fields = op.fields;
-            var listFields = op.list.fields || fields;
-            var showFields = op.show.fields || fields;
-            var creationFields = op.creation.fields || fields;
+            var defaultFields = op.default.fields;
+            var listFields = op.list.fields || defaultFields;
+            var showFields = op.show.fields || defaultFields;
+            var creationFields = op.creation.fields || defaultFields;
             var searchFields = op.search.fields || id;
 
             var entity = nga.entity(entityName).identifier(nga.field(id));
