@@ -23,6 +23,8 @@ angular
                     f.push(nga.field(field));
                 } else {
                     switch (field.type) {
+                        case 'id':
+                        case 'date':
                         case 'string':
                             f.push(nga.field(field.field));
                             break;
@@ -51,7 +53,8 @@ angular
         };
 
         // convert model to nga fields
-        var fieldsFromModel = function(model, fields) {
+        var fieldsFromModel = function(model) {
+            var fields = _.keys(model);
             var updated = {};
 
             _.each(fields, function(field) {
@@ -79,6 +82,7 @@ angular
         var entityModelFields = function(entity, fields) {
             var nlist = [];
             _.each(fields, function(field) {
+                console.log(field);
                 var updated = {};
                 if (!(field === Object(field))) {
                     updated = models[entity][field];
@@ -95,7 +99,9 @@ angular
 
         // Assemble NGA models straight from Model
         var ngaFieldsFromModel = function(model, fields) {
-            return assembleFields(entityModelFields(model, fields));
+            var modelFields = entityModelFields(model, fields);
+            console.log(modelFields);
+            return assembleFields(modelFields);
         };
 
         // create an admin application
@@ -110,7 +116,7 @@ angular
 
             var entityName = op.entity || key;
             // get model fields
-            models[entityName] = fieldsFromModel(op.model, op.fields);
+            models[entityName] = fieldsFromModel(op.model);
 
             var id = op.id || 'id';
             var fields = op.fields;
@@ -141,6 +147,8 @@ angular
             entities[entityName] = entity;
             admin.addEntity(entity);
         });
+
+        console.log(models);
 
         // attach the admin application to the DOM and run it
         nga.configure(admin);
