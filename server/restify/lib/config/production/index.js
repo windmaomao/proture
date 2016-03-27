@@ -1,5 +1,5 @@
 /**
- * Config module
+ * Config settings
  *
  * @module config
  *
@@ -8,15 +8,20 @@
  */
 
 module.exports = {
-    name: 'GMI IR Event',
+    name: 'Proture',
     version: '0.0.1',
+    log: false,
 
     server: {
-        port: 28080,
+        port: 8182,
     },
 
     database: {
-        mongo: 'mongodb://cptxxu02.us.db.com/gmi'
+        mongo: 'mongodb://<dbuser>:<dbpassword>@ds021989.mlab.com:21989/proture'
+    },
+
+    controller: {
+        path: '/controller'
     },
 
     model: {
@@ -24,11 +29,12 @@ module.exports = {
     },
 
     api: {
-        version: '/v1'
+        version: '/v1',
+        blueprint: true
     },
 
     app: {
-        path: '../../doc/swagger',
+        path: '/public',
         route: '/'
-    }
+    },
 }
