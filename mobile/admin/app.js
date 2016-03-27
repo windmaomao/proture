@@ -32,11 +32,13 @@ angular
                             f.push(nga.field(field.field, field.type));
                             break;
                         case 'reference':
+                            var tEntity = field.targetEntity;
+                            var tField = field.targetField;
                             f.push(
                                 nga.field(field.field, field.type)
-                                    .label('Company')
-                                    .targetEntity(entities['company'])
-                                    .targetField(nga.field('name'))
+                                    // .label(_.capitalize(tEntity))
+                                    .targetEntity(entities[tEntity])
+                                    .targetField(nga.field(tField))
                             );
                             break;
                         default:

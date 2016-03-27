@@ -95,6 +95,47 @@ angular
                     ]
                 },
             },
+            update: {
+                entity: 'update',
+                model: {
+                    _id: { type: 'id' },
+                    projectId: {
+                        type: 'id', ref: 'project',
+                    },
+                    title: { type: 'string', required: true },
+                    createdAt: 'date',
+                    updatedAt: 'date'
+                },
+                fields: {
+                    projectId: {
+                        field: 'projectId',
+                        type: 'reference',
+                        targetEntity: 'project',
+                        targetField: 'name'
+                    }
+                },
+                id: '_id',
+                default: {
+                    fields: [
+                        'projectId', 'title',
+                    ],
+                },
+                list: {},
+                creation: {},
+                edition: {},
+                show: {
+                    fields: [
+                        '_id',
+                        'projectId', 'title',
+                        'createdAt', 'updatedAt'
+                    ]
+                },
+                search: {
+                    fields: [
+                        'title'
+                    ]
+                },
+            }
         },
     })
 ;
