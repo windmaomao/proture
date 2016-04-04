@@ -73,10 +73,15 @@ module.exports = {
             id: '_id',
             default: {
                 fields: [
-                    'companyId', 'name', 'alias', 'active',
+                    'name', 'companyId', 'alias', 'description', 'active',
                 ],
             },
-            list: {},
+            list: {
+                sort: {
+                    field: 'name',
+                    dir: 'ASC'
+                }
+            },
             creation: {
                 fields: [
                     'companyId', 'name', 'alias', 'active',
