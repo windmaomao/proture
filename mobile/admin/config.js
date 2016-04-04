@@ -10,7 +10,7 @@
 angular
     .module('ng-admin.config', [])
     .constant('NgAdminOptions', {
-        site: 'Proture Admin',
+        site: 'QPLOT Proture',
         url: '/v1/',
         entities: {
             company: {
