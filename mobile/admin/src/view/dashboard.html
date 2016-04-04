@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="page-header">
+            <h1>Welcome to QPLOT Proture</h1>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <small>Company, Project and Update</small>
+
+        <h2>Company</h2>
+
+        <p>
+        As a developer, I want to provide a rest service that will accept and store events from a wide range of applications. The applications will send me a message with several standard fields and a payload with information that's relevant to their application (meaning that there are no standards for the application data - they can save whatever they want).
+        </p>
+
+        <p>
+        The rest service should be highly scalable and always available (meaning load balanced and likely running on a couple of machines).
+
+        </p>
+
+        <h2>Project</h2>
+
+        <p>
+        As a developer, I want to evaluate events, identifying start and end points, creating notifications when an end point is reached. The event evaluator will correlate events using the app/subsystem/event name /correlation id (key) by running a mongo aggregation script that will poll the database looking for sets of correlated events that are not 'complete'.
+        </p>
+        <p>
+        The standard evaluation process will be setup as a pipeline of evaluators (probably derived from a standard class). Each evaluator in the pipeline will look at event and optionally emit a notification and  pass the event on to the next evaluator if the event is not fully handed by this evaluator.
+        </p>
+        <p>
+        At the end of the pipeline, a default evaluator will handle any event not handled by an upstream evaluator. The default evaluator will look for end points and when found will emit a default notification (sample below) and mark all correlated events in mongo as 'complete'.
+        </p>
+
+        <h2>Update:</h2>
+
+        <p>
+        As a user I've used the subscription UI to subscribe to certain notifications and have specified way to deliver the notification.
+        </p>
+        <p>
+        To determine if a notification has subscriptions and needs to be published, the subscription process will scan for new notifications i.e. have been saved since the last scan. For each new notification found the subscription process will scan the subscriptions collection and if a match is found write the notification to a separate collection -  subscriptedNotifications so they can be shown on the UI and optionally published to a user's email, etc.
+        </p>
+        <p>
+        The docs in the subscriptedNotifications collection will contain the base notification information along with the user id of the subscribed user. (We might be able to save an array of subscribed user ids and save some inserts for popular notifications. It will depend on how we are able to search arrays).
+        </p>
+
+    </div>
+</div>

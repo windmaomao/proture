@@ -1,12 +1,22 @@
+/**
+ * Gulp config
+ *
+ * @date 03/26/16
+ * @author Fang Jin <fang-a.jin@db.com>
+*/
+
 var fs = require('fs');
 var del = require('del');
 var gulp = require('gulp');
 var connect = require('gulp-connect');
 var $ = require('gulp-load-plugins')();
 var proxy = require('http-proxy-middleware');
+var webpack = require('webpack-stream');
 
 var config = {
   pkg : JSON.parse(fs.readFileSync('./package.json')),
+  src: '/src',
+  dist: '/dist',
   banner:
       '/*!\n' +
       ' * <%= pkg.name %>\n' +
@@ -16,27 +26,45 @@ var config = {
       ' */\n\n\n'
 };
 
-gulp.task('default', ['connect']);
+gulp.task('default', ['build', 'connect']);
 
-gulp.task('watch', ['connect'], function() {
-  gulp.watch(['src/**/*.{js,html}'], ['build']);
-});
-
-gulp.task('connect', [], function() {
+// server connect with support to proxy
+gulp.task('connect', function() {
     connect.server({
+        root: 'dist',
+        port: 8182,
         middleware: function(connect, opt) {
             return [
                 proxy('/v1', {
-                    target: 'http://localhost:8182'
+                    target: 'http://localhost:8181'
                 })
             ]
         }
     });
 });
 
+// build source files
+gulp.task('build', function() {
+    var webpackConfig = require('./webpack.config.js');
+    return gulp.src('./src/app.js')
+        .pipe(webpack(webpackConfig))
+        .pipe(gulp.dest('dist/'))
+    ;
+});
+
+// clean folder
+gulp.task('clean', function() {
+    return del(['dist/*.js']);
+});
+
+// watch folder
+gulp.task('watch', ['build'], function() {
+    // gulp.watch(['src/**/*.{js}'], ['build']);
+});
+
 gulp.task('reload', function() {
-    gulp.src('dist/**/*.{css,js}')
-        .pipe(connect.reload());
+    // gulp.src('dist/**/*.{css,js}')
+    //     .pipe(connect.reload());
 });
 
 var handleError = function (err) {
