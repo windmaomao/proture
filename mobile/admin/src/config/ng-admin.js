@@ -29,7 +29,12 @@ module.exports = {
                     'name', 'alias', 'slogan', 'active',
                 ],
             },
-            list: {},
+            list: {
+                sort: {
+                    field: 'name',
+                    dir: 'ASC'
+                }
+            },
             creation: {},
             edition: {},
             show: {
