@@ -8,7 +8,7 @@
 */
 
 module.exports = {
-    site: 'QPLOT Proture',
+    site: 'Proture',
     url: '/v1/',
     entities: {
         company: {
@@ -18,15 +18,35 @@ module.exports = {
                 name: { type: 'string', required: true },
                 alias: { type: 'string', required: true },
                 slogan: 'string',
+                description: 'string',
                 active: 'boolean',
+                rating: 'integer',
+                startYear: 'integer',
+                revenueTotal: 'integer',
+                projectCount: 'integer',
                 createdAt: 'date',
                 updatedAt: 'date'
             },
             id: '_id',
-            fields: {},
+            fields: {
+                rating: {
+                    format: 'rating'
+                },
+                startYear: {
+                    label: "Year"
+                },
+                revenueTotal: {
+                    label: "Revenue"
+                },
+                projectCount: {
+                    label: "Projects"
+                }
+            },
             default: {
                 fields: [
-                    'name', 'alias', 'slogan', 'active',
+                    'name', 'alias', 'slogan',
+                    'active',
+                    'startYear', 'revenueTotal', 'projectCount', 'rating'
                 ],
             },
             list: {
@@ -41,6 +61,7 @@ module.exports = {
                 fields: [
                     '_id',
                     'name', 'alias', 'slogan', 'active',
+                    'rating', 'startYear', 'revenueTotal', 'projectCount',
                     'createdAt', 'updatedAt'
                 ]
             },
@@ -57,8 +78,14 @@ module.exports = {
                 companyId: { type: 'id', ref: 'company'},
                 name: { type: 'string', required: true },
                 alias: { type: 'string', required: true },
+                slogan: 'string',
                 description: 'string',
                 active: 'boolean',
+                rating: 'integer',
+                startYear: 'integer',
+                durationMonth: 'integer',
+                teamSize: 'integer',
+                updateCount: 'integer',
                 createdAt: 'date',
                 updatedAt: 'date'
             },
@@ -67,13 +94,32 @@ module.exports = {
                     field: 'companyId',
                     type: 'reference',
                     targetEntity: 'company',
-                    targetField: 'name'
+                    targetField: 'name',
+                    label: 'Company',
+                    pinned: true
+                },
+                rating: {
+                    format: 'rating'
+                },
+                startYear: {
+                    label: "Year"
+                },
+                durationMonth: {
+                    label: "Duration"
+                },
+                teamSize: {
+                    label: "Team"
+                },
+                updateCount: {
+                    label: "Updates"
                 }
             },
             id: '_id',
             default: {
                 fields: [
-                    'name', 'companyId', 'alias', 'description', 'active',
+                    'name', 'slogan',
+                    'active',
+                    'startYear', 'durationMonth', 'teamSize', 'rating'
                 ],
             },
             list: {
@@ -84,22 +130,22 @@ module.exports = {
             },
             creation: {
                 fields: [
-                    'companyId', 'name', 'alias', 'active',
-                    'description',
+                    'companyId', 'name', 'alias', 'slogan', 'active',
+                    'rating', 'startYear', 'durationMonth', 'teamSize',
                 ]
             },
             edition: {},
             show: {
                 fields: [
                     '_id',
-                    'companyId', 'name', 'alias', 'active',
-                    'description',
+                    'companyId', 'name', 'alias', 'slogan', 'active',
+                    'rating', 'startYear', 'durationMonth', 'teamSize', 'updateCount',
                     'createdAt', 'updatedAt'
                 ]
             },
             search: {
                 fields: [
-                    'name'
+                    'companyId'
                 ]
             },
         },

@@ -36,7 +36,7 @@ ngAdmin.attach = function() {
 };
 
 // Assemble nga fields based on fields definiation array
-var assembleFields = function(fields) {
+var assembleFields = function(fields, editing) {
     var f = [];
     _.each(fields, function(field) {
         var nf = {};
@@ -44,12 +44,6 @@ var assembleFields = function(fields) {
             nf = nga.field(field);
         } else {
             switch (field.type) {
-                case 'id':
-                case 'date':
-                case 'datetime':
-                case 'string':
-                    nf = nga.field(field.field);
-                    break;
                 case 'boolean':
                     nf = nga.field(field.field, field.type)
                         .validation({required: true});
@@ -65,7 +59,33 @@ var assembleFields = function(fields) {
                         .targetEntity(entities[tEntity])
                         .targetField(nga.field(tField));
                     break;
+                case 'integer':
+                    if (!editing) {
+                        if (field.format) {
+                            nf = nga.field(field.field, 'template')
+                                .template('<star-rating stars="{{ entry.values.rating }}"></star-rating>');
+                        } else {
+                            nf = nga.field(field.field);
+                        }
+                    } else {
+                        nf = nga.field(field.field);
+                    }
+                    break;
+                case 'id':
+                case 'date':
+                case 'datetime':
+                case 'string':
                 default:
+                    nf = nga.field(field.field);
+                    break;
+            };
+            // add field label
+            if (field.label) {
+                nf.label(field.label);
+            }
+            // set field pinned
+            if (field.pinned) {
+                nf.pinned(true);
             }
         }
         f.push(nf);
@@ -104,7 +124,7 @@ var fieldsFromModel = function(model) {
 };
 
 // Assemble NGA model fields with model and fields name
-ngAdmin.ngaFieldsFromModel = function(model, fields) {
+ngAdmin.ngaFieldsFromModel = function(model, fields, editing) {
     // var modelFields = this.entityModelFields(model, fields);
     // return this.assembleFields(modelFields);
 
@@ -113,7 +133,7 @@ ngAdmin.ngaFieldsFromModel = function(model, fields) {
         nlist.push(models[model][field]);
     });
     // console.log(model, nlist);
-    return assembleFields(nlist);
+    return assembleFields(nlist, editing);
 };
 
 // Deep defaults
@@ -160,16 +180,17 @@ ngAdmin.setupEntities = function(opts) {
         var listView = entity.listView()
             .fields(ngAdmin.ngaFieldsFromModel(entityName, listFields))
             .listActions(['show', 'edit'])
-            .filters(ngAdmin.assembleSearchFields(nga, searchFields))
+            // .filters(ngAdmin.assembleSearchFields(nga, searchFields))
+            .filters(ngAdmin.ngaFieldsFromModel(entityName, searchFields))
         ;
         if (sort) {
             listView.sortField(sort.field).sortDir(sort.dir);
         }
         entity.creationView()
-            .fields(ngAdmin.ngaFieldsFromModel(entityName, creationFields))
+            .fields(ngAdmin.ngaFieldsFromModel(entityName, creationFields, true))
         ;
         entity.editionView()
-            .fields(ngAdmin.ngaFieldsFromModel(entityName, creationFields))
+            .fields(ngAdmin.ngaFieldsFromModel(entityName, creationFields, true))
             .title('Edit')
         ;
         entity.showView()

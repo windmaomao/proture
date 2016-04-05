@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "title": "Proture",
-        "description": "Example Project",
+        "description": "Simply a basic company project updates, its goal is to capture the essense of project, ex. architect. These information will serve well for future development from higher level.",
         "contact": {
             "name": "Fang Jin",
             "email": "windmaomao@gmail.com"
@@ -18,13 +18,35 @@
         "application/json"
     ],
     "paths": {
+        "/company": {
+            "get": {
+                "summary": "List companies",
+                "description": "Get list of companies.\n",
+                "tags": [],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Company"
+                            }
+                        }
+                    },
+                    "Error": {
+                        "description": "Expected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
         "/project": {
             "get": {
-                "summary": "Get projects",
+                "summary": "List projects",
                 "description": "Get list of projects.\n",
-                "tags": [
-                    "Project"
-                ],
+                "tags": [],
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -42,96 +64,69 @@
                         }
                     }
                 }
-            },
-            "post": {
-                "summary": "Add project",
-                "description": "Add a project.\n",
-                "parameters": [
-                    {
-                        "name": "project",
-                        "in": "body",
-                        "description": "project object",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/Project"
-                        }
-                    }
-                ],
-                "tags": [
-                    "Project"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "default": {
-                        "description": "Unexpected error",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    }
-                }
-            }
-        },
-        "/update": {
-            "get": {
-                "summary": "Get updates",
-                "description": "Get list of updates.\n",
-                "tags": [
-                    "Project"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/Update"
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "Unexpected error",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "summary": "Add update",
-                "description": "Add a project update.\n",
-                "parameters": [
-                    {
-                        "name": "update",
-                        "in": "body",
-                        "description": "update object",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/Update"
-                        }
-                    }
-                ],
-                "tags": [
-                    "Project"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "default": {
-                        "description": "Unexpected error",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    }
-                }
             }
         }
     },
     "definitions": {
+        "Company": {
+            "type": "object",
+            "required": [
+                "name", "alias"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "example": "Deutsche Bank",
+                    "description": "Company name"
+                },
+                "alias": {
+                    "type": "string",
+                    "example": "db",
+                    "description": "Company alias, used for folder name."
+                },
+                "slogan": {
+                    "type": "string",
+                    "example": "Passion for works",
+                    "description": "Company slogan, or short description"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "",
+                    "description": "Company description"
+                },
+                "active": {
+                    "type": "boolean",
+                    "example": true,
+                    "default": true,
+                    "description": "Indicator if company is active"
+                },
+                "rating": {
+                    "type": "integer",
+                    "example": 3,
+                    "description": "Favorite level of company"
+                },
+                "startYear": {
+                    "type": "integer",
+                    "example": 2000,
+                    "description": "Start year of doing business"
+                },
+                "revenueTotal": {
+                    "type": "integer",
+                    "example": 34000,
+                    "description": "Total revenue from the company"
+                },
+                "projectCount": {
+                    "type": "integer",
+                    "example": 3,
+                    "description": "Total number of projects"
+                }
+            }
+        },
         "Project": {
             "type": "object",
+            "required": [
+                "name", "alias"
+            ],
             "properties": {
                 "name": {
                     "type": "string",
@@ -143,6 +138,11 @@
                     "example": "event",
                     "description": "Project alias, or code name"
                 },
+                "slogan": {
+                    "type": "string",
+                    "example": "Event and subscription",
+                    "description": "Project short description"
+                },
                 "description": {
                     "type": "string",
                     "example": "",
@@ -153,6 +153,31 @@
                     "example": true,
                     "default": true,
                     "description": "Indicator if project is active"
+                },
+                "rating": {
+                    "type": "integer",
+                    "example": 3,
+                    "description": "Favorite level of the project"
+                },
+                "startYear": {
+                    "type": "integer",
+                    "example": 2000,
+                    "description": "Start year of the project"
+                },
+                "durationMonth": {
+                    "type": "integer",
+                    "example": 2,
+                    "description": "Duration of the project measured by month"
+                },
+                "teamSize": {
+                    "type": "integer",
+                    "example": 6,
+                    "description": "Total number of team members"
+                },
+                "updateCount": {
+                    "type": "integer",
+                    "example": 3,
+                    "description": "Total number of updates"
                 }
             }
         },
@@ -174,12 +199,38 @@
         "Error": {
             "type": "object",
             "properties": {
-                "code": {
-                    "type": "integer",
-                    "format": "int32"
-                },
                 "message": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Validation failed",
+                    "description": "Error message"
+                },
+                "errors": {
+                    "type": "array",
+                    "description": "List of errors keyed by each error",
+                    "items": {
+                        "schema": {
+                            "$ref": "#/definitions/ErrorDetail"
+                        }
+                    }
+                }
+            }
+        },
+        "ErrorDetail": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "Object is required",
+                    "description": "Error message"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "ValidationError"
+                },
+                "properties": {
+                    "type": "object",
+                    "example": "{}",
+                    "description": "Additional data for the error"
                 }
             }
         }

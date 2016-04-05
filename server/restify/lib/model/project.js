@@ -24,16 +24,26 @@ module.exports = {
          */
         name: { type: String, required: true },
         alias: { type: String, required: true },
+        slogan: String,
         description: String,
         /**
-         * Alive
+         * Attibute
          */
-        active: Boolean
+        active: Boolean,
+        rating: { type: Number, max: 5 },
+        /**
+         * Populate
+         */
+        startYear: Number,
+        durationMonth: Number,
+        teamSize: Number,
+        updateCount: Number,
     },
     options: {
         collection: 'project',
         versionKey: false,
-        timestamps: {}
+        timestamps: {},
+        runValidators: false
     },
     methods: {},
     indexes: {},

@@ -32,11 +32,11 @@ gulp.task('default', ['build', 'connect']);
 gulp.task('connect', function() {
     connect.server({
         root: 'dist',
-        port: 8182,
+        port: 7930,
         middleware: function(connect, opt) {
             return [
                 proxy('/v1', {
-                    target: 'http://localhost:8181'
+                    target: 'http://localhost:7929'
                 })
             ]
         }

@@ -9,11 +9,11 @@
 
 module.exports = {
     name: 'Proture',
-    version: '0.0.1',
+    version: '0.0.2',
     log: false,
 
     server: {
-        port: 8181,
+        port: 7929,
     },
 
     database: {

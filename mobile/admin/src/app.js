@@ -15,4 +15,5 @@ angular
     .config(provider.ngAdminConfigurationProvider)
     .config(provider.restangularProvider)
     .directive('dashboardPage', directive.dashboardDirective)
+    .directive('starRating', directive.starRating)
 ;

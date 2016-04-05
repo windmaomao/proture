@@ -35,9 +35,9 @@ provider.restangularProvider = function(RestangularProvider) {
             }
             if (("_filters" in params) && (searchField in params._filters)) {
                 params.q = {};
-                params.q[searchField] = { $regex: params._filters[searchField] }
+                // params.q[searchField] = { $regex: params._filters[searchField] }
+                params.q[searchField] = params._filters[searchField];
             }
-            // params.q = { NAME: { $regex: params._filters.NAME } };
             delete params._filters;
 
             // pagination

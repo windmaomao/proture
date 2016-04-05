@@ -61,6 +61,7 @@
 	    .config(provider.ngAdminConfigurationProvider)
 	    .config(provider.restangularProvider)
 	    .directive('dashboardPage', directive.dashboardDirective)
+	    .directive('starRating', directive.starRating)
 	;
 
 
@@ -105,9 +106,9 @@
 	            }
 	            if (("_filters" in params) && (searchField in params._filters)) {
 	                params.q = {};
-	                params.q[searchField] = { $regex: params._filters[searchField] }
+	                // params.q[searchField] = { $regex: params._filters[searchField] }
+	                params.q[searchField] = params._filters[searchField];
 	            }
-	            // params.q = { NAME: { $regex: params._filters.NAME } };
 	            delete params._filters;
 
 	            // pagination
@@ -173,7 +174,7 @@
 	};
 
 	// Assemble nga fields based on fields definiation array
-	var assembleFields = function(fields) {
+	var assembleFields = function(fields, editing) {
 	    var f = [];
 	    _.each(fields, function(field) {
 	        var nf = {};
@@ -181,12 +182,6 @@
 	            nf = nga.field(field);
 	        } else {
 	            switch (field.type) {
-	                case 'id':
-	                case 'date':
-	                case 'datetime':
-	                case 'string':
-	                    nf = nga.field(field.field);
-	                    break;
 	                case 'boolean':
 	                    nf = nga.field(field.field, field.type)
 	                        .validation({required: true});
@@ -202,7 +197,33 @@
 	                        .targetEntity(entities[tEntity])
 	                        .targetField(nga.field(tField));
 	                    break;
+	                case 'integer':
+	                    if (!editing) {
+	                        if (field.format) {
+	                            nf = nga.field(field.field, 'template')
+	                                .template('<star-rating stars="{{ entry.values.rating }}"></star-rating>');
+	                        } else {
+	                            nf = nga.field(field.field);
+	                        }
+	                    } else {
+	                        nf = nga.field(field.field);
+	                    }
+	                    break;
+	                case 'id':
+	                case 'date':
+	                case 'datetime':
+	                case 'string':
 	                default:
+	                    nf = nga.field(field.field);
+	                    break;
+	            };
+	            // add field label
+	            if (field.label) {
+	                nf.label(field.label);
+	            }
+	            // set field pinned
+	            if (field.pinned) {
+	                nf.pinned(true);
 	            }
 	        }
 	        f.push(nf);
@@ -241,7 +262,7 @@
 	};
 
 	// Assemble NGA model fields with model and fields name
-	ngAdmin.ngaFieldsFromModel = function(model, fields) {
+	ngAdmin.ngaFieldsFromModel = function(model, fields, editing) {
 	    // var modelFields = this.entityModelFields(model, fields);
 	    // return this.assembleFields(modelFields);
 
@@ -250,7 +271,7 @@
 	        nlist.push(models[model][field]);
 	    });
 	    // console.log(model, nlist);
-	    return assembleFields(nlist);
+	    return assembleFields(nlist, editing);
 	};
 
 	// Deep defaults
@@ -297,16 +318,17 @@
 	        var listView = entity.listView()
 	            .fields(ngAdmin.ngaFieldsFromModel(entityName, listFields))
 	            .listActions(['show', 'edit'])
-	            .filters(ngAdmin.assembleSearchFields(nga, searchFields))
+	            // .filters(ngAdmin.assembleSearchFields(nga, searchFields))
+	            .filters(ngAdmin.ngaFieldsFromModel(entityName, searchFields))
 	        ;
 	        if (sort) {
 	            listView.sortField(sort.field).sortDir(sort.dir);
 	        }
 	        entity.creationView()
-	            .fields(ngAdmin.ngaFieldsFromModel(entityName, creationFields))
+	            .fields(ngAdmin.ngaFieldsFromModel(entityName, creationFields, true))
 	        ;
 	        entity.editionView()
-	            .fields(ngAdmin.ngaFieldsFromModel(entityName, creationFields))
+	            .fields(ngAdmin.ngaFieldsFromModel(entityName, creationFields, true))
 	            .title('Edit')
 	        ;
 	        entity.showView()
@@ -336,7 +358,7 @@
 	*/
 
 	module.exports = {
-	    site: 'QPLOT Proture',
+	    site: 'Proture',
 	    url: '/v1/',
 	    entities: {
 	        company: {
@@ -346,15 +368,35 @@
 	                name: { type: 'string', required: true },
 	                alias: { type: 'string', required: true },
 	                slogan: 'string',
+	                description: 'string',
 	                active: 'boolean',
+	                rating: 'integer',
+	                startYear: 'integer',
+	                revenueTotal: 'integer',
+	                projectCount: 'integer',
 	                createdAt: 'date',
 	                updatedAt: 'date'
 	            },
 	            id: '_id',
-	            fields: {},
+	            fields: {
+	                rating: {
+	                    format: 'rating'
+	                },
+	                startYear: {
+	                    label: "Year"
+	                },
+	                revenueTotal: {
+	                    label: "Revenue"
+	                },
+	                projectCount: {
+	                    label: "Projects"
+	                }
+	            },
 	            default: {
 	                fields: [
-	                    'name', 'alias', 'slogan', 'active',
+	                    'name', 'alias', 'slogan',
+	                    'active',
+	                    'startYear', 'revenueTotal', 'projectCount', 'rating'
 	                ],
 	            },
 	            list: {
@@ -369,6 +411,7 @@
 	                fields: [
 	                    '_id',
 	                    'name', 'alias', 'slogan', 'active',
+	                    'rating', 'startYear', 'revenueTotal', 'projectCount',
 	                    'createdAt', 'updatedAt'
 	                ]
 	            },
@@ -385,8 +428,14 @@
 	                companyId: { type: 'id', ref: 'company'},
 	                name: { type: 'string', required: true },
 	                alias: { type: 'string', required: true },
+	                slogan: 'string',
 	                description: 'string',
 	                active: 'boolean',
+	                rating: 'integer',
+	                startYear: 'integer',
+	                durationMonth: 'integer',
+	                teamSize: 'integer',
+	                updateCount: 'integer',
 	                createdAt: 'date',
 	                updatedAt: 'date'
 	            },
@@ -395,13 +444,32 @@
 	                    field: 'companyId',
 	                    type: 'reference',
 	                    targetEntity: 'company',
-	                    targetField: 'name'
+	                    targetField: 'name',
+	                    label: 'Company',
+	                    pinned: true
+	                },
+	                rating: {
+	                    format: 'rating'
+	                },
+	                startYear: {
+	                    label: "Year"
+	                },
+	                durationMonth: {
+	                    label: "Duration"
+	                },
+	                teamSize: {
+	                    label: "Team"
+	                },
+	                updateCount: {
+	                    label: "Updates"
 	                }
 	            },
 	            id: '_id',
 	            default: {
 	                fields: [
-	                    'name', 'companyId', 'alias', 'description', 'active',
+	                    'name', 'slogan',
+	                    'active',
+	                    'startYear', 'durationMonth', 'teamSize', 'rating'
 	                ],
 	            },
 	            list: {
@@ -412,22 +480,22 @@
 	            },
 	            creation: {
 	                fields: [
-	                    'companyId', 'name', 'alias', 'active',
-	                    'description',
+	                    'companyId', 'name', 'alias', 'slogan', 'active',
+	                    'rating', 'startYear', 'durationMonth', 'teamSize',
 	                ]
 	            },
 	            edition: {},
 	            show: {
 	                fields: [
 	                    '_id',
-	                    'companyId', 'name', 'alias', 'active',
-	                    'description',
+	                    'companyId', 'name', 'alias', 'slogan', 'active',
+	                    'rating', 'startYear', 'durationMonth', 'teamSize', 'updateCount',
 	                    'createdAt', 'updatedAt'
 	                ]
 	            },
 	            search: {
 	                fields: [
-	                    'name'
+	                    'companyId'
 	                ]
 	            },
 	        },
@@ -496,6 +564,19 @@
 	        restrict: 'AE',
 	        template: dashboardDirectiveTemplate,
 	        replace: false,
+	    };
+	};
+
+	directive.starRating = function() {
+	    return {
+	        restrict: 'E',
+	        scope: {
+	        	stars: '@'
+	        },
+	        link: function(scope, elm, attrs, ctrl) {
+	        	scope.starsArray = Array.apply(null, { length: parseInt(scope.stars) }).map(Number.call, Number);
+	        },
+	        template: `<i ng-repeat="star in starsArray" class="glyphicon glyphicon-star"></i>`
 	    };
 	};
 
