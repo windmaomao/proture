@@ -65,6 +65,54 @@
                     }
                 }
             }
+        },
+        "/update": {
+            "get": {
+                "summary": "List updates",
+                "description": "Get list of updates.\n",
+                "tags": [],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Update"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/tech": {
+            "get": {
+                "summary": "List techs",
+                "description": "Get list of techs.\n Techs can be used as tagging tools for projects and updates.",
+                "tags": [],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Tech"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -125,9 +173,24 @@
         "Project": {
             "type": "object",
             "required": [
-                "name", "alias"
+                "companyId", "name", "alias"
             ],
             "properties": {
+                "companyId": {
+                    "type": "string",
+                    "example": "324543",
+                    "description": "Company id the project belongs to"
+                },
+                "techIds": {
+                    "type": "array",
+                    "items": {
+                        "schema": {
+                            "type": "string",
+                            "example": "32432435"
+                        }
+                    },
+                    "description": "Array of tech ids the project tagged with"
+                },
                 "name": {
                     "type": "string",
                     "example": "Event",
@@ -181,6 +244,46 @@
                 }
             }
         },
+        "Tech": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "example": "NodeJS",
+                    "description": "Technology name"
+                },
+                "slogan": {
+                    "type": "string",
+                    "example": "Server side Javascript",
+                    "description": "Short description"
+                },
+                "parentId": {
+                    "type": "string",
+                    "example": "234324324",
+                    "description": "Parent technology, ex. certain tools only belongs to a parent technology"
+                },
+                "category": {
+                    "type": "string",
+                    "example": "Server",
+                    "description": "Technology domain"
+                },
+                "rating": {
+                    "type": "integer",
+                    "example": 3,
+                    "description": "Favorite level of the tech"
+                },
+                "startYear": {
+                    "type": "integer",
+                    "example": 2000,
+                    "description": "Start year of the tech"
+                },
+                "projectCount": {
+                    "type": "integer",
+                    "example": 3,
+                    "description": "Total number of project using the tech"
+                }
+            }
+        },
         "Update": {
             "type": "object",
             "properties": {
@@ -193,6 +296,21 @@
                     "type": "string",
                     "example": "4387",
                     "description": "Project id"
+                },
+                "techId": {
+                    "type": "string",
+                    "example": "324543",
+                    "description": "Tech id the update refers to"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "",
+                    "description": "Update description"
+                },
+                "rating": {
+                    "type": "integer",
+                    "example": 3,
+                    "description": "Importance level of the update"
                 }
             }
         },

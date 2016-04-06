@@ -20,6 +20,12 @@ module.exports = {
             type: ObjectId, ref: 'company'
         },
         /**
+         * Tech ids the project tagged with
+         */
+        techIds: [{
+            type: ObjectId, ref: 'tech'
+        }],
+        /**
          * Name, alias, slogan and note
          */
         name: { type: String, required: true },

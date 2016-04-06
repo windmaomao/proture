@@ -14,23 +14,32 @@ var ObjectId = Schema.Types.ObjectId;
 module.exports = {
     fields: {
         /**
-         * Title
-         */
-        title: { type: String, required: true },
-        /**
          * Project
          */
         projectId: {
             type: ObjectId, ref: 'project',
-            // autopopulate: {
-            //     select: 'name'
-            // }
-        }
+        },
+        /**
+         * Tech
+         */
+        techId: {
+            type: ObjectId, ref: 'tech',
+        },
+        /**
+         * Title and description
+         */
+        title: { type: String, required: true },
+        description: String,
+        /**
+         * Attributes
+         */
+        rating: Number,
     },
     options: {
         collection: 'update',
         versionKey: false,
-        timestamps: {}
+        timestamps: {},
+        runValidators: false
     },
     methods: {},
     indexes: {},

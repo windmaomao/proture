@@ -23,4 +23,5 @@ module.exports = {
     'Company': {},
     'Project': {},
     'Update': {},
+    'Tech': {},
 };

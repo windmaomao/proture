@@ -117,7 +117,7 @@ module.exports = {
             id: '_id',
             default: {
                 fields: [
-                    'name', 'slogan',
+                    'name', 'companyId', 'slogan',
                     'active',
                     'startYear', 'durationMonth', 'teamSize', 'rating'
                 ],
@@ -130,7 +130,7 @@ module.exports = {
             },
             creation: {
                 fields: [
-                    'companyId', 'name', 'alias', 'slogan', 'active',
+                    'companyId', 'name', 'alias', 'slogan', 'description', 'active',
                     'rating', 'startYear', 'durationMonth', 'teamSize',
                 ]
             },
@@ -138,7 +138,7 @@ module.exports = {
             show: {
                 fields: [
                     '_id',
-                    'companyId', 'name', 'alias', 'slogan', 'active',
+                    'companyId', 'name', 'alias', 'slogan', 'description', 'active',
                     'rating', 'startYear', 'durationMonth', 'teamSize', 'updateCount',
                     'createdAt', 'updatedAt'
                 ]
