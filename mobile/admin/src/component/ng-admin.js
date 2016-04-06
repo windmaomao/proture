@@ -51,25 +51,49 @@ var assembleFields = function(fields, editing) {
                 case 'json':
                     nf = nga.field(field.field, field.type);
                     break;
-                case 'reference':
-                    var tEntity = field.targetEntity;
-                    var tField = field.targetField;
-                    nf = nga.field(field.field, field.type)
-                        // .label(_.capitalize(tEntity))
-                        .targetEntity(entities[tEntity])
-                        .targetField(nga.field(tField));
-                    break;
                 case 'integer':
                     if (!editing) {
-                        if (field.format) {
-                            nf = nga.field(field.field, 'template')
-                                .template('<star-rating stars="{{ entry.values.rating }}"></star-rating>');
-                        } else {
-                            nf = nga.field(field.field);
+                        switch (field.format) {
+                            case 'amount':
+                                nf = nga.field(field.field, field.format);
+                                break;
+                            case 'rating':
+                                nf = nga.field(field.field, 'template')
+                                    .template('<star-rating stars="{{ entry.values.rating }}"></star-rating>');
+                                break;
+                            default:
+                                nf = nga.field(field.field);
                         }
                     } else {
                         nf = nga.field(field.field);
                     }
+                    break;
+                case 'reference':
+                    nf = nga.field(field.field, field.type)
+                        .targetEntity(entities[field.targetEntity])
+                        .targetField(nga.field(field.targetField))
+                    ;
+                    break;
+                case 'referenced_list':
+                    var tFields = [];
+                    _.each(field.targetFields, function(value, key) {
+                        tFields.push(nga.field(value).label(key));
+                    });
+                    nf = nga.field(field.field, field.type)
+                        .targetEntity(entities[field.targetEntity])
+                        .targetReferenceField(field.targetReferenceField)
+                        .targetFields(tFields)
+                    ;
+                    if (field.sort) {
+                        nf.sortField(field.sort.field);
+                        nf.sortDir(field.sort.dir);
+                    }
+                    break;
+                case 'reference_many':
+                    nf = nga.field(field.field, field.type)
+                        .targetEntity(entities[field.targetEntity])
+                        .targetField(nga.field(field.targetField))
+                    ;
                     break;
                 case 'id':
                 case 'date':
@@ -148,11 +172,23 @@ var defaults2nd = function(target, source) {
 
 // Setup entities for admin
 ngAdmin.setupEntities = function(opts) {
+    // populate model definition and ui entity
     models = {};
     entities = {};
-    // entityFields = {};
+    _.each(opts, function(op, key) {
+        var entityName = op.entity || key;
+        // get model fields
+        models[entityName] = fieldsFromModel(op.model);
+        defaults2nd(models[entityName], op.fields);
 
-    // add tabs for each model
+        // create entity
+        var id = op.id || 'id';
+        var entity = nga.entity(entityName).identifier(nga.field(id));
+        entities[entityName] = entity;
+        admin.addEntity(entity);
+    });
+
+    // populate entity view and fields
     _.each(opts, function(op, key) {
         // skip inactive entity
         var disable = op.disable || false;
@@ -161,11 +197,6 @@ ngAdmin.setupEntities = function(opts) {
         }
 
         var entityName = op.entity || key;
-        // get model fields
-        models[entityName] = fieldsFromModel(op.model);
-        defaults2nd(models[entityName], op.fields);
-        console.log(entityName, models[entityName]);
-
         var id = op.id || 'id';
         var fields = op.fields;
         var defaultFields = op.default.fields;
@@ -173,9 +204,8 @@ ngAdmin.setupEntities = function(opts) {
         var showFields = op.show.fields || defaultFields;
         var creationFields = op.creation.fields || defaultFields;
         var searchFields = op.search.fields || id;
-        var sort = op.list.sort || '';
 
-        var entity = nga.entity(entityName).identifier(nga.field(id));
+        var entity = entities[entityName];
 
         var listView = entity.listView()
             .fields(ngAdmin.ngaFieldsFromModel(entityName, listFields))
@@ -183,9 +213,14 @@ ngAdmin.setupEntities = function(opts) {
             // .filters(ngAdmin.assembleSearchFields(nga, searchFields))
             .filters(ngAdmin.ngaFieldsFromModel(entityName, searchFields))
         ;
-        if (sort) {
+        if (op.list.sort) {
+            var sort = op.list.sort || '';
             listView.sortField(sort.field).sortDir(sort.dir);
         }
+        if (op.list.title) {
+            listView.title(op.list.title);
+        }
+
         entity.creationView()
             .fields(ngAdmin.ngaFieldsFromModel(entityName, creationFields, true))
         ;
@@ -197,9 +232,6 @@ ngAdmin.setupEntities = function(opts) {
             .fields(ngAdmin.ngaFieldsFromModel(entityName, showFields))
             .title('Detail')
         ;
-
-        entities[entityName] = entity;
-        admin.addEntity(entity);
     });
 }
 

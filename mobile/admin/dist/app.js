@@ -189,25 +189,49 @@
 	                case 'json':
 	                    nf = nga.field(field.field, field.type);
 	                    break;
-	                case 'reference':
-	                    var tEntity = field.targetEntity;
-	                    var tField = field.targetField;
-	                    nf = nga.field(field.field, field.type)
-	                        // .label(_.capitalize(tEntity))
-	                        .targetEntity(entities[tEntity])
-	                        .targetField(nga.field(tField));
-	                    break;
 	                case 'integer':
 	                    if (!editing) {
-	                        if (field.format) {
-	                            nf = nga.field(field.field, 'template')
-	                                .template('<star-rating stars="{{ entry.values.rating }}"></star-rating>');
-	                        } else {
-	                            nf = nga.field(field.field);
+	                        switch (field.format) {
+	                            case 'amount':
+	                                nf = nga.field(field.field, field.format);
+	                                break;
+	                            case 'rating':
+	                                nf = nga.field(field.field, 'template')
+	                                    .template('<star-rating stars="{{ entry.values.rating }}"></star-rating>');
+	                                break;
+	                            default:
+	                                nf = nga.field(field.field);
 	                        }
 	                    } else {
 	                        nf = nga.field(field.field);
 	                    }
+	                    break;
+	                case 'reference':
+	                    nf = nga.field(field.field, field.type)
+	                        .targetEntity(entities[field.targetEntity])
+	                        .targetField(nga.field(field.targetField))
+	                    ;
+	                    break;
+	                case 'referenced_list':
+	                    var tFields = [];
+	                    _.each(field.targetFields, function(value, key) {
+	                        tFields.push(nga.field(value).label(key));
+	                    });
+	                    nf = nga.field(field.field, field.type)
+	                        .targetEntity(entities[field.targetEntity])
+	                        .targetReferenceField(field.targetReferenceField)
+	                        .targetFields(tFields)
+	                    ;
+	                    if (field.sort) {
+	                        nf.sortField(field.sort.field);
+	                        nf.sortDir(field.sort.dir);
+	                    }
+	                    break;
+	                case 'reference_many':
+	                    nf = nga.field(field.field, field.type)
+	                        .targetEntity(entities[field.targetEntity])
+	                        .targetField(nga.field(field.targetField))
+	                    ;
 	                    break;
 	                case 'id':
 	                case 'date':
@@ -286,11 +310,23 @@
 
 	// Setup entities for admin
 	ngAdmin.setupEntities = function(opts) {
+	    // populate model definition and ui entity
 	    models = {};
 	    entities = {};
-	    // entityFields = {};
+	    _.each(opts, function(op, key) {
+	        var entityName = op.entity || key;
+	        // get model fields
+	        models[entityName] = fieldsFromModel(op.model);
+	        defaults2nd(models[entityName], op.fields);
 
-	    // add tabs for each model
+	        // create entity
+	        var id = op.id || 'id';
+	        var entity = nga.entity(entityName).identifier(nga.field(id));
+	        entities[entityName] = entity;
+	        admin.addEntity(entity);
+	    });
+
+	    // populate entity view and fields
 	    _.each(opts, function(op, key) {
 	        // skip inactive entity
 	        var disable = op.disable || false;
@@ -299,11 +335,6 @@
 	        }
 
 	        var entityName = op.entity || key;
-	        // get model fields
-	        models[entityName] = fieldsFromModel(op.model);
-	        defaults2nd(models[entityName], op.fields);
-	        console.log(entityName, models[entityName]);
-
 	        var id = op.id || 'id';
 	        var fields = op.fields;
 	        var defaultFields = op.default.fields;
@@ -311,9 +342,8 @@
 	        var showFields = op.show.fields || defaultFields;
 	        var creationFields = op.creation.fields || defaultFields;
 	        var searchFields = op.search.fields || id;
-	        var sort = op.list.sort || '';
 
-	        var entity = nga.entity(entityName).identifier(nga.field(id));
+	        var entity = entities[entityName];
 
 	        var listView = entity.listView()
 	            .fields(ngAdmin.ngaFieldsFromModel(entityName, listFields))
@@ -321,9 +351,14 @@
 	            // .filters(ngAdmin.assembleSearchFields(nga, searchFields))
 	            .filters(ngAdmin.ngaFieldsFromModel(entityName, searchFields))
 	        ;
-	        if (sort) {
+	        if (op.list.sort) {
+	            var sort = op.list.sort || '';
 	            listView.sortField(sort.field).sortDir(sort.dir);
 	        }
+	        if (op.list.title) {
+	            listView.title(op.list.title);
+	        }
+
 	        entity.creationView()
 	            .fields(ngAdmin.ngaFieldsFromModel(entityName, creationFields, true))
 	        ;
@@ -335,9 +370,6 @@
 	            .fields(ngAdmin.ngaFieldsFromModel(entityName, showFields))
 	            .title('Detail')
 	        ;
-
-	        entities[entityName] = entity;
-	        admin.addEntity(entity);
 	    });
 	}
 
@@ -374,6 +406,7 @@
 	                startYear: 'integer',
 	                revenueTotal: 'integer',
 	                projectCount: 'integer',
+	                projects: { type: 'referenced_list' },
 	                createdAt: 'date',
 	                updatedAt: 'date'
 	            },
@@ -381,6 +414,9 @@
 	            fields: {
 	                rating: {
 	                    format: 'rating'
+	                },
+	                revenueTotal: {
+	                    format: 'amount'
 	                },
 	                startYear: {
 	                    label: "Year"
@@ -390,6 +426,20 @@
 	                },
 	                projectCount: {
 	                    label: "Projects"
+	                },
+	                projects: {
+	                    type: 'referenced_list',
+	                    targetEntity: 'project',
+	                    targetReferenceField: 'companyId',
+	                    targetFields: {
+	                        'Name': 'name',
+	                        'Slogan': 'slogan',
+	                        'Year': 'startYear'
+	                    },
+	                    sort: {
+	                        field: 'createdAt',
+	                        dir: 'DESC'
+	                    }
 	                }
 	            },
 	            default: {
@@ -400,6 +450,8 @@
 	                ],
 	            },
 	            list: {
+	                title: 'Company List',
+	                actions: [],
 	                sort: {
 	                    field: 'name',
 	                    dir: 'ASC'
@@ -411,7 +463,7 @@
 	                fields: [
 	                    '_id',
 	                    'name', 'alias', 'slogan', 'active',
-	                    'rating', 'startYear', 'revenueTotal', 'projectCount',
+	                    'rating', 'startYear', 'revenueTotal', 'projects',
 	                    'createdAt', 'updatedAt'
 	                ]
 	            },
@@ -436,6 +488,7 @@
 	                durationMonth: 'integer',
 	                teamSize: 'integer',
 	                updateCount: 'integer',
+	                techIds: { type: 'reference_many' },
 	                createdAt: 'date',
 	                updatedAt: 'date'
 	            },
@@ -447,6 +500,13 @@
 	                    targetField: 'name',
 	                    label: 'Company',
 	                    pinned: true
+	                },
+	                techIds: {
+	                    field: 'techIds',
+	                    type: 'reference_many',
+	                    label: 'Techs',
+	                    targetEntity: 'tech',
+	                    targetField: 'name',
 	                },
 	                rating: {
 	                    format: 'rating'
@@ -467,12 +527,13 @@
 	            id: '_id',
 	            default: {
 	                fields: [
-	                    'name', 'companyId', 'slogan',
+	                    'name', 'slogan',
 	                    'active',
-	                    'startYear', 'durationMonth', 'teamSize', 'rating'
+	                    'startYear', 'durationMonth', 'teamSize', 'rating',
 	                ],
 	            },
 	            list: {
+	                title: 'Project List',
 	                sort: {
 	                    field: 'name',
 	                    dir: 'ASC'
@@ -480,7 +541,7 @@
 	            },
 	            creation: {
 	                fields: [
-	                    'companyId', 'name', 'alias', 'slogan', 'description', 'active',
+	                    'companyId', 'name', 'alias', 'slogan', 'active', 'techIds',
 	                    'rating', 'startYear', 'durationMonth', 'teamSize',
 	                ]
 	            },
@@ -488,7 +549,8 @@
 	            show: {
 	                fields: [
 	                    '_id',
-	                    'companyId', 'name', 'alias', 'slogan', 'description', 'active',
+	                    'companyId', 'name', 'alias', 'slogan', 'active',
+	                    'techIds',
 	                    'rating', 'startYear', 'durationMonth', 'teamSize', 'updateCount',
 	                    'createdAt', 'updatedAt'
 	                ]
@@ -496,6 +558,61 @@
 	            search: {
 	                fields: [
 	                    'companyId'
+	                ]
+	            },
+	        },
+	        tech: {
+	            entity: 'tech',
+	            model: {
+	                _id: { type: 'id' },
+	                name: { type: 'string', required: true },
+	                slogan: 'string',
+	                parentId: 'string',
+	                category: 'string',
+	                rating: 'integer',
+	                startYear: 'integer',
+	                projectCount: 'integer',
+	                createdAt: 'date',
+	                updatedAt: 'date'
+	            },
+	            id: '_id',
+	            fields: {
+	                rating: {
+	                    format: 'rating'
+	                },
+	                startYear: {
+	                    label: "Year"
+	                },
+	                projectCount: {
+	                    label: "Projects"
+	                }
+	            },
+	            default: {
+	                fields: [
+	                    'name', 'slogan', 'category',
+	                    'startYear', 'projectCount', 'rating'
+	                ],
+	            },
+	            list: {
+	                title: 'Tech List',
+	                sort: {
+	                    field: 'name',
+	                    dir: 'ASC'
+	                }
+	            },
+	            creation: {},
+	            edition: {},
+	            show: {
+	                fields: [
+	                    '_id',
+	                    'name', 'slogan', 'category',
+	                    'startYear', 'projectCount', 'rating',
+	                    'createdAt', 'updatedAt'
+	                ]
+	            },
+	            search: {
+	                fields: [
+	                    'name'
 	                ]
 	            },
 	        },
@@ -507,21 +624,37 @@
 	                    type: 'id', ref: 'project',
 	                },
 	                title: { type: 'string', required: true },
+	                techId: {
+	                    type: 'id', ref: 'tech',
+	                },
+	                description: 'string',
+	                rating: 'integer',
 	                createdAt: 'date',
 	                updatedAt: 'date'
 	            },
 	            fields: {
 	                projectId: {
 	                    field: 'projectId',
+	                    label: 'Project',
 	                    type: 'reference',
 	                    targetEntity: 'project',
 	                    targetField: 'name'
-	                }
+	                },
+	                techId: {
+	                    field: 'techId',
+	                    label: 'Tech',
+	                    type: 'reference',
+	                    targetEntity: 'tech',
+	                    targetField: 'name'
+	                },
+	                rating: {
+	                    format: 'rating'
+	                },
 	            },
 	            id: '_id',
 	            default: {
 	                fields: [
-	                    'projectId', 'title',
+	                    'projectId', 'title', 'techId', 'rating'
 	                ],
 	            },
 	            list: {},
@@ -530,7 +663,8 @@
 	            show: {
 	                fields: [
 	                    '_id',
-	                    'projectId', 'title',
+	                    'projectId', 'techId',
+	                    'title', 'description', 'rating',
 	                    'createdAt', 'updatedAt'
 	                ]
 	            },

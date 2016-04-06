@@ -24,6 +24,7 @@ module.exports = {
                 startYear: 'integer',
                 revenueTotal: 'integer',
                 projectCount: 'integer',
+                projects: { type: 'referenced_list' },
                 createdAt: 'date',
                 updatedAt: 'date'
             },
@@ -31,6 +32,9 @@ module.exports = {
             fields: {
                 rating: {
                     format: 'rating'
+                },
+                revenueTotal: {
+                    format: 'amount'
                 },
                 startYear: {
                     label: "Year"
@@ -40,6 +44,20 @@ module.exports = {
                 },
                 projectCount: {
                     label: "Projects"
+                },
+                projects: {
+                    type: 'referenced_list',
+                    targetEntity: 'project',
+                    targetReferenceField: 'companyId',
+                    targetFields: {
+                        'Name': 'name',
+                        'Slogan': 'slogan',
+                        'Year': 'startYear'
+                    },
+                    sort: {
+                        field: 'createdAt',
+                        dir: 'DESC'
+                    }
                 }
             },
             default: {
@@ -50,6 +68,8 @@ module.exports = {
                 ],
             },
             list: {
+                title: 'Company List',
+                actions: [],
                 sort: {
                     field: 'name',
                     dir: 'ASC'
@@ -61,7 +81,7 @@ module.exports = {
                 fields: [
                     '_id',
                     'name', 'alias', 'slogan', 'active',
-                    'rating', 'startYear', 'revenueTotal', 'projectCount',
+                    'rating', 'startYear', 'revenueTotal', 'projects',
                     'createdAt', 'updatedAt'
                 ]
             },
@@ -86,6 +106,7 @@ module.exports = {
                 durationMonth: 'integer',
                 teamSize: 'integer',
                 updateCount: 'integer',
+                techIds: { type: 'reference_many' },
                 createdAt: 'date',
                 updatedAt: 'date'
             },
@@ -97,6 +118,13 @@ module.exports = {
                     targetField: 'name',
                     label: 'Company',
                     pinned: true
+                },
+                techIds: {
+                    field: 'techIds',
+                    type: 'reference_many',
+                    label: 'Techs',
+                    targetEntity: 'tech',
+                    targetField: 'name',
                 },
                 rating: {
                     format: 'rating'
@@ -117,12 +145,13 @@ module.exports = {
             id: '_id',
             default: {
                 fields: [
-                    'name', 'companyId', 'slogan',
+                    'name', 'slogan',
                     'active',
-                    'startYear', 'durationMonth', 'teamSize', 'rating'
+                    'startYear', 'durationMonth', 'teamSize', 'rating',
                 ],
             },
             list: {
+                title: 'Project List',
                 sort: {
                     field: 'name',
                     dir: 'ASC'
@@ -130,7 +159,7 @@ module.exports = {
             },
             creation: {
                 fields: [
-                    'companyId', 'name', 'alias', 'slogan', 'description', 'active',
+                    'companyId', 'name', 'alias', 'slogan', 'active', 'techIds',
                     'rating', 'startYear', 'durationMonth', 'teamSize',
                 ]
             },
@@ -138,7 +167,8 @@ module.exports = {
             show: {
                 fields: [
                     '_id',
-                    'companyId', 'name', 'alias', 'slogan', 'description', 'active',
+                    'companyId', 'name', 'alias', 'slogan', 'active',
+                    'techIds',
                     'rating', 'startYear', 'durationMonth', 'teamSize', 'updateCount',
                     'createdAt', 'updatedAt'
                 ]
@@ -146,6 +176,61 @@ module.exports = {
             search: {
                 fields: [
                     'companyId'
+                ]
+            },
+        },
+        tech: {
+            entity: 'tech',
+            model: {
+                _id: { type: 'id' },
+                name: { type: 'string', required: true },
+                slogan: 'string',
+                parentId: 'string',
+                category: 'string',
+                rating: 'integer',
+                startYear: 'integer',
+                projectCount: 'integer',
+                createdAt: 'date',
+                updatedAt: 'date'
+            },
+            id: '_id',
+            fields: {
+                rating: {
+                    format: 'rating'
+                },
+                startYear: {
+                    label: "Year"
+                },
+                projectCount: {
+                    label: "Projects"
+                }
+            },
+            default: {
+                fields: [
+                    'name', 'slogan', 'category',
+                    'startYear', 'projectCount', 'rating'
+                ],
+            },
+            list: {
+                title: 'Tech List',
+                sort: {
+                    field: 'name',
+                    dir: 'ASC'
+                }
+            },
+            creation: {},
+            edition: {},
+            show: {
+                fields: [
+                    '_id',
+                    'name', 'slogan', 'category',
+                    'startYear', 'projectCount', 'rating',
+                    'createdAt', 'updatedAt'
+                ]
+            },
+            search: {
+                fields: [
+                    'name'
                 ]
             },
         },
@@ -157,21 +242,37 @@ module.exports = {
                     type: 'id', ref: 'project',
                 },
                 title: { type: 'string', required: true },
+                techId: {
+                    type: 'id', ref: 'tech',
+                },
+                description: 'string',
+                rating: 'integer',
                 createdAt: 'date',
                 updatedAt: 'date'
             },
             fields: {
                 projectId: {
                     field: 'projectId',
+                    label: 'Project',
                     type: 'reference',
                     targetEntity: 'project',
                     targetField: 'name'
-                }
+                },
+                techId: {
+                    field: 'techId',
+                    label: 'Tech',
+                    type: 'reference',
+                    targetEntity: 'tech',
+                    targetField: 'name'
+                },
+                rating: {
+                    format: 'rating'
+                },
             },
             id: '_id',
             default: {
                 fields: [
-                    'projectId', 'title',
+                    'projectId', 'title', 'techId', 'rating'
                 ],
             },
             list: {},
@@ -180,7 +281,8 @@ module.exports = {
             show: {
                 fields: [
                     '_id',
-                    'projectId', 'title',
+                    'projectId', 'techId',
+                    'title', 'description', 'rating',
                     'createdAt', 'updatedAt'
                 ]
             },
