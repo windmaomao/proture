@@ -44,6 +44,11 @@ var assembleFields = function(fields, editing) {
             nf = nga.field(field);
         } else {
             switch (field.type) {
+                case 'template':
+                    nf = nga.field(field.field, 'template')
+                        .template(field.template)
+                    ;
+                    break;
                 case 'boolean':
                     nf = nga.field(field.field, field.type)
                         .validation({required: true});
@@ -56,6 +61,11 @@ var assembleFields = function(fields, editing) {
                         switch (field.format) {
                             case 'amount':
                                 nf = nga.field(field.field, field.format);
+                                break;
+                            case 'count':
+                                nf = nga.field(field.field, 'template')
+                                    .template('{{ entry.values.' + field.targetField + '.length }}')
+                                ;
                                 break;
                             case 'rating':
                                 nf = nga.field(field.field, 'template')

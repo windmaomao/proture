@@ -43,7 +43,7 @@ module.exports = {
                     label: "Revenue"
                 },
                 projectCount: {
-                    label: "Projects"
+                    label: "Projects",
                 },
                 projects: {
                     type: 'referenced_list',
@@ -107,6 +107,7 @@ module.exports = {
                 teamSize: 'integer',
                 updateCount: 'integer',
                 techIds: { type: 'reference_many' },
+                techCount: { type: 'template' },
                 createdAt: 'date',
                 updatedAt: 'date'
             },
@@ -125,6 +126,12 @@ module.exports = {
                     label: 'Techs',
                     targetEntity: 'tech',
                     targetField: 'name',
+                },
+                techCount: {
+                    field: 'techCount',
+                    label: 'Techs',
+                    type: 'template',
+                    template: '{{ entry.values.techIds.length }}'
                 },
                 rating: {
                     format: 'rating'
@@ -147,7 +154,7 @@ module.exports = {
                 fields: [
                     'name', 'slogan',
                     'active',
-                    'startYear', 'durationMonth', 'teamSize', 'rating',
+                    'startYear', 'durationMonth', 'teamSize', 'techCount', 'rating',
                 ],
             },
             list: {
@@ -195,6 +202,14 @@ module.exports = {
             },
             id: '_id',
             fields: {
+                parentId: {
+                    field: 'parentId',
+                    type: 'reference',
+                    targetEntity: 'tech',
+                    targetField: 'name',
+                    label: 'Parent',
+                    pinned: true
+                },
                 rating: {
                     format: 'rating'
                 },
@@ -207,6 +222,7 @@ module.exports = {
             },
             default: {
                 fields: [
+                    'parentId',
                     'name', 'slogan', 'category',
                     'startYear', 'projectCount', 'rating'
                 ],
@@ -230,7 +246,7 @@ module.exports = {
             },
             search: {
                 fields: [
-                    'name'
+                    'name', 'category', 'parentId'
                 ]
             },
         },
@@ -276,7 +292,12 @@ module.exports = {
                 ],
             },
             list: {},
-            creation: {},
+            creation: {
+                fields: [
+                    'projectId', 'title', 'techId', 'rating',
+                    'description'
+                ]
+            },
             edition: {},
             show: {
                 fields: [

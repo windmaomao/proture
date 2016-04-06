@@ -182,6 +182,11 @@
 	            nf = nga.field(field);
 	        } else {
 	            switch (field.type) {
+	                case 'template':
+	                    nf = nga.field(field.field, 'template')
+	                        .template(field.template)
+	                    ;
+	                    break;
 	                case 'boolean':
 	                    nf = nga.field(field.field, field.type)
 	                        .validation({required: true});
@@ -194,6 +199,11 @@
 	                        switch (field.format) {
 	                            case 'amount':
 	                                nf = nga.field(field.field, field.format);
+	                                break;
+	                            case 'count':
+	                                nf = nga.field(field.field, 'template')
+	                                    .template('{{ entry.values.' + field.targetField + '.length }}')
+	                                ;
 	                                break;
 	                            case 'rating':
 	                                nf = nga.field(field.field, 'template')
@@ -425,7 +435,7 @@
 	                    label: "Revenue"
 	                },
 	                projectCount: {
-	                    label: "Projects"
+	                    label: "Projects",
 	                },
 	                projects: {
 	                    type: 'referenced_list',
@@ -489,6 +499,7 @@
 	                teamSize: 'integer',
 	                updateCount: 'integer',
 	                techIds: { type: 'reference_many' },
+	                techCount: { type: 'template' },
 	                createdAt: 'date',
 	                updatedAt: 'date'
 	            },
@@ -507,6 +518,12 @@
 	                    label: 'Techs',
 	                    targetEntity: 'tech',
 	                    targetField: 'name',
+	                },
+	                techCount: {
+	                    field: 'techCount',
+	                    label: 'Techs',
+	                    type: 'template',
+	                    template: '{{ entry.values.techIds.length }}'
 	                },
 	                rating: {
 	                    format: 'rating'
@@ -529,7 +546,7 @@
 	                fields: [
 	                    'name', 'slogan',
 	                    'active',
-	                    'startYear', 'durationMonth', 'teamSize', 'rating',
+	                    'startYear', 'durationMonth', 'teamSize', 'techCount', 'rating',
 	                ],
 	            },
 	            list: {
@@ -577,6 +594,14 @@
 	            },
 	            id: '_id',
 	            fields: {
+	                parentId: {
+	                    field: 'parentId',
+	                    type: 'reference',
+	                    targetEntity: 'tech',
+	                    targetField: 'name',
+	                    label: 'Parent',
+	                    pinned: true
+	                },
 	                rating: {
 	                    format: 'rating'
 	                },
@@ -589,6 +614,7 @@
 	            },
 	            default: {
 	                fields: [
+	                    'parentId',
 	                    'name', 'slogan', 'category',
 	                    'startYear', 'projectCount', 'rating'
 	                ],
@@ -612,7 +638,7 @@
 	            },
 	            search: {
 	                fields: [
-	                    'name'
+	                    'name', 'category', 'parentId'
 	                ]
 	            },
 	        },
@@ -658,7 +684,12 @@
 	                ],
 	            },
 	            list: {},
-	            creation: {},
+	            creation: {
+	                fields: [
+	                    'projectId', 'title', 'techId', 'rating',
+	                    'description'
+	                ]
+	            },
 	            edition: {},
 	            show: {
 	                fields: [
