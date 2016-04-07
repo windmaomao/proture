@@ -1,5 +1,5 @@
 module.exports = {
-    port: 7030,
+    port: 7930,
     statics: {
         '.*': 'mobile/admin/dist',
     },
