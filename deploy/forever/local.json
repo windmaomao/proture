@@ -1,0 +1,18 @@
+[
+    {
+        // Service on port 7929
+        "uid": "proture",
+        "append": true,
+        "watch": true,
+        "script": "server.js",
+        "sourceDir": "./server/restify/lib"
+    },
+    {
+        // UI on port 7930
+        "uid": "protureUI",
+        "append": true,
+        "watch": true,
+        "script": "server.js",
+        "sourceDir": "./deploy/httpserver"
+    }
+]

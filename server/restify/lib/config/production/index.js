@@ -13,7 +13,7 @@ module.exports = {
     log: false,
 
     server: {
-        port: 8182,
+        port: 7929,
     },
 
     database: {
