@@ -61,7 +61,10 @@ var assembleFields = function(fields, editing) {
                     if (!editing) {
                         switch (field.format) {
                             case 'amount':
-                                nf = nga.field(field.field, field.format);
+                                nf = nga.field(field.field, 'number')
+                                    .format('$0,000')
+                                    .template('<span ng-class="{ \'red\': value < 0 }"><ma-number-column field="::field" value="::entry.values[field.name()]"></ma-number-column></span>')
+                                ;
                                 break;
                             case 'count':
                                 nf = nga.field(field.field, 'template')
@@ -104,6 +107,7 @@ var assembleFields = function(fields, editing) {
                     nf = nga.field(field.field, field.type)
                         .targetEntity(entities[field.targetEntity])
                         .targetField(nga.field(field.targetField))
+                        .perPage(-1)
                     ;
                     break;
                 case 'id':
