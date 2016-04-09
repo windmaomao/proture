@@ -54,6 +54,7 @@ var assembleFields = function(fields, editing) {
                         .validation({required: true});
                     break;
                 case 'json':
+                case 'text':
                     nf = nga.field(field.field, field.type);
                     break;
                 case 'integer':

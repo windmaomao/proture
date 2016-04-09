@@ -133,14 +133,20 @@ module.exports = {
                     type: 'template',
                     template: '{{ entry.values.techIds.length }}'
                 },
+                description: {
+                    type: 'text',
+                },
                 rating: {
                     format: 'rating'
+                },
+                active: {
+                    label: 'On'
                 },
                 startYear: {
                     label: "Year"
                 },
                 durationMonth: {
-                    label: "Duration"
+                    label: "Months"
                 },
                 teamSize: {
                     label: "Team"
@@ -152,21 +158,21 @@ module.exports = {
             id: '_id',
             default: {
                 fields: [
-                    'name', 'slogan',
                     'active',
-                    'startYear', 'durationMonth', 'teamSize', 'techCount', 'rating',
+                    'name', 'companyId', 'slogan',
+                    'startYear', 'durationMonth', 'techCount', 'rating',
                 ],
             },
             list: {
                 title: 'Project List',
                 sort: {
-                    field: 'name',
-                    dir: 'ASC'
+                    field: 'rating',
+                    dir: 'DESC'
                 }
             },
             creation: {
                 fields: [
-                    'companyId', 'name', 'alias', 'slogan', 'active', 'techIds',
+                    'companyId', 'name', 'alias', 'slogan', 'description', 'active', 'techIds',
                     'rating', 'startYear', 'durationMonth', 'teamSize',
                 ]
             },
@@ -174,7 +180,7 @@ module.exports = {
             show: {
                 fields: [
                     '_id',
-                    'companyId', 'name', 'alias', 'slogan', 'active',
+                    'companyId', 'name', 'alias', 'slogan', 'description', 'active',
                     'techIds',
                     'rating', 'startYear', 'durationMonth', 'teamSize', 'updateCount',
                     'createdAt', 'updatedAt'
