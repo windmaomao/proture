@@ -195,15 +195,13 @@
 	                case 'text':
 	                    nf = nga.field(field.field, field.type);
 	                    break;
+	                case 'number':
+	                    nf = nga.field(field.field, field.type)
+	                        .format(field.format)
+	                    break;
 	                case 'integer':
 	                    if (!editing) {
 	                        switch (field.format) {
-	                            case 'amount':
-	                                nf = nga.field(field.field, 'number')
-	                                    .format('$0,000')
-	                                    .template('<span ng-class="{ \'red\': value < 0 }"><ma-number-column field="::field" value="::entry.values[field.name()]"></ma-number-column></span>')
-	                                ;
-	                                break;
 	                            case 'count':
 	                                nf = nga.field(field.field, 'template')
 	                                    .template('{{ entry.values.' + field.targetField + '.length }}')
@@ -224,6 +222,7 @@
 	                    nf = nga.field(field.field, field.type)
 	                        .targetEntity(entities[field.targetEntity])
 	                        .targetField(nga.field(field.targetField))
+	                        .detailLinkRoute('show')
 	                    ;
 	                    break;
 	                case 'referenced_list':
@@ -434,8 +433,9 @@
 	                    label: "Year"
 	                },
 	                revenueTotal: {
-	                    format: 'amount',
-	                    label: "Revenue"
+	                    type: 'number',
+	                    format: '$0,0',
+	                    label: "Revenue",
 	                },
 	                projectCount: {
 	                    label: "Projects",

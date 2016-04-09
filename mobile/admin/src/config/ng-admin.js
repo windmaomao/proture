@@ -37,8 +37,9 @@ module.exports = {
                     label: "Year"
                 },
                 revenueTotal: {
-                    format: 'amount',
-                    label: "Revenue"
+                    type: 'number',
+                    format: '$0,0',
+                    label: "Revenue",
                 },
                 projectCount: {
                     label: "Projects",
