@@ -552,8 +552,8 @@
 	            default: {
 	                fields: [
 	                    'active',
-	                    'name', 'companyId', 'slogan',
-	                    'startYear', 'durationMonth', 'techCount', 'rating',
+	                    'name', 'companyId', 'slogan', 'techIds',
+	                    'startYear', 'durationMonth', 'rating',
 	                ],
 	            },
 	            list: {
