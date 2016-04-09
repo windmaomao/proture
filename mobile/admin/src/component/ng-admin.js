@@ -106,8 +106,12 @@ var assembleFields = function(fields, editing) {
                     nf = nga.field(field.field, field.type)
                         .targetEntity(entities[field.targetEntity])
                         .targetField(nga.field(field.targetField))
-                        .perPage(-1)
+                        .perPage(0)
                     ;
+                    if (field.sort) {
+                        nf.sortField(field.sort.field);
+                        nf.sortDir(field.sort.dir);
+                    }
                     break;
                 case 'id':
                 case 'date':
@@ -238,14 +242,18 @@ ngAdmin.setupEntities = function(opts) {
         entity.creationView()
             .fields(ngAdmin.ngaFieldsFromModel(entityName, creationFields, true))
         ;
+
         entity.editionView()
             .fields(ngAdmin.ngaFieldsFromModel(entityName, creationFields, true))
             .title('Edit')
         ;
-        entity.showView()
+
+        var showView = entity.showView()
             .fields(ngAdmin.ngaFieldsFromModel(entityName, showFields))
-            .title('Detail')
         ;
+        if (op.show.title) {
+            showView.title('{{ entry.values.' + op.show.title + ' }}');
+        }
     });
 }
 

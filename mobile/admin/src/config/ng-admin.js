@@ -61,8 +61,8 @@ module.exports = {
             },
             default: {
                 fields: [
-                    'name', 'alias', 'slogan',
                     'active',
+                    'name', 'alias', 'slogan',
                     'startYear', 'revenueTotal', 'projectCount', 'rating'
                 ],
             },
@@ -77,6 +77,7 @@ module.exports = {
             creation: {},
             edition: {},
             show: {
+                title: 'name',
                 fields: [
                     '_id',
                     'name', 'alias', 'slogan', 'active',
@@ -125,6 +126,10 @@ module.exports = {
                     label: 'Techs',
                     targetEntity: 'tech',
                     targetField: 'name',
+                    sort: {
+                        field: 'name',
+                        dir: 'ASC'
+                    }
                 },
                 techCount: {
                     field: 'techCount',
@@ -177,6 +182,7 @@ module.exports = {
             },
             edition: {},
             show: {
+                title: 'name',
                 fields: [
                     '_id',
                     'companyId', 'name', 'alias', 'slogan', 'description', 'active',
@@ -242,6 +248,7 @@ module.exports = {
             creation: {},
             edition: {},
             show: {
+                title: 'name',
                 fields: [
                     '_id',
                     'name', 'slogan', 'category',
@@ -305,6 +312,7 @@ module.exports = {
             },
             edition: {},
             show: {
+                title: 'title',
                 fields: [
                     '_id',
                     'projectId', 'techId',

@@ -244,8 +244,12 @@
 	                    nf = nga.field(field.field, field.type)
 	                        .targetEntity(entities[field.targetEntity])
 	                        .targetField(nga.field(field.targetField))
-	                        .perPage(-1)
+	                        .perPage(0)
 	                    ;
+	                    if (field.sort) {
+	                        nf.sortField(field.sort.field);
+	                        nf.sortDir(field.sort.dir);
+	                    }
 	                    break;
 	                case 'id':
 	                case 'date':
@@ -376,14 +380,18 @@
 	        entity.creationView()
 	            .fields(ngAdmin.ngaFieldsFromModel(entityName, creationFields, true))
 	        ;
+
 	        entity.editionView()
 	            .fields(ngAdmin.ngaFieldsFromModel(entityName, creationFields, true))
 	            .title('Edit')
 	        ;
-	        entity.showView()
+
+	        var showView = entity.showView()
 	            .fields(ngAdmin.ngaFieldsFromModel(entityName, showFields))
-	            .title('Detail')
 	        ;
+	        if (op.show.title) {
+	            showView.title('{{ entry.values.' + op.show.title + ' }}');
+	        }
 	    });
 	}
 
@@ -457,8 +465,8 @@
 	            },
 	            default: {
 	                fields: [
-	                    'name', 'alias', 'slogan',
 	                    'active',
+	                    'name', 'alias', 'slogan',
 	                    'startYear', 'revenueTotal', 'projectCount', 'rating'
 	                ],
 	            },
@@ -473,6 +481,7 @@
 	            creation: {},
 	            edition: {},
 	            show: {
+	                title: 'name',
 	                fields: [
 	                    '_id',
 	                    'name', 'alias', 'slogan', 'active',
@@ -521,6 +530,10 @@
 	                    label: 'Techs',
 	                    targetEntity: 'tech',
 	                    targetField: 'name',
+	                    sort: {
+	                        field: 'name',
+	                        dir: 'ASC'
+	                    }
 	                },
 	                techCount: {
 	                    field: 'techCount',
@@ -573,6 +586,7 @@
 	            },
 	            edition: {},
 	            show: {
+	                title: 'name',
 	                fields: [
 	                    '_id',
 	                    'companyId', 'name', 'alias', 'slogan', 'description', 'active',
@@ -638,6 +652,7 @@
 	            creation: {},
 	            edition: {},
 	            show: {
+	                title: 'name',
 	                fields: [
 	                    '_id',
 	                    'name', 'slogan', 'category',
@@ -701,6 +716,7 @@
 	            },
 	            edition: {},
 	            show: {
+	                title: 'title',
 	                fields: [
 	                    '_id',
 	                    'projectId', 'techId',
