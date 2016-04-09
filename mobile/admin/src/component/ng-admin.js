@@ -106,6 +106,7 @@ var assembleFields = function(fields, editing) {
                     nf = nga.field(field.field, field.type)
                         .targetEntity(entities[field.targetEntity])
                         .targetField(nga.field(field.targetField))
+                        // .detailLinkRoute('show')
                         .perPage(0)
                     ;
                     if (field.sort) {
@@ -246,6 +247,17 @@ ngAdmin.setupEntities = function(opts) {
         entity.editionView()
             .fields(ngAdmin.ngaFieldsFromModel(entityName, creationFields, true))
             .title('Edit')
+            .onSubmitSuccess(function(progression, notification, $state, entry, entity) {
+                console.log(entry);
+                // stop the progress bar
+                progression.done();
+                // add a notification
+                notification.log(entity.name() + " has been successfully edited.", { addnCls: 'humane-flatty-success' });
+                // redirect to the list view
+                $state.go($state.get('list'), { entity: entity.name() });
+                // cancel the default action (redirect to the edition view)
+                return false;
+            })
         ;
 
         var showView = entity.showView()
