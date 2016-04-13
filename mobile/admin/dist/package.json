@@ -1,14 +1,15 @@
 {
-  "name": "event-admin-deployed",
+  "name": "proture-admin",
   "version": "1.0.0",
-  "description": "",
+  "description": "Proture Admin UI",
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Fang Jin",
   "license": "ISC",
   "dependencies": {
-    "ng-admin": "^0.9.1"
+    "ng-admin": "^0.9.1",
+    "ng-admin-restify": "^0.1.4"
   }
 }

@@ -4,16 +4,17 @@
  * Use ng-admin to drive the admin website
  *
  * @date 03/25/16
- * @author Fang Jin <fang-a.jin@db.com>
+ * @author Fang Jin <windmaomao@gmail.com>
 */
 
-var provider = require('./provider');
+var options = require('./config');
 var directive = require('./directive');
 
 angular
-    .module('myApp', ['ng-admin'])
-    .config(provider.ngAdminConfigurationProvider)
-    .config(provider.restangularProvider)
+    .module('myApp', ['ng-admin-restify'])
     .directive('dashboardPage', directive.dashboardDirective)
     .directive('starRating', directive.starRating)
+    .config(function(ngAdminRestifyProvider) {
+        var app = ngAdminRestifyProvider.configure(options);
+    })
 ;

@@ -2,10 +2,10 @@
  * Directive module
  *
  * @date 04/01/16
- * @author Fang Jin <fang-a.jin@db.com>
+ * @author Fang Jin <windmaomao@gmail.com>
 */
 
-var dashboardDirectiveTemplate = require('../view/dashboard.html');
+var dashboardDirectiveTemplate = require('./view/dashboard.html');
 
 var directive = {};
 

@@ -1,16 +1,16 @@
 {
   "name": "proture-admin",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "Proture admin UI",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Fang Jin",
   "license": "ISC",
   "dependencies": {
     "ng-admin": "^0.9.1",
-    "raw-loader": "^0.5.1"
+    "ng-admin-restify": "^0.1.4"
   },
   "devDependencies": {
     "del": "~0.1.1",
@@ -19,6 +19,7 @@
     "gulp-connect": "^3.1.0",
     "gulp-load-plugins": "^1.2.0",
     "http-proxy-middleware": "^0.13.0",
-    "webpack-stream": "^3.1.0"
+    "webpack-stream": "^3.1.0",
+    "raw-loader": "^0.5.1"
   }
 }
