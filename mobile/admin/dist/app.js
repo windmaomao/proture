@@ -88,7 +88,15 @@
 	    url: '/v1/',
 	    rest: {
 	        url: '/v1/',
-	        filter: 'q'
+	        filter: 'q',
+	        page: {
+	            limit: 'pageSize',
+	            page: 'p',
+	        },
+	        sort: {
+	            field: 'sort',
+	            plus: true
+	        }
 	    },
 	    entities: {
 	        company: requireEntity('company'),
@@ -458,7 +466,12 @@
 	            label: 'Tech',
 	            type: 'reference',
 	            targetEntity: 'tech',
-	            targetField: 'name'
+	            targetField: 'name',
+	            sort: {
+	                field: 'name',
+	                dir: 'ASC'
+	            },
+	            perPage: 100
 	        },
 	        rating: {
 	            format: 'rating'

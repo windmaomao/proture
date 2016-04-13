@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "ng-admin": "^0.9.1",
-    "ng-admin-restify": "^0.1.4"
+    "ng-admin-restify": "^0.1.5"
   },
   "devDependencies": {
     "del": "~0.1.1",
