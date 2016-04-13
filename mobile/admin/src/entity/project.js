@@ -78,7 +78,7 @@ module.exports = {
         fields: [
             'active',
             'name', 'companyId', 'slogan', 'techIds',
-            'startYear', 'durationMonth', 'rating',
+            'startYear', 'rating',
         ],
     },
     list: {
