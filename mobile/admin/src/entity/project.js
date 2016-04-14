@@ -21,7 +21,8 @@ module.exports = {
         teamSize: 'integer',
         updateCount: 'integer',
         techIds: { type: 'reference_many' },
-        techCount: { type: 'template' },
+        // techCount: { type: 'template' },
+        updates: { type: 'referenced_list' },
         createdAt: 'date',
         updatedAt: 'date'
     },
@@ -32,6 +33,11 @@ module.exports = {
             targetEntity: 'company',
             targetField: 'name',
             label: 'Company',
+            perPage: 100,
+            sort: {
+                field: 'name',
+                dir: 'ASC'
+            },
             pinned: true
         },
         techIds: {
@@ -45,12 +51,22 @@ module.exports = {
                 dir: 'ASC'
             }
         },
-        techCount: {
-            field: 'techCount',
-            label: 'Techs',
-            type: 'template',
-            template: '{{ entry.values.techIds.length }}'
+        updates: {
+            type: 'referenced_list',
+            targetEntity: 'update',
+            targetReferenceField: 'projectId',
+            targetFields: ['title', 'techId', 'rating'],
+            sort: {
+                field: 'createdAt',
+                dir: 'DESC'
+            }
         },
+        // techCount: {
+        //     field: 'techCount',
+        //     label: 'Techs',
+        //     type: 'template',
+        //     template: '{{ entry.values.techIds.length }}'
+        // },
         description: {
             type: 'text',
         },
@@ -84,8 +100,8 @@ module.exports = {
     list: {
         title: 'Project List',
         sort: {
-            field: 'rating',
-            dir: 'DESC'
+            field: 'name',
+            dir: 'ASC'
         }
     },
     creation: {
@@ -100,7 +116,7 @@ module.exports = {
         fields: [
             '_id',
             'companyId', 'name', 'alias', 'slogan', 'description', 'active',
-            'techIds',
+            'techIds', 'updates',
             'rating', 'startYear', 'durationMonth', 'teamSize', 'updateCount',
             'createdAt', 'updatedAt'
         ]

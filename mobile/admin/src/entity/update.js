@@ -27,7 +27,13 @@ module.exports = {
             label: 'Project',
             type: 'reference',
             targetEntity: 'project',
-            targetField: 'name'
+            targetField: 'name',
+            perPage: 100,
+            sort: {
+                field: 'name',
+                dir: 'ASC'
+            },
+            pinned: true,
         },
         techId: {
             field: 'techId',
@@ -75,7 +81,7 @@ module.exports = {
     },
     search: {
         fields: [
-            'title'
+            'projectId', 'techId'
         ]
     },
 };

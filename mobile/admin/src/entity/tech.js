@@ -16,6 +16,7 @@ module.exports = {
         rating: 'integer',
         startYear: 'integer',
         projectCount: 'integer',
+        updates: { type: 'referenced_list' },
         createdAt: 'date',
         updatedAt: 'date'
     },
@@ -27,7 +28,22 @@ module.exports = {
             targetEntity: 'tech',
             targetField: 'name',
             label: 'Parent',
+            perPage: 100,
+            sort: {
+                field: 'name',
+                dir: 'ASC'
+            },
             pinned: true
+        },
+        updates: {
+            type: 'referenced_list',
+            targetEntity: 'update',
+            targetReferenceField: 'techId',
+            targetFields: ['projectId', 'title', 'rating'],
+            sort: {
+                field: 'createdAt',
+                dir: 'DESC'
+            }
         },
         rating: {
             format: 'rating'
@@ -60,7 +76,7 @@ module.exports = {
         fields: [
             '_id',
             'name', 'slogan', 'category',
-            'startYear', 'projectCount', 'rating',
+            'startYear', 'projectCount', 'rating', 'updates',
             'createdAt', 'updatedAt'
         ]
     },

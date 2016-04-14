@@ -91,7 +91,7 @@
 	        filter: 'q',
 	        page: {
 	            limit: 'pageSize',
-	            page: 'p',
+	            page: 'p', 
 	        },
 	        sort: {
 	            field: 'sort',
@@ -256,7 +256,8 @@
 	        teamSize: 'integer',
 	        updateCount: 'integer',
 	        techIds: { type: 'reference_many' },
-	        techCount: { type: 'template' },
+	        // techCount: { type: 'template' },
+	        updates: { type: 'referenced_list' },
 	        createdAt: 'date',
 	        updatedAt: 'date'
 	    },
@@ -267,6 +268,11 @@
 	            targetEntity: 'company',
 	            targetField: 'name',
 	            label: 'Company',
+	            perPage: 100,
+	            sort: {
+	                field: 'name',
+	                dir: 'ASC'
+	            },
 	            pinned: true
 	        },
 	        techIds: {
@@ -280,12 +286,22 @@
 	                dir: 'ASC'
 	            }
 	        },
-	        techCount: {
-	            field: 'techCount',
-	            label: 'Techs',
-	            type: 'template',
-	            template: '{{ entry.values.techIds.length }}'
+	        updates: {
+	            type: 'referenced_list',
+	            targetEntity: 'update',
+	            targetReferenceField: 'projectId',
+	            targetFields: ['title', 'techId', 'rating'],
+	            sort: {
+	                field: 'createdAt',
+	                dir: 'DESC'
+	            }
 	        },
+	        // techCount: {
+	        //     field: 'techCount',
+	        //     label: 'Techs',
+	        //     type: 'template',
+	        //     template: '{{ entry.values.techIds.length }}'
+	        // },
 	        description: {
 	            type: 'text',
 	        },
@@ -319,8 +335,8 @@
 	    list: {
 	        title: 'Project List',
 	        sort: {
-	            field: 'rating',
-	            dir: 'DESC'
+	            field: 'name',
+	            dir: 'ASC'
 	        }
 	    },
 	    creation: {
@@ -335,7 +351,7 @@
 	        fields: [
 	            '_id',
 	            'companyId', 'name', 'alias', 'slogan', 'description', 'active',
-	            'techIds',
+	            'techIds', 'updates',
 	            'rating', 'startYear', 'durationMonth', 'teamSize', 'updateCount',
 	            'createdAt', 'updatedAt'
 	        ]
@@ -370,6 +386,7 @@
 	        rating: 'integer',
 	        startYear: 'integer',
 	        projectCount: 'integer',
+	        updates: { type: 'referenced_list' },
 	        createdAt: 'date',
 	        updatedAt: 'date'
 	    },
@@ -381,7 +398,22 @@
 	            targetEntity: 'tech',
 	            targetField: 'name',
 	            label: 'Parent',
+	            perPage: 100,
+	            sort: {
+	                field: 'name',
+	                dir: 'ASC'
+	            },
 	            pinned: true
+	        },
+	        updates: {
+	            type: 'referenced_list',
+	            targetEntity: 'update',
+	            targetReferenceField: 'techId',
+	            targetFields: ['projectId', 'title', 'rating'],
+	            sort: {
+	                field: 'createdAt',
+	                dir: 'DESC'
+	            }
 	        },
 	        rating: {
 	            format: 'rating'
@@ -414,7 +446,7 @@
 	        fields: [
 	            '_id',
 	            'name', 'slogan', 'category',
-	            'startYear', 'projectCount', 'rating',
+	            'startYear', 'projectCount', 'rating', 'updates',
 	            'createdAt', 'updatedAt'
 	        ]
 	    },
@@ -459,7 +491,13 @@
 	            label: 'Project',
 	            type: 'reference',
 	            targetEntity: 'project',
-	            targetField: 'name'
+	            targetField: 'name',
+	            perPage: 100,
+	            sort: {
+	                field: 'name',
+	                dir: 'ASC'
+	            },
+	            pinned: true,
 	        },
 	        techId: {
 	            field: 'techId',
@@ -507,7 +545,7 @@
 	    },
 	    search: {
 	        fields: [
-	            'title'
+	            'projectId', 'techId'
 	        ]
 	    },
 	};

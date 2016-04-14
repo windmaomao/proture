@@ -19,7 +19,7 @@ module.exports = {
         filter: 'q',
         page: {
             limit: 'pageSize',
-            page: 'p',
+            page: 'p', 
         },
         sort: {
             field: 'sort',
