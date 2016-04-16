@@ -27,6 +27,10 @@ module.exports = {
         updatedAt: 'date'
     },
     fields: {
+        name: {
+            type: 'string',
+            detailRoute: 'show'
+        },
         companyId: {
             field: 'companyId',
             type: 'reference',

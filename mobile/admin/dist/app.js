@@ -166,6 +166,10 @@
 	    },
 	    id: '_id',
 	    fields: {
+	        name: {
+	            type: 'string',
+	            detailRoute: 'show'
+	        },
 	        rating: {
 	            format: 'rating'
 	        },
@@ -184,13 +188,9 @@
 	            type: 'referenced_list',
 	            targetEntity: 'project',
 	            targetReferenceField: 'companyId',
-	            targetFields: {
-	                'Name': 'name',
-	                'Slogan': 'slogan',
-	                'Year': 'startYear'
-	            },
+	            targetFields: ['name', 'slogan', 'startYear','rating'],
 	            sort: {
-	                field: 'createdAt',
+	                field: 'startYear',
 	                dir: 'DESC'
 	            }
 	        }
@@ -204,10 +204,10 @@
 	    },
 	    list: {
 	        title: 'Company List',
-	        actions: [],
+	        actions: ['show', 'edit'],
 	        sort: {
-	            field: 'name',
-	            dir: 'ASC'
+	            field: 'revenue',
+	            dir: 'DESC'
 	        }
 	    },
 	    creation: {},
@@ -262,6 +262,10 @@
 	        updatedAt: 'date'
 	    },
 	    fields: {
+	        name: {
+	            type: 'string',
+	            detailRoute: 'show'
+	        },
 	        companyId: {
 	            field: 'companyId',
 	            type: 'reference',
@@ -385,13 +389,17 @@
 	        category: 'string',
 	        rating: 'integer',
 	        startYear: 'integer',
-	        projectCount: 'integer',
+	        childTechs: { type: '' },
 	        updates: { type: 'referenced_list' },
 	        createdAt: 'date',
 	        updatedAt: 'date'
 	    },
 	    id: '_id',
 	    fields: {
+	        name: {
+	            type: 'string',
+	            detailRoute: 'show'
+	        },
 	        parentId: {
 	            field: 'parentId',
 	            type: 'reference',
@@ -415,6 +423,17 @@
 	                dir: 'DESC'
 	            }
 	        },
+	        childTechs: {
+	            label: 'Child Techs',
+	            type: 'referenced_list',
+	            targetEntity: 'tech',
+	            targetReferenceField: 'parentId',
+	            targetFields: ['name', 'slogan', 'category', 'rating'],
+	            sort: {
+	                field: 'name',
+	                dir: 'ASC'
+	            }
+	        },
 	        rating: {
 	            format: 'rating'
 	        },
@@ -429,7 +448,7 @@
 	        fields: [
 	            'parentId',
 	            'name', 'slogan', 'category',
-	            'startYear', 'projectCount', 'rating'
+	            'rating'
 	        ],
 	    },
 	    list: {
@@ -445,8 +464,8 @@
 	        title: 'name',
 	        fields: [
 	            '_id',
-	            'name', 'slogan', 'category',
-	            'startYear', 'projectCount', 'rating', 'updates',
+	            'name', 'slogan', 'category', 'childTechs',
+	            'startYear', 'rating', 'updates',
 	            'createdAt', 'updatedAt'
 	        ]
 	    },

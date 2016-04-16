@@ -15,13 +15,17 @@ module.exports = {
         category: 'string',
         rating: 'integer',
         startYear: 'integer',
-        projectCount: 'integer',
+        childTechs: { type: '' },
         updates: { type: 'referenced_list' },
         createdAt: 'date',
         updatedAt: 'date'
     },
     id: '_id',
     fields: {
+        name: {
+            type: 'string',
+            detailRoute: 'show'
+        },
         parentId: {
             field: 'parentId',
             type: 'reference',
@@ -45,6 +49,17 @@ module.exports = {
                 dir: 'DESC'
             }
         },
+        childTechs: {
+            label: 'Child Techs',
+            type: 'referenced_list',
+            targetEntity: 'tech',
+            targetReferenceField: 'parentId',
+            targetFields: ['name', 'slogan', 'category', 'rating'],
+            sort: {
+                field: 'name',
+                dir: 'ASC'
+            }
+        },
         rating: {
             format: 'rating'
         },
@@ -59,7 +74,7 @@ module.exports = {
         fields: [
             'parentId',
             'name', 'slogan', 'category',
-            'startYear', 'projectCount', 'rating'
+            'rating'
         ],
     },
     list: {
@@ -75,8 +90,8 @@ module.exports = {
         title: 'name',
         fields: [
             '_id',
-            'name', 'slogan', 'category',
-            'startYear', 'projectCount', 'rating', 'updates',
+            'name', 'slogan', 'category', 'childTechs',
+            'startYear', 'rating', 'updates',
             'createdAt', 'updatedAt'
         ]
     },

@@ -24,6 +24,10 @@ module.exports = {
     },
     id: '_id',
     fields: {
+        name: {
+            type: 'string',
+            detailRoute: 'show'
+        },
         rating: {
             format: 'rating'
         },
@@ -42,13 +46,9 @@ module.exports = {
             type: 'referenced_list',
             targetEntity: 'project',
             targetReferenceField: 'companyId',
-            targetFields: {
-                'Name': 'name',
-                'Slogan': 'slogan',
-                'Year': 'startYear'
-            },
+            targetFields: ['name', 'slogan', 'startYear','rating'],
             sort: {
-                field: 'createdAt',
+                field: 'startYear',
                 dir: 'DESC'
             }
         }
@@ -62,10 +62,10 @@ module.exports = {
     },
     list: {
         title: 'Company List',
-        actions: [],
+        actions: ['show', 'edit'],
         sort: {
-            field: 'name',
-            dir: 'ASC'
+            field: 'revenue',
+            dir: 'DESC'
         }
     },
     creation: {},
