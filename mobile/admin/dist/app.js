@@ -534,11 +534,15 @@
 	        rating: {
 	            format: 'rating'
 	        },
+	        url: {
+	            format: 'url',
+	            caption: 'Go'
+	        }
 	    },
 	    id: '_id',
 	    default: {
 	        fields: [
-	            'projectId', 'title', 'techId', 'rating'
+	            'projectId', 'title', 'techId', 'rating', 'url'
 	        ],
 	    },
 	    list: {
