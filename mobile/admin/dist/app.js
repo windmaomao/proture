@@ -500,6 +500,7 @@
 	            type: 'id', ref: 'tech',
 	        },
 	        description: 'string',
+	        url: 'string',
 	        rating: 'integer',
 	        createdAt: 'date',
 	        updatedAt: 'date'
@@ -548,8 +549,8 @@
 	    },
 	    creation: {
 	        fields: [
-	            'projectId', 'title', 'techId', 'rating',
-	            'description'
+	            'projectId', 'title', 'techId', 'rating', 'url',
+	            'description', 'createdAt'
 	        ]
 	    },
 	    edition: {},
@@ -558,7 +559,7 @@
 	        fields: [
 	            '_id',
 	            'projectId', 'techId',
-	            'title', 'description', 'rating',
+	            'title', 'description', 'rating', 'url',
 	            'createdAt', 'updatedAt'
 	        ]
 	    },

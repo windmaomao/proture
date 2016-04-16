@@ -17,6 +17,7 @@ module.exports = {
             type: 'id', ref: 'tech',
         },
         description: 'string',
+        url: 'string',
         rating: 'integer',
         createdAt: 'date',
         updatedAt: 'date'
@@ -65,8 +66,8 @@ module.exports = {
     },
     creation: {
         fields: [
-            'projectId', 'title', 'techId', 'rating',
-            'description'
+            'projectId', 'title', 'techId', 'rating', 'url',
+            'description', 'createdAt'
         ]
     },
     edition: {},
@@ -75,7 +76,7 @@ module.exports = {
         fields: [
             '_id',
             'projectId', 'techId',
-            'title', 'description', 'rating',
+            'title', 'description', 'rating', 'url',
             'createdAt', 'updatedAt'
         ]
     },
