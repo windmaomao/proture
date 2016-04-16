@@ -506,6 +506,10 @@
 	        updatedAt: 'date'
 	    },
 	    fields: {
+	        title: {
+	            type: 'string',
+	            detailRoute: 'show'
+	        },
 	        projectId: {
 	            field: 'projectId',
 	            label: 'Project',
