@@ -24,4 +24,5 @@ module.exports = {
     'Project': {},
     'Update': {},
     'Tech': {},
+    'Showcase': {},
 };

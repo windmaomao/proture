@@ -31,7 +31,7 @@ module.exports = {
             type: 'reference',
             targetEntity: 'tech',
             targetField: 'name',
-            label: 'Parent',
+            label: 'Parent Tech',
             perPage: 100,
             sort: {
                 field: 'name',
@@ -90,7 +90,7 @@ module.exports = {
         title: 'name',
         fields: [
             '_id',
-            'name', 'slogan', 'category', 'childTechs',
+            'name', 'slogan', 'category', 'parentId', 'childTechs',
             'startYear', 'rating', 'updates',
             'createdAt', 'updatedAt'
         ]

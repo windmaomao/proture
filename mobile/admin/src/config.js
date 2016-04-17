@@ -19,7 +19,7 @@ module.exports = {
         filter: 'q',
         page: {
             limit: 'pageSize',
-            page: 'p', 
+            page: 'p',
         },
         sort: {
             field: 'sort',
@@ -31,6 +31,7 @@ module.exports = {
         project: requireEntity('project'),
         tech: requireEntity('tech'),
         update: requireEntity('update'),
+        showcase: requireEntity('showcase'),
     },
     routes: false
 };
