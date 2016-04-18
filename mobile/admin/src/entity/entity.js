@@ -1,20 +1,19 @@
 /**
- * Showcase entity module
+ * Entity entity module
  *
- * @date 04/17/16
+ * @date 04/18/16
  * @author Fang Jin <windmaomao@gmail.com>
 */
 
 module.exports = {
-    entity: 'showcase',
+    entity: 'entity',
     model: {
         _id: { type: 'id' },
         projectId: {
             type: 'id', ref: 'project',
         },
         name: { type: 'string', required: true },
-        caption: 'string',
-        rating: 'integer',
+        description: 'string',
         createdAt: 'date',
         updatedAt: 'date'
     },
@@ -36,14 +35,11 @@ module.exports = {
             },
             pinned: true,
         },
-        rating: {
-            format: 'rating'
-        },
     },
     id: '_id',
     default: {
         fields: [
-            'projectId', 'name', 'caption', 'rating'
+            'projectId', 'name', 'description', 'createdAt'
         ],
     },
     list: {
@@ -58,8 +54,7 @@ module.exports = {
         title: 'name',
         fields: [
             '_id',
-            'projectId',
-            'name', 'caption', 'rating',
+            'projectId', 'name', 'description',
             'createdAt', 'updatedAt'
         ]
     },

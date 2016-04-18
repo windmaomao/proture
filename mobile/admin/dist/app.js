@@ -104,6 +104,7 @@
 	        tech: requireEntity('tech'),
 	        update: requireEntity('update'),
 	        showcase: requireEntity('showcase'),
+	        entity: requireEntity('entity'),
 	    },
 	    routes: false
 	};
@@ -116,6 +117,8 @@
 	var map = {
 		"./company": 3,
 		"./company.js": 3,
+		"./entity": 10,
+		"./entity.js": 10,
 		"./project": 4,
 		"./project.js": 4,
 		"./showcase": 9,
@@ -688,11 +691,83 @@
 	    creation: {},
 	    edition: {},
 	    show: {
-	        title: 'title',
+	        title: 'name',
 	        fields: [
 	            '_id',
 	            'projectId',
 	            'name', 'caption', 'rating',
+	            'createdAt', 'updatedAt'
+	        ]
+	    },
+	    search: {
+	        fields: [
+	            'projectId', 'name'
+	        ]
+	    },
+	};
+
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	/**
+	 * Entity entity module
+	 *
+	 * @date 04/18/16
+	 * @author Fang Jin <windmaomao@gmail.com>
+	*/
+
+	module.exports = {
+	    entity: 'entity',
+	    model: {
+	        _id: { type: 'id' },
+	        projectId: {
+	            type: 'id', ref: 'project',
+	        },
+	        name: { type: 'string', required: true },
+	        description: 'string',
+	        createdAt: 'date',
+	        updatedAt: 'date'
+	    },
+	    fields: {
+	        name: {
+	            type: 'string',
+	            detailRoute: 'show'
+	        },
+	        projectId: {
+	            field: 'projectId',
+	            label: 'Project',
+	            type: 'reference',
+	            targetEntity: 'project',
+	            targetField: 'name',
+	            perPage: 100,
+	            sort: {
+	                field: 'name',
+	                dir: 'ASC'
+	            },
+	            pinned: true,
+	        },
+	    },
+	    id: '_id',
+	    default: {
+	        fields: [
+	            'projectId', 'name', 'description', 'createdAt'
+	        ],
+	    },
+	    list: {
+	        sort: {
+	            field: 'createdAt',
+	            dir: 'DESC'
+	        }
+	    },
+	    creation: {},
+	    edition: {},
+	    show: {
+	        title: 'name',
+	        fields: [
+	            '_id',
+	            'projectId', 'name', 'description',
 	            'createdAt', 'updatedAt'
 	        ]
 	    },

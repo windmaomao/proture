@@ -25,4 +25,5 @@ module.exports = {
     'Update': {},
     'Tech': {},
     'Showcase': {},
+    'Entity': {},
 };
