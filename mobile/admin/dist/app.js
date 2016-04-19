@@ -748,6 +748,10 @@
 	            },
 	            pinned: true,
 	        },
+	        createdAt: {
+	            label: 'Created',
+	            format: 'date'
+	        }
 	    },
 	    id: '_id',
 	    default: {
