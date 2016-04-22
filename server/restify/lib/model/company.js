@@ -16,6 +16,7 @@ module.exports = {
         alias: { type: String, required: true },
         slogan: String,
         description: String,
+        url: String,
         /**
          * Attibute
          */

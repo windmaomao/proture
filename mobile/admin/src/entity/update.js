@@ -27,6 +27,9 @@ module.exports = {
             type: 'string',
             detailRoute: 'show'
         },
+        description: {
+            type: 'text',
+        },
         projectId: {
             field: 'projectId',
             label: 'Project',
@@ -67,6 +70,7 @@ module.exports = {
         ],
     },
     list: {
+        actions: ['edit'],
         sort: {
             field: 'createdAt',
             dir: 'DESC'

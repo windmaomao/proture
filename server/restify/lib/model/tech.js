@@ -14,6 +14,7 @@ module.exports = {
          */
         name: { type: String, required: true },
         slogan: String,
+        url: String,
         parentId: String,
         /**
          * Attibute

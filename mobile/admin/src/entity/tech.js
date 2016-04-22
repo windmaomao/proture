@@ -11,6 +11,7 @@ module.exports = {
         _id: { type: 'id' },
         name: { type: 'string', required: true },
         slogan: 'string',
+        url: 'string',
         parentId: 'string',
         category: 'string',
         rating: 'integer',
@@ -25,6 +26,10 @@ module.exports = {
         name: {
             type: 'string',
             detailRoute: 'show'
+        },
+        url: {
+            format: 'url',
+            caption: 'Go'
         },
         parentId: {
             field: 'parentId',
@@ -74,11 +79,12 @@ module.exports = {
         fields: [
             'parentId',
             'name', 'slogan', 'category',
-            'rating'
+            'rating', 'url'
         ],
     },
     list: {
         title: 'Tech List',
+        actions: ['edit'],
         sort: {
             field: 'name',
             dir: 'ASC'

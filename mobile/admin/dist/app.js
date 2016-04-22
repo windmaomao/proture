@@ -54,7 +54,7 @@
 	*/
 
 	var options = __webpack_require__(1);
-	var directive = __webpack_require__(7);
+	var directive = __webpack_require__(9);
 
 	angular
 	    .module('myApp', ['ng-admin-restify'])
@@ -117,16 +117,16 @@
 	var map = {
 		"./company": 3,
 		"./company.js": 3,
-		"./entity": 10,
-		"./entity.js": 10,
-		"./project": 4,
-		"./project.js": 4,
-		"./showcase": 9,
-		"./showcase.js": 9,
-		"./tech": 5,
-		"./tech.js": 5,
-		"./update": 6,
-		"./update.js": 6
+		"./entity": 4,
+		"./entity.js": 4,
+		"./project": 5,
+		"./project.js": 5,
+		"./showcase": 6,
+		"./showcase.js": 6,
+		"./tech": 7,
+		"./tech.js": 7,
+		"./update": 8,
+		"./update.js": 8
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -160,7 +160,8 @@
 	        name: { type: 'string', required: true },
 	        alias: { type: 'string', required: true },
 	        slogan: 'string',
-	        description: 'string',
+	        description: 'text',
+	        url: 'string',
 	        active: 'boolean',
 	        rating: 'integer',
 	        startYear: 'integer',
@@ -174,7 +175,12 @@
 	    fields: {
 	        name: {
 	            type: 'string',
-	            detailRoute: 'show'
+	            detailRoute: 'show',
+	            pinned: true
+	        },
+	        url: {
+	            format: 'url',
+	            caption: 'Go'
 	        },
 	        rating: {
 	            format: 'rating'
@@ -199,20 +205,102 @@
 	                field: 'startYear',
 	                dir: 'DESC'
 	            }
-	        }
+	        },
 	    },
 	    default: {
 	        fields: [
 	            'active',
-	            'name', 'alias', 'slogan',
+	            'name', 'alias', 'slogan', 'url', 'description',
 	            'startYear', 'revenueTotal', 'projectCount', 'rating'
 	        ],
 	    },
 	    list: {
 	        title: 'Company List',
-	        actions: ['show', 'edit'],
+	        actions: ['edit'],
+	        fields: [
+	            'active',
+	            'name', 'alias', 'slogan',
+	            'startYear', 'revenueTotal', 'rating', 'url'
+	        ],
 	        sort: {
-	            field: 'revenue',
+	            field: 'name',
+	            dir: 'ASC'
+	        }
+	    },
+	    creation: {},
+	    edition: {},
+	    show: {
+	        title: 'name',
+	        fields: [
+	            '_id', 'active',
+	            'name', 'alias', 'slogan', 'description', 'url',
+	            'rating', 'startYear', 'revenueTotal', 'projects',
+	            'createdAt', 'updatedAt'
+	        ]
+	    },
+	    search: {
+	        fields: [
+	            'name', 'startYear',
+	        ]
+	    },
+	};
+
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	/**
+	 * Entity entity module
+	 *
+	 * @date 04/18/16
+	 * @author Fang Jin <windmaomao@gmail.com>
+	*/
+
+	module.exports = {
+	    entity: 'entity',
+	    model: {
+	        _id: { type: 'id' },
+	        projectId: {
+	            type: 'id', ref: 'project',
+	        },
+	        name: { type: 'string', required: true },
+	        description: 'string',
+	        createdAt: 'date',
+	        updatedAt: 'date'
+	    },
+	    fields: {
+	        name: {
+	            type: 'string',
+	            detailRoute: 'show'
+	        },
+	        projectId: {
+	            field: 'projectId',
+	            label: 'Project',
+	            type: 'reference',
+	            targetEntity: 'project',
+	            targetField: 'name',
+	            perPage: 100,
+	            sort: {
+	                field: 'name',
+	                dir: 'ASC'
+	            },
+	            pinned: true,
+	        },
+	        createdAt: {
+	            label: 'Created',
+	            format: 'date'
+	        }
+	    },
+	    id: '_id',
+	    default: {
+	        fields: [
+	            'projectId', 'name', 'description', 'createdAt'
+	        ],
+	    },
+	    list: {
+	        sort: {
+	            field: 'createdAt',
 	            dir: 'DESC'
 	        }
 	    },
@@ -222,21 +310,20 @@
 	        title: 'name',
 	        fields: [
 	            '_id',
-	            'name', 'alias', 'slogan', 'active',
-	            'rating', 'startYear', 'revenueTotal', 'projects',
+	            'projectId', 'name', 'description',
 	            'createdAt', 'updatedAt'
 	        ]
 	    },
 	    search: {
 	        fields: [
-	            'name'
+	            'projectId', 'name'
 	        ]
 	    },
 	};
 
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports) {
 
 	/**
@@ -255,6 +342,7 @@
 	        alias: { type: 'string', required: true },
 	        slogan: 'string',
 	        description: 'string',
+	        url: 'string',
 	        active: 'boolean',
 	        rating: 'integer',
 	        startYear: 'integer',
@@ -271,6 +359,10 @@
 	        name: {
 	            type: 'string',
 	            detailRoute: 'show'
+	        },
+	        url: {
+	            format: 'url',
+	            caption: 'Go'
 	        },
 	        companyId: {
 	            field: 'companyId',
@@ -339,11 +431,12 @@
 	        fields: [
 	            'active',
 	            'name', 'companyId', 'slogan', 'techIds',
-	            'startYear', 'rating',
+	            'startYear', 'rating', 'url'
 	        ],
 	    },
 	    list: {
 	        title: 'Project List',
+	        actions: ['edit'],
 	        sort: {
 	            field: 'name',
 	            dir: 'ASC'
@@ -351,7 +444,8 @@
 	    },
 	    creation: {
 	        fields: [
-	            'companyId', 'name', 'alias', 'slogan', 'description', 'active', 'techIds',
+	            'companyId', 'name', 'alias', 'slogan', 'url',
+	            'description', 'active', 'techIds',
 	            'rating', 'startYear', 'durationMonth', 'teamSize',
 	        ]
 	    },
@@ -375,263 +469,7 @@
 
 
 /***/ },
-/* 5 */
-/***/ function(module, exports) {
-
-	/**
-	 * Tech entity module
-	 *
-	 * @date 04/13/16
-	 * @author Fang Jin <windmaomao@gmail.com>
-	*/
-
-	module.exports = {
-	    entity: 'tech',
-	    model: {
-	        _id: { type: 'id' },
-	        name: { type: 'string', required: true },
-	        slogan: 'string',
-	        parentId: 'string',
-	        category: 'string',
-	        rating: 'integer',
-	        startYear: 'integer',
-	        childTechs: { type: '' },
-	        updates: { type: 'referenced_list' },
-	        createdAt: 'date',
-	        updatedAt: 'date'
-	    },
-	    id: '_id',
-	    fields: {
-	        name: {
-	            type: 'string',
-	            detailRoute: 'show'
-	        },
-	        parentId: {
-	            field: 'parentId',
-	            type: 'reference',
-	            targetEntity: 'tech',
-	            targetField: 'name',
-	            label: 'Parent Tech',
-	            perPage: 100,
-	            sort: {
-	                field: 'name',
-	                dir: 'ASC'
-	            },
-	            pinned: true
-	        },
-	        updates: {
-	            type: 'referenced_list',
-	            targetEntity: 'update',
-	            targetReferenceField: 'techId',
-	            targetFields: ['projectId', 'title', 'rating'],
-	            sort: {
-	                field: 'createdAt',
-	                dir: 'DESC'
-	            }
-	        },
-	        childTechs: {
-	            label: 'Child Techs',
-	            type: 'referenced_list',
-	            targetEntity: 'tech',
-	            targetReferenceField: 'parentId',
-	            targetFields: ['name', 'slogan', 'category', 'rating'],
-	            sort: {
-	                field: 'name',
-	                dir: 'ASC'
-	            }
-	        },
-	        rating: {
-	            format: 'rating'
-	        },
-	        startYear: {
-	            label: "Year"
-	        },
-	        projectCount: {
-	            label: "Projects"
-	        }
-	    },
-	    default: {
-	        fields: [
-	            'parentId',
-	            'name', 'slogan', 'category',
-	            'rating'
-	        ],
-	    },
-	    list: {
-	        title: 'Tech List',
-	        sort: {
-	            field: 'name',
-	            dir: 'ASC'
-	        }
-	    },
-	    creation: {},
-	    edition: {},
-	    show: {
-	        title: 'name',
-	        fields: [
-	            '_id',
-	            'name', 'slogan', 'category', 'parentId', 'childTechs',
-	            'startYear', 'rating', 'updates',
-	            'createdAt', 'updatedAt'
-	        ]
-	    },
-	    search: {
-	        fields: [
-	            'name', 'category', 'parentId'
-	        ]
-	    },
-	};
-
-
-/***/ },
 /* 6 */
-/***/ function(module, exports) {
-
-	/**
-	 * Update entity module
-	 *
-	 * @date 04/13/16
-	 * @author Fang Jin <windmaomao@gmail.com>
-	*/
-
-	module.exports = {
-	    entity: 'update',
-	    model: {
-	        _id: { type: 'id' },
-	        projectId: {
-	            type: 'id', ref: 'project',
-	        },
-	        title: { type: 'string', required: true },
-	        techId: {
-	            type: 'id', ref: 'tech',
-	        },
-	        description: 'string',
-	        url: 'string',
-	        rating: 'integer',
-	        createdAt: 'date',
-	        updatedAt: 'date'
-	    },
-	    fields: {
-	        title: {
-	            type: 'string',
-	            detailRoute: 'show'
-	        },
-	        projectId: {
-	            field: 'projectId',
-	            label: 'Project',
-	            type: 'reference',
-	            targetEntity: 'project',
-	            targetField: 'name',
-	            perPage: 100,
-	            sort: {
-	                field: 'name',
-	                dir: 'ASC'
-	            },
-	            pinned: true,
-	        },
-	        techId: {
-	            field: 'techId',
-	            label: 'Tech',
-	            type: 'reference',
-	            targetEntity: 'tech',
-	            targetField: 'name',
-	            sort: {
-	                field: 'name',
-	                dir: 'ASC'
-	            },
-	            perPage: 100
-	        },
-	        rating: {
-	            format: 'rating'
-	        },
-	        url: {
-	            format: 'url',
-	            caption: 'Go'
-	        }
-	    },
-	    id: '_id',
-	    default: {
-	        fields: [
-	            'projectId', 'title', 'techId', 'rating', 'url'
-	        ],
-	    },
-	    list: {
-	        sort: {
-	            field: 'createdAt',
-	            dir: 'DESC'
-	        }
-	    },
-	    creation: {
-	        fields: [
-	            'projectId', 'title', 'techId', 'rating', 'url',
-	            'description', 'createdAt'
-	        ]
-	    },
-	    edition: {},
-	    show: {
-	        title: 'title',
-	        fields: [
-	            '_id',
-	            'projectId', 'techId',
-	            'title', 'description', 'rating', 'url',
-	            'createdAt', 'updatedAt'
-	        ]
-	    },
-	    search: {
-	        fields: [
-	            'projectId', 'techId'
-	        ]
-	    },
-	};
-
-
-/***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Directive module
-	 *
-	 * @date 04/01/16
-	 * @author Fang Jin <windmaomao@gmail.com>
-	*/
-
-	var dashboardDirectiveTemplate = __webpack_require__(8);
-
-	var directive = {};
-
-	directive.dashboardDirective = function() {
-	    return {
-	        restrict: 'AE',
-	        template: dashboardDirectiveTemplate,
-	        replace: false,
-	    };
-	};
-
-	directive.starRating = function() {
-	    return {
-	        restrict: 'E',
-	        scope: {
-	        	stars: '@'
-	        },
-	        link: function(scope, elm, attrs, ctrl) {
-	        	scope.starsArray = Array.apply(null, { length: parseInt(scope.stars) }).map(Number.call, Number);
-	        },
-	        template: `<i ng-repeat="star in starsArray" class="glyphicon glyphicon-star"></i>`
-	    };
-	};
-
-	module.exports = directive;
-
-
-/***/ },
-/* 8 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"row\">\n    <div class=\"col-lg-12\">\n        <div class=\"page-header\">\n            <h1>Welcome to QPLOT Proture</h1>\n        </div>\n    </div>\n</div>\n\n<div class=\"row\">\n    <div class=\"col-lg-12\">\n        <small>Company, Project and Update</small>\n\n        <h2>Todos</h2>\n        <p>\n            <ul>\n                <li>Add gross income field to company</li>\n                <li>Model payment</li>\n                <li>Add ratings field to company and project</li>\n                <li>Add slogan field to project</li>\n            </ul>\n        </p>\n\n        <h2>Company</h2>\n\n        <p>\n        List of companies in the past, including .\n        </p>\n\n        <p>\n        The rest service should be highly scalable and always available (meaning load balanced and likely running on a couple of machines).\n\n        </p>\n\n        <h2>Project</h2>\n\n        <p>\n        As a developer, I want to evaluate events, identifying start and end points, creating notifications when an end point is reached. The event evaluator will correlate events using the app/subsystem/event name /correlation id (key) by running a mongo aggregation script that will poll the database looking for sets of correlated events that are not 'complete'.\n        </p>\n        <p>\n        The standard evaluation process will be setup as a pipeline of evaluators (probably derived from a standard class). Each evaluator in the pipeline will look at event and optionally emit a notification and  pass the event on to the next evaluator if the event is not fully handed by this evaluator.\n        </p>\n        <p>\n        At the end of the pipeline, a default evaluator will handle any event not handled by an upstream evaluator. The default evaluator will look for end points and when found will emit a default notification (sample below) and mark all correlated events in mongo as 'complete'.\n        </p>\n\n        <h2>Update:</h2>\n\n        <p>\n        As a user I've used the subscription UI to subscribe to certain notifications and have specified way to deliver the notification.\n        </p>\n        <p>\n        To determine if a notification has subscriptions and needs to be published, the subscription process will scan for new notifications i.e. have been saved since the last scan. For each new notification found the subscription process will scan the subscriptions collection and if a match is found write the notification to a separate collection -  subscriptedNotifications so they can be shown on the UI and optionally published to a user's email, etc.\n        </p>\n        <p>\n        The docs in the subscriptedNotifications collection will contain the base notification information along with the user id of the subscribed user. (We might be able to save an array of subscribed user ids and save some inserts for popular notifications. It will depend on how we are able to search arrays).\n        </p>\n\n    </div>\n</div>\n"
-
-/***/ },
-/* 9 */
 /***/ function(module, exports) {
 
 	/**
@@ -708,32 +546,155 @@
 
 
 /***/ },
-/* 10 */
+/* 7 */
 /***/ function(module, exports) {
 
 	/**
-	 * Entity entity module
+	 * Tech entity module
 	 *
-	 * @date 04/18/16
+	 * @date 04/13/16
 	 * @author Fang Jin <windmaomao@gmail.com>
 	*/
 
 	module.exports = {
-	    entity: 'entity',
+	    entity: 'tech',
+	    model: {
+	        _id: { type: 'id' },
+	        name: { type: 'string', required: true },
+	        slogan: 'string',
+	        url: 'string',
+	        parentId: 'string',
+	        category: 'string',
+	        rating: 'integer',
+	        startYear: 'integer',
+	        childTechs: { type: '' },
+	        updates: { type: 'referenced_list' },
+	        createdAt: 'date',
+	        updatedAt: 'date'
+	    },
+	    id: '_id',
+	    fields: {
+	        name: {
+	            type: 'string',
+	            detailRoute: 'show'
+	        },
+	        url: {
+	            format: 'url',
+	            caption: 'Go'
+	        },
+	        parentId: {
+	            field: 'parentId',
+	            type: 'reference',
+	            targetEntity: 'tech',
+	            targetField: 'name',
+	            label: 'Parent Tech',
+	            perPage: 100,
+	            sort: {
+	                field: 'name',
+	                dir: 'ASC'
+	            },
+	            pinned: true
+	        },
+	        updates: {
+	            type: 'referenced_list',
+	            targetEntity: 'update',
+	            targetReferenceField: 'techId',
+	            targetFields: ['projectId', 'title', 'rating'],
+	            sort: {
+	                field: 'createdAt',
+	                dir: 'DESC'
+	            }
+	        },
+	        childTechs: {
+	            label: 'Child Techs',
+	            type: 'referenced_list',
+	            targetEntity: 'tech',
+	            targetReferenceField: 'parentId',
+	            targetFields: ['name', 'slogan', 'category', 'rating'],
+	            sort: {
+	                field: 'name',
+	                dir: 'ASC'
+	            }
+	        },
+	        rating: {
+	            format: 'rating'
+	        },
+	        startYear: {
+	            label: "Year"
+	        },
+	        projectCount: {
+	            label: "Projects"
+	        }
+	    },
+	    default: {
+	        fields: [
+	            'parentId',
+	            'name', 'slogan', 'category',
+	            'rating', 'url'
+	        ],
+	    },
+	    list: {
+	        title: 'Tech List',
+	        actions: ['edit'],
+	        sort: {
+	            field: 'name',
+	            dir: 'ASC'
+	        }
+	    },
+	    creation: {},
+	    edition: {},
+	    show: {
+	        title: 'name',
+	        fields: [
+	            '_id',
+	            'name', 'slogan', 'category', 'parentId', 'childTechs',
+	            'startYear', 'rating', 'updates',
+	            'createdAt', 'updatedAt'
+	        ]
+	    },
+	    search: {
+	        fields: [
+	            'name', 'category', 'parentId'
+	        ]
+	    },
+	};
+
+
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+	/**
+	 * Update entity module
+	 *
+	 * @date 04/13/16
+	 * @author Fang Jin <windmaomao@gmail.com>
+	*/
+
+	module.exports = {
+	    entity: 'update',
 	    model: {
 	        _id: { type: 'id' },
 	        projectId: {
 	            type: 'id', ref: 'project',
 	        },
-	        name: { type: 'string', required: true },
+	        title: { type: 'string', required: true },
+	        techId: {
+	            type: 'id', ref: 'tech',
+	        },
 	        description: 'string',
+	        url: 'string',
+	        rating: 'integer',
 	        createdAt: 'date',
 	        updatedAt: 'date'
 	    },
 	    fields: {
-	        name: {
+	        title: {
 	            type: 'string',
 	            detailRoute: 'show'
+	        },
+	        description: {
+	            type: 'text',
 	        },
 	        projectId: {
 	            field: 'projectId',
@@ -748,40 +709,107 @@
 	            },
 	            pinned: true,
 	        },
-	        createdAt: {
-	            label: 'Created',
-	            format: 'date'
+	        techId: {
+	            field: 'techId',
+	            label: 'Tech',
+	            type: 'reference',
+	            targetEntity: 'tech',
+	            targetField: 'name',
+	            sort: {
+	                field: 'name',
+	                dir: 'ASC'
+	            },
+	            perPage: 100
+	        },
+	        rating: {
+	            format: 'rating'
+	        },
+	        url: {
+	            format: 'url',
+	            caption: 'Go'
 	        }
 	    },
 	    id: '_id',
 	    default: {
 	        fields: [
-	            'projectId', 'name', 'description', 'createdAt'
+	            'projectId', 'title', 'techId', 'rating', 'url'
 	        ],
 	    },
 	    list: {
+	        actions: ['edit'],
 	        sort: {
 	            field: 'createdAt',
 	            dir: 'DESC'
 	        }
 	    },
-	    creation: {},
+	    creation: {
+	        fields: [
+	            'projectId', 'title', 'techId', 'rating', 'url',
+	            'description', 'createdAt'
+	        ]
+	    },
 	    edition: {},
 	    show: {
-	        title: 'name',
+	        title: 'title',
 	        fields: [
 	            '_id',
-	            'projectId', 'name', 'description',
+	            'projectId', 'techId',
+	            'title', 'description', 'rating', 'url',
 	            'createdAt', 'updatedAt'
 	        ]
 	    },
 	    search: {
 	        fields: [
-	            'projectId', 'name'
+	            'projectId', 'techId'
 	        ]
 	    },
 	};
 
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Directive module
+	 *
+	 * @date 04/01/16
+	 * @author Fang Jin <windmaomao@gmail.com>
+	*/
+
+	var dashboardDirectiveTemplate = __webpack_require__(10);
+
+	var directive = {};
+
+	directive.dashboardDirective = function() {
+	    return {
+	        restrict: 'AE',
+	        template: dashboardDirectiveTemplate,
+	        replace: false,
+	    };
+	};
+
+	directive.starRating = function() {
+	    return {
+	        restrict: 'E',
+	        scope: {
+	        	stars: '@'
+	        },
+	        link: function(scope, elm, attrs, ctrl) {
+	        	scope.starsArray = Array.apply(null, { length: parseInt(scope.stars) }).map(Number.call, Number);
+	        },
+	        template: `<i ng-repeat="star in starsArray" class="glyphicon glyphicon-star"></i>`
+	    };
+	};
+
+	module.exports = directive;
+
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"row\">\n    <div class=\"col-lg-12\">\n        <div class=\"page-header\">\n            <h1>Welcome to QPLOT Proture</h1>\n        </div>\n    </div>\n</div>\n\n<div class=\"row\">\n    <div class=\"col-lg-12\">\n        <small>Company, Project and Update</small>\n\n        <h2>Todos</h2>\n        <p>\n            <ul>\n                <li>Add gross income field to company</li>\n                <li>Model payment</li>\n                <li>Add ratings field to company and project</li>\n                <li>Add slogan field to project</li>\n            </ul>\n        </p>\n\n        <h2>Company</h2>\n\n        <p>\n        List of companies in the past, including .\n        </p>\n\n        <p>\n        The rest service should be highly scalable and always available (meaning load balanced and likely running on a couple of machines).\n\n        </p>\n\n        <h2>Project</h2>\n\n        <p>\n        As a developer, I want to evaluate events, identifying start and end points, creating notifications when an end point is reached. The event evaluator will correlate events using the app/subsystem/event name /correlation id (key) by running a mongo aggregation script that will poll the database looking for sets of correlated events that are not 'complete'.\n        </p>\n        <p>\n        The standard evaluation process will be setup as a pipeline of evaluators (probably derived from a standard class). Each evaluator in the pipeline will look at event and optionally emit a notification and  pass the event on to the next evaluator if the event is not fully handed by this evaluator.\n        </p>\n        <p>\n        At the end of the pipeline, a default evaluator will handle any event not handled by an upstream evaluator. The default evaluator will look for end points and when found will emit a default notification (sample below) and mark all correlated events in mongo as 'complete'.\n        </p>\n\n        <h2>Update:</h2>\n\n        <p>\n        As a user I've used the subscription UI to subscribe to certain notifications and have specified way to deliver the notification.\n        </p>\n        <p>\n        To determine if a notification has subscriptions and needs to be published, the subscription process will scan for new notifications i.e. have been saved since the last scan. For each new notification found the subscription process will scan the subscriptions collection and if a match is found write the notification to a separate collection -  subscriptedNotifications so they can be shown on the UI and optionally published to a user's email, etc.\n        </p>\n        <p>\n        The docs in the subscriptedNotifications collection will contain the base notification information along with the user id of the subscribed user. (We might be able to save an array of subscribed user ids and save some inserts for popular notifications. It will depend on how we are able to search arrays).\n        </p>\n\n    </div>\n</div>\n"
 
 /***/ }
 /******/ ]);

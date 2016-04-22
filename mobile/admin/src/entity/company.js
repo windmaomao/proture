@@ -12,7 +12,8 @@ module.exports = {
         name: { type: 'string', required: true },
         alias: { type: 'string', required: true },
         slogan: 'string',
-        description: 'string',
+        description: 'text',
+        url: 'string',
         active: 'boolean',
         rating: 'integer',
         startYear: 'integer',
@@ -26,7 +27,12 @@ module.exports = {
     fields: {
         name: {
             type: 'string',
-            detailRoute: 'show'
+            detailRoute: 'show',
+            pinned: true
+        },
+        url: {
+            format: 'url',
+            caption: 'Go'
         },
         rating: {
             format: 'rating'
@@ -51,21 +57,26 @@ module.exports = {
                 field: 'startYear',
                 dir: 'DESC'
             }
-        }
+        },
     },
     default: {
         fields: [
             'active',
-            'name', 'alias', 'slogan',
+            'name', 'alias', 'slogan', 'url', 'description',
             'startYear', 'revenueTotal', 'projectCount', 'rating'
         ],
     },
     list: {
         title: 'Company List',
-        actions: ['show', 'edit'],
+        actions: ['edit'],
+        fields: [
+            'active',
+            'name', 'alias', 'slogan',
+            'startYear', 'revenueTotal', 'rating', 'url'
+        ],
         sort: {
-            field: 'revenue',
-            dir: 'DESC'
+            field: 'name',
+            dir: 'ASC'
         }
     },
     creation: {},
@@ -73,15 +84,15 @@ module.exports = {
     show: {
         title: 'name',
         fields: [
-            '_id',
-            'name', 'alias', 'slogan', 'active',
+            '_id', 'active',
+            'name', 'alias', 'slogan', 'description', 'url',
             'rating', 'startYear', 'revenueTotal', 'projects',
             'createdAt', 'updatedAt'
         ]
     },
     search: {
         fields: [
-            'name'
+            'name', 'startYear',
         ]
     },
 };

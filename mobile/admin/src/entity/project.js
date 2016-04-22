@@ -14,6 +14,7 @@ module.exports = {
         alias: { type: 'string', required: true },
         slogan: 'string',
         description: 'string',
+        url: 'string',
         active: 'boolean',
         rating: 'integer',
         startYear: 'integer',
@@ -30,6 +31,10 @@ module.exports = {
         name: {
             type: 'string',
             detailRoute: 'show'
+        },
+        url: {
+            format: 'url',
+            caption: 'Go'
         },
         companyId: {
             field: 'companyId',
@@ -98,11 +103,12 @@ module.exports = {
         fields: [
             'active',
             'name', 'companyId', 'slogan', 'techIds',
-            'startYear', 'rating',
+            'startYear', 'rating', 'url'
         ],
     },
     list: {
         title: 'Project List',
+        actions: ['edit'],
         sort: {
             field: 'name',
             dir: 'ASC'
@@ -110,7 +116,8 @@ module.exports = {
     },
     creation: {
         fields: [
-            'companyId', 'name', 'alias', 'slogan', 'description', 'active', 'techIds',
+            'companyId', 'name', 'alias', 'slogan', 'url',
+            'description', 'active', 'techIds',
             'rating', 'startYear', 'durationMonth', 'teamSize',
         ]
     },
