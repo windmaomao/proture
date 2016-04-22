@@ -14,8 +14,8 @@ module.exports = {
         },
         name: { type: 'string', required: true },
         description: 'string',
-        createdAt: 'date',
-        updatedAt: 'date'
+        createdAt: 'datetime',
+        updatedAt: 'datetime'
     },
     fields: {
         name: {
@@ -37,7 +37,7 @@ module.exports = {
         },
         createdAt: {
             label: 'Created',
-            format: 'date'
+            formatString: 'yyyy-MM-dd'
         }
     },
     id: '_id',

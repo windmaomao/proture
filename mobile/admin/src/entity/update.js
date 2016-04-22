@@ -19,8 +19,8 @@ module.exports = {
         description: 'string',
         url: 'string',
         rating: 'integer',
-        createdAt: 'date',
-        updatedAt: 'date'
+        createdAt: 'datetime',
+        updatedAt: 'datetime'
     },
     fields: {
         title: {
@@ -61,12 +61,16 @@ module.exports = {
         url: {
             format: 'url',
             caption: 'Go'
+        },
+        createdAt: {
+            label: 'Created',
+            formatString: 'yyyy-MM-dd'
         }
     },
     id: '_id',
     default: {
         fields: [
-            'projectId', 'title', 'techId', 'rating', 'url'
+            'projectId', 'title', 'techId', 'rating', 'createdAt', 'url'
         ],
     },
     list: {

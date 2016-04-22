@@ -266,8 +266,8 @@
 	        },
 	        name: { type: 'string', required: true },
 	        description: 'string',
-	        createdAt: 'date',
-	        updatedAt: 'date'
+	        createdAt: 'datetime',
+	        updatedAt: 'datetime'
 	    },
 	    fields: {
 	        name: {
@@ -289,7 +289,7 @@
 	        },
 	        createdAt: {
 	            label: 'Created',
-	            format: 'date'
+	            formatString: 'yyyy-MM-dd'
 	        }
 	    },
 	    id: '_id',
@@ -352,8 +352,8 @@
 	        techIds: { type: 'reference_many' },
 	        // techCount: { type: 'template' },
 	        updates: { type: 'referenced_list' },
-	        createdAt: 'date',
-	        updatedAt: 'date'
+	        createdAt: 'datetime',
+	        updatedAt: 'datetime'
 	    },
 	    fields: {
 	        name: {
@@ -424,6 +424,10 @@
 	        },
 	        updateCount: {
 	            label: "Updates"
+	        },
+	        createdAt: {
+	            label: 'Created',
+	            formatString: 'yyyy-MM-dd'
 	        }
 	    },
 	    id: '_id',
@@ -447,6 +451,7 @@
 	            'companyId', 'name', 'alias', 'slogan', 'url',
 	            'description', 'active', 'techIds',
 	            'rating', 'startYear', 'durationMonth', 'teamSize',
+	            'createdAt'
 	        ]
 	    },
 	    edition: {},
@@ -462,7 +467,7 @@
 	    },
 	    search: {
 	        fields: [
-	            'companyId'
+	            'companyId', 'startYear'
 	        ]
 	    },
 	};
@@ -495,7 +500,11 @@
 	    fields: {
 	        name: {
 	            type: 'string',
-	            detailRoute: 'show'
+	            detailRoute: 'show',
+	            field: 'name',
+	            format: 'image',
+	            url: 'https://s3-us-west-1.amazonaws.com/qplot-showcase/',
+	            width: 200
 	        },
 	        projectId: {
 	            field: 'projectId',
@@ -685,8 +694,8 @@
 	        description: 'string',
 	        url: 'string',
 	        rating: 'integer',
-	        createdAt: 'date',
-	        updatedAt: 'date'
+	        createdAt: 'datetime',
+	        updatedAt: 'datetime'
 	    },
 	    fields: {
 	        title: {
@@ -727,12 +736,16 @@
 	        url: {
 	            format: 'url',
 	            caption: 'Go'
+	        },
+	        createdAt: {
+	            label: 'Created',
+	            formatString: 'yyyy-MM-dd'
 	        }
 	    },
 	    id: '_id',
 	    default: {
 	        fields: [
-	            'projectId', 'title', 'techId', 'rating', 'url'
+	            'projectId', 'title', 'techId', 'rating', 'createdAt', 'url'
 	        ],
 	    },
 	    list: {

@@ -24,8 +24,8 @@ module.exports = {
         techIds: { type: 'reference_many' },
         // techCount: { type: 'template' },
         updates: { type: 'referenced_list' },
-        createdAt: 'date',
-        updatedAt: 'date'
+        createdAt: 'datetime',
+        updatedAt: 'datetime'
     },
     fields: {
         name: {
@@ -96,6 +96,10 @@ module.exports = {
         },
         updateCount: {
             label: "Updates"
+        },
+        createdAt: {
+            label: 'Created',
+            formatString: 'yyyy-MM-dd'
         }
     },
     id: '_id',
@@ -119,6 +123,7 @@ module.exports = {
             'companyId', 'name', 'alias', 'slogan', 'url',
             'description', 'active', 'techIds',
             'rating', 'startYear', 'durationMonth', 'teamSize',
+            'createdAt'
         ]
     },
     edition: {},
@@ -134,7 +139,7 @@ module.exports = {
     },
     search: {
         fields: [
-            'companyId'
+            'companyId', 'startYear'
         ]
     },
 };

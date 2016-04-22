@@ -21,7 +21,11 @@ module.exports = {
     fields: {
         name: {
             type: 'string',
-            detailRoute: 'show'
+            detailRoute: 'show',
+            field: 'name',
+            format: 'image',
+            url: 'https://s3-us-west-1.amazonaws.com/qplot-showcase/',
+            width: 200
         },
         projectId: {
             field: 'projectId',
