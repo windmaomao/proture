@@ -105,6 +105,8 @@
 	        update: requireEntity('update'),
 	        showcase: requireEntity('showcase'),
 	        entity: requireEntity('entity'),
+	        contact: requireEntity('contact'),
+	        member: requireEntity('member'),
 	    },
 	    routes: false
 	};
@@ -117,8 +119,12 @@
 	var map = {
 		"./company": 3,
 		"./company.js": 3,
+		"./contact": 11,
+		"./contact.js": 11,
 		"./entity": 4,
 		"./entity.js": 4,
+		"./member": 12,
+		"./member.js": 12,
 		"./project": 5,
 		"./project.js": 5,
 		"./showcase": 6,
@@ -823,6 +829,200 @@
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"row\">\n    <div class=\"col-lg-12\">\n        <div class=\"page-header\">\n            <h1>Welcome to QPLOT Proture</h1>\n        </div>\n    </div>\n</div>\n\n<div class=\"row\">\n    <div class=\"col-lg-12\">\n        <small>Company, Project and Update</small>\n\n        <h2>Todos</h2>\n        <p>\n            <ul>\n                <li>Add gross income field to company</li>\n                <li>Model payment</li>\n                <li>Add ratings field to company and project</li>\n                <li>Add slogan field to project</li>\n            </ul>\n        </p>\n\n        <h2>Company</h2>\n\n        <p>\n        List of companies in the past, including .\n        </p>\n\n        <p>\n        The rest service should be highly scalable and always available (meaning load balanced and likely running on a couple of machines).\n\n        </p>\n\n        <h2>Project</h2>\n\n        <p>\n        As a developer, I want to evaluate events, identifying start and end points, creating notifications when an end point is reached. The event evaluator will correlate events using the app/subsystem/event name /correlation id (key) by running a mongo aggregation script that will poll the database looking for sets of correlated events that are not 'complete'.\n        </p>\n        <p>\n        The standard evaluation process will be setup as a pipeline of evaluators (probably derived from a standard class). Each evaluator in the pipeline will look at event and optionally emit a notification and  pass the event on to the next evaluator if the event is not fully handed by this evaluator.\n        </p>\n        <p>\n        At the end of the pipeline, a default evaluator will handle any event not handled by an upstream evaluator. The default evaluator will look for end points and when found will emit a default notification (sample below) and mark all correlated events in mongo as 'complete'.\n        </p>\n\n        <h2>Update:</h2>\n\n        <p>\n        As a user I've used the subscription UI to subscribe to certain notifications and have specified way to deliver the notification.\n        </p>\n        <p>\n        To determine if a notification has subscriptions and needs to be published, the subscription process will scan for new notifications i.e. have been saved since the last scan. For each new notification found the subscription process will scan the subscriptions collection and if a match is found write the notification to a separate collection -  subscriptedNotifications so they can be shown on the UI and optionally published to a user's email, etc.\n        </p>\n        <p>\n        The docs in the subscriptedNotifications collection will contain the base notification information along with the user id of the subscribed user. (We might be able to save an array of subscribed user ids and save some inserts for popular notifications. It will depend on how we are able to search arrays).\n        </p>\n\n    </div>\n</div>\n"
+
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+
+	/**
+	 * Contact entity module
+	 *
+	 * @date 04/23/16
+	 * @author Fang Jin <windmaomao@gmail.com>
+	*/
+
+	module.exports = {
+	    entity: 'contact',
+	    model: {
+	        _id: { type: 'id' },
+	        fullname: { type: 'string', required: true },
+	        title: 'string',
+	        description: 'text',
+	        email: 'string',
+	        phone: 'string',
+	        url: 'string',
+	        rating: 'integer',
+	        projects: { type: 'referenced_list' },
+	        createdAt: 'date',
+	        updatedAt: 'date'
+	    },
+	    id: '_id',
+	    fields: {
+	        name: {
+	            type: 'string',
+	            detailRoute: 'show',
+	            pinned: true
+	        },
+	        url: {
+	            format: 'url',
+	            caption: 'Go'
+	        },
+	        rating: {
+	            format: 'rating'
+	        },
+	        projects: {
+	            type: 'referenced_list',
+	            targetEntity: 'member',
+	            targetReferenceField: 'projectId',
+	            targetFields: ['projectId', 'title', 'rating', 'createdAt'],
+	            sort: {
+	                field: 'createdAt',
+	                dir: 'DESC'
+	            }
+	        },
+	        createdAt: {
+	            label: 'Created',
+	            formatString: 'yyyy-MM-dd'
+	        }
+	    },
+	    default: {
+	        fields: [
+	            'fullname', 'title', 'phone', 'email', 'url', 'description',
+	            'rating', 'createdAt',
+	        ],
+	    },
+	    list: {
+	        title: 'Company List',
+	        actions: ['edit'],
+	        fields: [
+	            'fullname', 'title', 'phone', 'rating', 'url'
+	        ],
+	        sort: {
+	            field: 'fullname',
+	            dir: 'ASC'
+	        }
+	    },
+	    creation: {},
+	    edition: {},
+	    show: {
+	        title: 'name',
+	        fields: [
+	            '_id',
+	            'fullname', 'title', 'phone', 'email', 'url', 'description', 'rating',
+	            'createdAt', 'updatedAt'
+	        ]
+	    },
+	    search: {
+	        fields: [
+	            'projectId', 'fullname', 'title'
+	        ]
+	    },
+	};
+
+
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
+
+	/**
+	 * Project member module
+	 *
+	 * @date 04/23/16
+	 * @author Fang Jin <windmaomao@gmail.com>
+	*/
+
+	module.exports = {
+	    entity: 'member',
+	    model: {
+	        _id: { type: 'id' },
+	        projectId: { type: 'id', ref: 'project'},
+	        contactId: { type: 'id', ref: 'contact'},
+	        title: { type: 'string', required: true },
+	        description: 'string',
+	        email: 'string',
+	        rating: 'integer',
+	        createdAt: 'datetime',
+	        updatedAt: 'datetime'
+	    },
+	    fields: {
+	        name: {
+	            type: 'string',
+	            detailRoute: 'show'
+	        },
+	        projectId: {
+	            field: 'projectId',
+	            type: 'reference',
+	            targetEntity: 'project',
+	            targetField: 'name',
+	            label: 'Project',
+	            perPage: 100,
+	            sort: {
+	                field: 'name',
+	                dir: 'ASC'
+	            },
+	            pinned: true
+	        },
+	        contactId: {
+	            field: 'contactId',
+	            type: 'reference',
+	            targetEntity: 'contact',
+	            targetField: 'fullname',
+	            label: 'Contact',
+	            perPage: 100,
+	            sort: {
+	                field: 'fullname',
+	                dir: 'ASC'
+	            },
+	            pinned: true
+	        },
+	        description: {
+	            type: 'text',
+	        },
+	        rating: {
+	            format: 'rating'
+	        },
+	        createdAt: {
+	            label: 'Created',
+	            formatString: 'yyyy-MM-dd'
+	        }
+	    },
+	    id: '_id',
+	    default: {
+	        fields: [
+	            'projectId', 'contactId', 'title',
+	            'rating', 'createdAt',
+	        ],
+	    },
+	    list: {
+	        actions: ['edit'],
+	        sort: {
+	            field: 'createdAt',
+	            dir: 'DESC'
+	        }
+	    },
+	    creation: {
+	        fields: [
+	            'projectId', 'contactId', 'title', 'email', 'description',
+	            'rating', 'createdAt',
+	        ]
+	    },
+	    edition: {},
+	    show: {
+	        title: 'name',
+	        fields: [
+	            '_id',
+	            'projectId', 'contactId', 'title', 'description',
+	            'email', 'rating',
+	            'createdAt', 'updatedAt'
+	        ]
+	    },
+	    search: {
+	        fields: [
+	            'projectId', 'contactId', 'title'
+	        ]
+	    },
+	};
+
 
 /***/ }
 /******/ ]);

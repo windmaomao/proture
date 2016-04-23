@@ -33,6 +33,8 @@ module.exports = {
         update: requireEntity('update'),
         showcase: requireEntity('showcase'),
         entity: requireEntity('entity'),
+        contact: requireEntity('contact'),
+        member: requireEntity('member'),
     },
     routes: false
 };

@@ -26,4 +26,6 @@ module.exports = {
     'Tech': {},
     'Showcase': {},
     'Entity': {},
+    'Contact': {},
+    'Member': {}
 };
