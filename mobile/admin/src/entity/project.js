@@ -86,7 +86,7 @@ module.exports = {
             label: 'On'
         },
         startYear: {
-            label: "Year"
+            label: "Launched"
         },
         durationMonth: {
             label: "Months"
@@ -107,7 +107,7 @@ module.exports = {
         fields: [
             'active',
             'name', 'companyId', 'slogan', 'techIds',
-            'startYear', 'rating', 'url'
+            'createdAt', 'startYear', 'rating', 'url'
         ],
     },
     list: {
@@ -122,8 +122,8 @@ module.exports = {
         fields: [
             'companyId', 'name', 'alias', 'slogan', 'url',
             'description', 'active', 'techIds',
-            'rating', 'startYear', 'durationMonth', 'teamSize',
-            'createdAt'
+            'rating', 'durationMonth', 'teamSize',
+            'createdAt', 'startYear'
         ]
     },
     edition: {},

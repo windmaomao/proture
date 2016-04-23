@@ -414,7 +414,7 @@
 	            label: 'On'
 	        },
 	        startYear: {
-	            label: "Year"
+	            label: "Launched"
 	        },
 	        durationMonth: {
 	            label: "Months"
@@ -435,7 +435,7 @@
 	        fields: [
 	            'active',
 	            'name', 'companyId', 'slogan', 'techIds',
-	            'startYear', 'rating', 'url'
+	            'createdAt', 'startYear', 'rating', 'url'
 	        ],
 	    },
 	    list: {
@@ -450,8 +450,8 @@
 	        fields: [
 	            'companyId', 'name', 'alias', 'slogan', 'url',
 	            'description', 'active', 'techIds',
-	            'rating', 'startYear', 'durationMonth', 'teamSize',
-	            'createdAt'
+	            'rating', 'durationMonth', 'teamSize',
+	            'createdAt', 'startYear'
 	        ]
 	    },
 	    edition: {},
