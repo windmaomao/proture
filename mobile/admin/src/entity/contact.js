@@ -22,7 +22,7 @@ module.exports = {
     },
     id: '_id',
     fields: {
-        name: {
+        fullname: {
             type: 'string',
             detailRoute: 'show',
             pinned: true
@@ -37,7 +37,7 @@ module.exports = {
         projects: {
             type: 'referenced_list',
             targetEntity: 'member',
-            targetReferenceField: 'projectId',
+            targetReferenceField: 'contactId',
             targetFields: ['projectId', 'title', 'rating', 'createdAt'],
             sort: {
                 field: 'createdAt',
@@ -56,7 +56,6 @@ module.exports = {
         ],
     },
     list: {
-        title: 'Company List',
         actions: ['edit'],
         fields: [
             'fullname', 'title', 'phone', 'rating', 'url'
@@ -71,8 +70,8 @@ module.exports = {
     show: {
         title: 'name',
         fields: [
-            '_id',
-            'fullname', 'title', 'phone', 'email', 'url', 'description', 'rating',
+            '_id', 'fullname', 'title',
+            'phone', 'email', 'url', 'description', 'rating', 'projects',
             'createdAt', 'updatedAt'
         ]
     },

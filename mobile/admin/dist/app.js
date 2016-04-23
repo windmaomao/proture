@@ -354,10 +354,9 @@
 	        startYear: 'integer',
 	        durationMonth: 'integer',
 	        teamSize: 'integer',
-	        updateCount: 'integer',
 	        techIds: { type: 'reference_many' },
-	        // techCount: { type: 'template' },
 	        updates: { type: 'referenced_list' },
+	        members: { type: 'referenced_list' },
 	        createdAt: 'datetime',
 	        updatedAt: 'datetime'
 	    },
@@ -404,12 +403,16 @@
 	                dir: 'DESC'
 	            }
 	        },
-	        // techCount: {
-	        //     field: 'techCount',
-	        //     label: 'Techs',
-	        //     type: 'template',
-	        //     template: '{{ entry.values.techIds.length }}'
-	        // },
+	        members: {
+	            type: 'referenced_list',
+	            targetEntity: 'member',
+	            targetReferenceField: 'projectId',
+	            targetFields: ['contactId', 'title', 'rating'],
+	            sort: {
+	                field: 'createdAt',
+	                dir: 'DESC'
+	            }
+	        },
 	        description: {
 	            type: 'text',
 	        },
@@ -427,9 +430,6 @@
 	        },
 	        teamSize: {
 	            label: "Team"
-	        },
-	        updateCount: {
-	            label: "Updates"
 	        },
 	        createdAt: {
 	            label: 'Created',
@@ -467,7 +467,7 @@
 	            '_id',
 	            'companyId', 'name', 'alias', 'slogan', 'description', 'active',
 	            'techIds', 'updates',
-	            'rating', 'startYear', 'durationMonth', 'teamSize', 'updateCount',
+	            'rating', 'startYear', 'durationMonth', 'teamSize', 'members',
 	            'createdAt', 'updatedAt'
 	        ]
 	    },
@@ -858,7 +858,7 @@
 	    },
 	    id: '_id',
 	    fields: {
-	        name: {
+	        fullname: {
 	            type: 'string',
 	            detailRoute: 'show',
 	            pinned: true
@@ -873,7 +873,7 @@
 	        projects: {
 	            type: 'referenced_list',
 	            targetEntity: 'member',
-	            targetReferenceField: 'projectId',
+	            targetReferenceField: 'contactId',
 	            targetFields: ['projectId', 'title', 'rating', 'createdAt'],
 	            sort: {
 	                field: 'createdAt',
@@ -892,7 +892,6 @@
 	        ],
 	    },
 	    list: {
-	        title: 'Company List',
 	        actions: ['edit'],
 	        fields: [
 	            'fullname', 'title', 'phone', 'rating', 'url'
@@ -907,8 +906,8 @@
 	    show: {
 	        title: 'name',
 	        fields: [
-	            '_id',
-	            'fullname', 'title', 'phone', 'email', 'url', 'description', 'rating',
+	            '_id', 'fullname', 'title',
+	            'phone', 'email', 'url', 'description', 'rating', 'projects',
 	            'createdAt', 'updatedAt'
 	        ]
 	    },

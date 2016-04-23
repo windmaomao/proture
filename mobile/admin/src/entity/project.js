@@ -20,10 +20,9 @@ module.exports = {
         startYear: 'integer',
         durationMonth: 'integer',
         teamSize: 'integer',
-        updateCount: 'integer',
         techIds: { type: 'reference_many' },
-        // techCount: { type: 'template' },
         updates: { type: 'referenced_list' },
+        members: { type: 'referenced_list' },
         createdAt: 'datetime',
         updatedAt: 'datetime'
     },
@@ -70,12 +69,16 @@ module.exports = {
                 dir: 'DESC'
             }
         },
-        // techCount: {
-        //     field: 'techCount',
-        //     label: 'Techs',
-        //     type: 'template',
-        //     template: '{{ entry.values.techIds.length }}'
-        // },
+        members: {
+            type: 'referenced_list',
+            targetEntity: 'member',
+            targetReferenceField: 'projectId',
+            targetFields: ['contactId', 'title', 'rating'],
+            sort: {
+                field: 'createdAt',
+                dir: 'DESC'
+            }
+        },
         description: {
             type: 'text',
         },
@@ -93,9 +96,6 @@ module.exports = {
         },
         teamSize: {
             label: "Team"
-        },
-        updateCount: {
-            label: "Updates"
         },
         createdAt: {
             label: 'Created',
@@ -133,7 +133,7 @@ module.exports = {
             '_id',
             'companyId', 'name', 'alias', 'slogan', 'description', 'active',
             'techIds', 'updates',
-            'rating', 'startYear', 'durationMonth', 'teamSize', 'updateCount',
+            'rating', 'startYear', 'durationMonth', 'teamSize', 'members',
             'createdAt', 'updatedAt'
         ]
     },
