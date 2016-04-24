@@ -1,20 +1,26 @@
 /**
- * Project member module
+ * Update task module
  *
- * @date 04/23/16
+ * @date 04/24/16
  * @author Fang Jin <windmaomao@gmail.com>
 */
 
 module.exports = {
-    entity: 'member',
+    entity: 'task',
     model: {
         _id: { type: 'id' },
-        projectId: { type: 'id', ref: 'project'},
-        contactId: { type: 'id', ref: 'contact'},
+        projectId: {
+            type: 'id', ref: 'project',
+        },
+        contactId: {
+            type: 'id', ref: 'contact',
+        },
         title: { type: 'string', required: true },
         description: 'string',
-        email: 'string',
-        rating: 'integer',
+        completed: 'boolean',
+        postponed: 'boolean',
+        promoted: 'boolean',
+        duration: 'integer',
         createdAt: 'datetime',
         updatedAt: 'datetime'
     },
@@ -23,37 +29,33 @@ module.exports = {
             type: 'string',
             detailRoute: 'show'
         },
+        description: {
+            type: 'text',
+        },
         projectId: {
             field: 'projectId',
+            label: 'Project',
             type: 'reference',
             targetEntity: 'project',
             targetField: 'name',
-            label: 'Project',
             perPage: 100,
             sort: {
                 field: 'name',
                 dir: 'ASC'
             },
-            pinned: true
+            pinned: true,
         },
         contactId: {
             field: 'contactId',
+            label: 'Author',
             type: 'reference',
             targetEntity: 'contact',
             targetField: 'fullname',
-            label: 'Contact',
-            perPage: 100,
             sort: {
                 field: 'fullname',
                 dir: 'ASC'
             },
-            pinned: true
-        },
-        description: {
-            type: 'text',
-        },
-        rating: {
-            format: 'rating'
+            perPage: 100
         },
         createdAt: {
             label: 'Created',
@@ -63,8 +65,7 @@ module.exports = {
     id: '_id',
     default: {
         fields: [
-            'projectId', 'contactId', 'title',
-            'rating', 'createdAt',
+            'projectId', 'title', 'contactId', 'completed', 'duration', 'createdAt'
         ],
     },
     list: {
@@ -76,23 +77,24 @@ module.exports = {
     },
     creation: {
         fields: [
-            'projectId', 'contactId', 'title', 'email', 'description',
-            'rating', 'createdAt',
+            'projectId', 'contactId',
+            'title', 'description', 'completed', 'postponed', 'promoted',
+            'duration', 'createdAt'
         ]
     },
     edition: {},
     show: {
-        title: 'name',
+        title: 'title',
         fields: [
             '_id',
-            'projectId', 'contactId', 'title', 'description',
-            'email', 'rating',
+            'projectId', 'contactId',
+            'title', 'description', 'completed', 'postponed', 'promoted', 'duration',
             'createdAt', 'updatedAt'
         ]
     },
     search: {
         fields: [
-            'projectId', 'contactId', 'title'
+            'projectId', 'contactId'
         ]
     },
 };

@@ -27,5 +27,7 @@ module.exports = {
     'Showcase': {},
     'Entity': {},
     'Contact': {},
-    'Member': {}
+    'Member': {},
+    'Route': {},
+    'Task': {},
 };

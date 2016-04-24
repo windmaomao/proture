@@ -107,6 +107,8 @@
 	        entity: requireEntity('entity'),
 	        contact: requireEntity('contact'),
 	        member: requireEntity('member'),
+	        task: requireEntity('task'),
+	        route: requireEntity('route'),
 	    },
 	    routes: false
 	};
@@ -127,8 +129,12 @@
 		"./member.js": 12,
 		"./project": 5,
 		"./project.js": 5,
+		"./route": 14,
+		"./route.js": 14,
 		"./showcase": 6,
 		"./showcase.js": 6,
+		"./task": 13,
+		"./task.js": 13,
 		"./tech": 7,
 		"./tech.js": 7,
 		"./update": 8,
@@ -944,7 +950,7 @@
 	        updatedAt: 'datetime'
 	    },
 	    fields: {
-	        name: {
+	        title: {
 	            type: 'string',
 	            detailRoute: 'show'
 	        },
@@ -1018,6 +1024,211 @@
 	    search: {
 	        fields: [
 	            'projectId', 'contactId', 'title'
+	        ]
+	    },
+	};
+
+
+/***/ },
+/* 13 */
+/***/ function(module, exports) {
+
+	/**
+	 * Update task module
+	 *
+	 * @date 04/24/16
+	 * @author Fang Jin <windmaomao@gmail.com>
+	*/
+
+	module.exports = {
+	    entity: 'task',
+	    model: {
+	        _id: { type: 'id' },
+	        projectId: {
+	            type: 'id', ref: 'project',
+	        },
+	        contactId: {
+	            type: 'id', ref: 'contact',
+	        },
+	        title: { type: 'string', required: true },
+	        description: 'string',
+	        completed: 'boolean',
+	        postponed: 'boolean',
+	        promoted: 'boolean',
+	        duration: 'integer',
+	        createdAt: 'datetime',
+	        updatedAt: 'datetime'
+	    },
+	    fields: {
+	        title: {
+	            type: 'string',
+	            detailRoute: 'show'
+	        },
+	        description: {
+	            type: 'text',
+	        },
+	        projectId: {
+	            field: 'projectId',
+	            label: 'Project',
+	            type: 'reference',
+	            targetEntity: 'project',
+	            targetField: 'name',
+	            perPage: 100,
+	            sort: {
+	                field: 'name',
+	                dir: 'ASC'
+	            },
+	            pinned: true,
+	        },
+	        contactId: {
+	            field: 'contactId',
+	            label: 'Author',
+	            type: 'reference',
+	            targetEntity: 'contact',
+	            targetField: 'fullname',
+	            sort: {
+	                field: 'fullname',
+	                dir: 'ASC'
+	            },
+	            perPage: 100
+	        },
+	        createdAt: {
+	            label: 'Created',
+	            formatString: 'yyyy-MM-dd'
+	        }
+	    },
+	    id: '_id',
+	    default: {
+	        fields: [
+	            'projectId', 'title', 'contactId', 'completed', 'duration', 'createdAt'
+	        ],
+	    },
+	    list: {
+	        actions: ['edit'],
+	        sort: {
+	            field: 'createdAt',
+	            dir: 'DESC'
+	        }
+	    },
+	    creation: {
+	        fields: [
+	            'projectId', 'contactId',
+	            'title', 'description', 'completed', 'postponed', 'promoted',
+	            'duration', 'createdAt'
+	        ]
+	    },
+	    edition: {},
+	    show: {
+	        title: 'title',
+	        fields: [
+	            '_id',
+	            'projectId', 'contactId',
+	            'title', 'description', 'completed', 'postponed', 'promoted', 'duration',
+	            'createdAt', 'updatedAt'
+	        ]
+	    },
+	    search: {
+	        fields: [
+	            'projectId', 'contactId'
+	        ]
+	    },
+	};
+
+
+/***/ },
+/* 14 */
+/***/ function(module, exports) {
+
+	/**
+	 * Project route module
+	 *
+	 * @date 04/24/16
+	 * @author Fang Jin <windmaomao@gmail.com>
+	*/
+
+	module.exports = {
+	    entity: 'route',
+	    model: {
+	        _id: { type: 'id' },
+	        projectId: { type: 'id', ref: 'project'},
+	        entityId: { type: 'id', ref: 'entity'},
+	        action: { type: 'string', required: true },
+	        method: 'string',
+	        description: 'string',
+	        draft: 'boolean',
+	        createdAt: 'datetime',
+	        updatedAt: 'datetime'
+	    },
+	    fields: {
+	        action: {
+	            type: 'string',
+	            detailRoute: 'show'
+	        },
+	        projectId: {
+	            field: 'projectId',
+	            type: 'reference',
+	            targetEntity: 'project',
+	            targetField: 'name',
+	            label: 'Project',
+	            perPage: 100,
+	            sort: {
+	                field: 'name',
+	                dir: 'ASC'
+	            },
+	            pinned: true
+	        },
+	        entityId: {
+	            field: 'entityId',
+	            type: 'reference',
+	            targetEntity: 'entity',
+	            targetField: 'name',
+	            label: 'Entity',
+	            perPage: 100,
+	            sort: {
+	                field: 'name',
+	                dir: 'ASC'
+	            },
+	            pinned: true
+	        },
+	        description: {
+	            type: 'text',
+	        },
+	        createdAt: {
+	            label: 'Created',
+	            formatString: 'yyyy-MM-dd'
+	        }
+	    },
+	    id: '_id',
+	    default: {
+	        fields: [
+	            'projectId', 'entityId', 'action', 'method', 'description',
+	        ],
+	    },
+	    list: {
+	        actions: ['edit'],
+	        sort: {
+	            field: 'createdAt',
+	            dir: 'DESC'
+	        }
+	    },
+	    creation: {
+	        fields: [
+	            'projectId', 'entityId', 'action', 'method', 'description',
+	            'draft', 'createdAt',
+	        ]
+	    },
+	    edition: {},
+	    show: {
+	        title: 'name',
+	        fields: [
+	            '_id',
+	            'projectId', 'entityId', 'action', 'method', 'description', 'draft',
+	            'createdAt', 'updatedAt'
+	        ]
+	    },
+	    search: {
+	        fields: [
+	            'projectId', 'entityId',
 	        ]
 	    },
 	};

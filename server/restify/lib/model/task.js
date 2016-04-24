@@ -1,9 +1,9 @@
 /**
- * Project member model module
+ * Project task model module
  *
  * @module mongo
  *
- * @date 4/23/16
+ * @date 4/24/16
  * @author Fang Jin <windmaomao@gmail.com>
  */
 
@@ -14,24 +14,32 @@ var ObjectId = Schema.Types.ObjectId;
 module.exports = {
     fields: {
         /**
-         * Project and contact
+         * Project
          */
         projectId: {
-            type: ObjectId, ref: 'project'
+            type: ObjectId, ref: 'project',
         },
+        /**
+         * Contact (author)
+         */
         contactId: {
-            type: ObjectId, ref: 'contact'
+            type: ObjectId, ref: 'contact',
         },
+        /**
+         * Title and description
+         */
         title: { type: String, required: true },
         description: String,
         /**
-         * Attibute
+         * Attributes
          */
-        email: String,
-        rating: { type: Number, max: 5 },
+        completed: Boolean,
+        postponed: Boolean,
+        promoted: Boolean,
+        duration: Number,
     },
     options: {
-        collection: 'member',
+        collection: 'task',
         versionKey: false,
         timestamps: {},
         runValidators: false

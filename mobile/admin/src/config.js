@@ -35,6 +35,8 @@ module.exports = {
         entity: requireEntity('entity'),
         contact: requireEntity('contact'),
         member: requireEntity('member'),
+        task: requireEntity('task'),
+        route: requireEntity('route'),
     },
     routes: false
 };

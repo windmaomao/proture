@@ -1,9 +1,9 @@
 /**
- * Project member model module
+ * Project route model module
  *
  * @module mongo
  *
- * @date 4/23/16
+ * @date 4/24/16
  * @author Fang Jin <windmaomao@gmail.com>
  */
 
@@ -19,19 +19,19 @@ module.exports = {
         projectId: {
             type: ObjectId, ref: 'project'
         },
-        contactId: {
-            type: ObjectId, ref: 'contact'
+        entityId: {
+            type: ObjectId, ref: 'entity'
         },
-        title: { type: String, required: true },
+        action: { type: String, required: true },
+        method: String,
         description: String,
         /**
          * Attibute
          */
-        email: String,
-        rating: { type: Number, max: 5 },
+        draft: Boolean,
     },
     options: {
-        collection: 'member',
+        collection: 'route',
         versionKey: false,
         timestamps: {},
         runValidators: false

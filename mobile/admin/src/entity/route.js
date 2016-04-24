@@ -1,25 +1,25 @@
 /**
- * Project member module
+ * Project route module
  *
- * @date 04/23/16
+ * @date 04/24/16
  * @author Fang Jin <windmaomao@gmail.com>
 */
 
 module.exports = {
-    entity: 'member',
+    entity: 'route',
     model: {
         _id: { type: 'id' },
         projectId: { type: 'id', ref: 'project'},
-        contactId: { type: 'id', ref: 'contact'},
-        title: { type: 'string', required: true },
+        entityId: { type: 'id', ref: 'entity'},
+        action: { type: 'string', required: true },
+        method: 'string',
         description: 'string',
-        email: 'string',
-        rating: 'integer',
+        draft: 'boolean',
         createdAt: 'datetime',
         updatedAt: 'datetime'
     },
     fields: {
-        title: {
+        action: {
             type: 'string',
             detailRoute: 'show'
         },
@@ -36,24 +36,21 @@ module.exports = {
             },
             pinned: true
         },
-        contactId: {
-            field: 'contactId',
+        entityId: {
+            field: 'entityId',
             type: 'reference',
-            targetEntity: 'contact',
-            targetField: 'fullname',
-            label: 'Contact',
+            targetEntity: 'entity',
+            targetField: 'name',
+            label: 'Entity',
             perPage: 100,
             sort: {
-                field: 'fullname',
+                field: 'name',
                 dir: 'ASC'
             },
             pinned: true
         },
         description: {
             type: 'text',
-        },
-        rating: {
-            format: 'rating'
         },
         createdAt: {
             label: 'Created',
@@ -63,8 +60,7 @@ module.exports = {
     id: '_id',
     default: {
         fields: [
-            'projectId', 'contactId', 'title',
-            'rating', 'createdAt',
+            'projectId', 'entityId', 'action', 'method', 'description',
         ],
     },
     list: {
@@ -76,8 +72,8 @@ module.exports = {
     },
     creation: {
         fields: [
-            'projectId', 'contactId', 'title', 'email', 'description',
-            'rating', 'createdAt',
+            'projectId', 'entityId', 'action', 'method', 'description',
+            'draft', 'createdAt',
         ]
     },
     edition: {},
@@ -85,14 +81,13 @@ module.exports = {
         title: 'name',
         fields: [
             '_id',
-            'projectId', 'contactId', 'title', 'description',
-            'email', 'rating',
+            'projectId', 'entityId', 'action', 'method', 'description', 'draft',
             'createdAt', 'updatedAt'
         ]
     },
     search: {
         fields: [
-            'projectId', 'contactId', 'title'
+            'projectId', 'entityId',
         ]
     },
 };
