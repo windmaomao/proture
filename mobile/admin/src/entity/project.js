@@ -13,7 +13,7 @@ module.exports = {
         name: { type: 'string', required: true },
         alias: { type: 'string', required: true },
         slogan: 'string',
-        description: 'string',
+        description: 'text',
         url: 'string',
         active: 'boolean',
         rating: 'integer',
@@ -61,13 +61,15 @@ module.exports = {
         },
         updates: {
             type: 'referenced_list',
+            label: 'Updates',
             targetEntity: 'update',
             targetReferenceField: 'projectId',
             targetFields: ['title', 'techId', 'rating'],
             sort: {
                 field: 'createdAt',
                 dir: 'DESC'
-            }
+            },
+            perPage: 5,
         },
         members: {
             type: 'referenced_list',
@@ -78,9 +80,6 @@ module.exports = {
                 field: 'createdAt',
                 dir: 'DESC'
             }
-        },
-        description: {
-            type: 'text',
         },
         rating: {
             format: 'rating'

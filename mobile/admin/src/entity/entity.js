@@ -21,7 +21,7 @@ module.exports = {
     fields: {
         name: {
             type: 'string',
-            detailRoute: 'show'
+            detailRoute: 'show',
         },
         projectId: {
             field: 'projectId',

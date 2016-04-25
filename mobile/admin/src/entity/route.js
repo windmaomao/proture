@@ -44,7 +44,7 @@ module.exports = {
             label: 'Entity',
             perPage: 100,
             sort: {
-                field: 'name',
+                field: 'projectId',
                 dir: 'ASC'
             },
             pinned: true
