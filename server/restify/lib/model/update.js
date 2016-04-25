@@ -14,17 +14,11 @@ var ObjectId = Schema.Types.ObjectId;
 module.exports = {
     fields: {
         /**
-         * Project
+         * Project, tech and entity
          */
-        projectId: {
-            type: ObjectId, ref: 'project',
-        },
-        /**
-         * Tech
-         */
-        techId: {
-            type: ObjectId, ref: 'tech',
-        },
+        projectId: { type: ObjectId, ref: 'project' },
+        techId: { type: ObjectId, ref: 'tech' },
+        entityId: { type: ObjectId, ref: 'entity' },
         /**
          * Title and description
          */

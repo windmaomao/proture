@@ -14,7 +14,7 @@ module.exports = {
         },
         name: { type: 'string', required: true },
         slogan: 'string',
-        description: 'string',
+        description: 'text',
         createdAt: 'datetime',
         updatedAt: 'datetime'
     },

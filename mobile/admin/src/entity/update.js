@@ -9,13 +9,10 @@ module.exports = {
     entity: 'update',
     model: {
         _id: { type: 'id' },
-        projectId: {
-            type: 'id', ref: 'project',
-        },
+        projectId: { type: 'id', ref: 'project' },
+        techId: { type: 'id', ref: 'tech' },
+        entityId: { type: 'id', ref: 'entity' },
         title: { type: 'string', required: true },
-        techId: {
-            type: 'id', ref: 'tech',
-        },
         description: 'string',
         url: 'string',
         rating: 'integer',
@@ -42,6 +39,18 @@ module.exports = {
                 dir: 'ASC'
             },
             pinned: true,
+        },
+        entityId: {
+            field: 'entityId',
+            label: 'Entity',
+            type: 'reference',
+            targetEntity: 'entity',
+            targetField: 'name',
+            sort: {
+                field: 'name',
+                dir: 'ASC'
+            },
+            perPage: 100
         },
         techId: {
             field: 'techId',
@@ -70,7 +79,7 @@ module.exports = {
     id: '_id',
     default: {
         fields: [
-            'projectId', 'title', 'techId', 'rating', 'createdAt', 'url'
+            'projectId', 'title', 'entityId', 'techId', 'rating', 'createdAt', 'url'
         ],
     },
     list: {
@@ -82,7 +91,7 @@ module.exports = {
     },
     creation: {
         fields: [
-            'projectId', 'title', 'techId', 'rating', 'url',
+            'projectId', 'entityId', 'title', 'techId', 'rating', 'url',
             'description', 'createdAt'
         ]
     },
@@ -91,7 +100,7 @@ module.exports = {
         title: 'title',
         fields: [
             '_id',
-            'projectId', 'techId',
+            'projectId', 'entityId', 'techId',
             'title', 'description', 'rating', 'url',
             'createdAt', 'updatedAt'
         ]
