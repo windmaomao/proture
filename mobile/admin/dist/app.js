@@ -277,6 +277,7 @@
 	            type: 'id', ref: 'project',
 	        },
 	        name: { type: 'string', required: true },
+	        slogan: 'string',
 	        description: 'string',
 	        createdAt: 'datetime',
 	        updatedAt: 'datetime'
@@ -307,7 +308,7 @@
 	    id: '_id',
 	    default: {
 	        fields: [
-	            'projectId', 'name', 'description', 'createdAt'
+	            'projectId', 'name', 'slogan', 'createdAt'
 	        ],
 	    },
 	    list: {
@@ -316,13 +317,17 @@
 	            dir: 'DESC'
 	        }
 	    },
-	    creation: {},
+	    creation: {
+	        fields: [
+	            'projectId', 'name', 'slogan', 'description', 'createdAt'
+	        ]
+	    },
 	    edition: {},
 	    show: {
 	        title: 'name',
 	        fields: [
 	            '_id',
-	            'projectId', 'name', 'description',
+	            'projectId', 'name', 'slogan', 'description',
 	            'createdAt', 'updatedAt'
 	        ]
 	    },

@@ -23,6 +23,7 @@ module.exports = {
          * Title and description
          */
         name: { type: String, required: true },
+        slogan: String,
         description: String,
         /**
          * Attributes
