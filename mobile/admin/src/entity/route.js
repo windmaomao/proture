@@ -41,6 +41,9 @@ module.exports = {
             type: 'reference',
             targetEntity: 'entity',
             targetField: 'name',
+            targetFieldMap: function(value, entry) {
+                return entry["project.name"] + " / " + value;
+            },
             label: 'Entity',
             perPage: 100,
             sort: {
@@ -60,14 +63,14 @@ module.exports = {
     id: '_id',
     default: {
         fields: [
-            'projectId', 'entityId', 'action', 'method', 'description',
+            'entityId', 'action', 'method', 'description',
         ],
     },
     list: {
         actions: ['edit'],
         sort: {
-            field: 'createdAt',
-            dir: 'DESC'
+            field: 'entityId',
+            dir: 'ASC'
         }
     },
     creation: {

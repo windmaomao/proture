@@ -46,6 +46,9 @@ module.exports = {
             type: 'reference',
             targetEntity: 'entity',
             targetField: 'name',
+            targetFieldMap: function(value, entry) {
+                return entry["project.name"] + " / " + value;
+            },
             sort: {
                 field: 'name',
                 dir: 'ASC'
@@ -79,7 +82,7 @@ module.exports = {
     id: '_id',
     default: {
         fields: [
-            'projectId', 'title', 'entityId', 'techId', 'rating', 'createdAt', 'url'
+            'projectId', 'title', 'techId', 'rating', 'createdAt', 'url'
         ],
     },
     list: {

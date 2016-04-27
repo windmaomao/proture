@@ -736,6 +736,9 @@
 	            type: 'reference',
 	            targetEntity: 'entity',
 	            targetField: 'name',
+	            targetFieldMap: function(value, entry) {
+	                return entry["project.name"] + " / " + value;
+	            },
 	            sort: {
 	                field: 'name',
 	                dir: 'ASC'
@@ -769,7 +772,7 @@
 	    id: '_id',
 	    default: {
 	        fields: [
-	            'projectId', 'title', 'entityId', 'techId', 'rating', 'createdAt', 'url'
+	            'projectId', 'title', 'techId', 'rating', 'createdAt', 'url'
 	        ],
 	    },
 	    list: {
@@ -1195,10 +1198,7 @@
 	            targetEntity: 'entity',
 	            targetField: 'name',
 	            targetFieldMap: function(value, entry) {
-	                return entry["projectId.name"] + " : " + value;
-	            },
-	            permanentFilters: {
-	                populate: 'projectId',
+	                return entry["project.name"] + " / " + value;
 	            },
 	            label: 'Entity',
 	            perPage: 100,
@@ -1219,14 +1219,14 @@
 	    id: '_id',
 	    default: {
 	        fields: [
-	            'projectId', 'entityId', 'action', 'method', 'description',
+	            'entityId', 'action', 'method', 'description',
 	        ],
 	    },
 	    list: {
 	        actions: ['edit'],
 	        sort: {
-	            field: 'createdAt',
-	            dir: 'DESC'
+	            field: 'entityId',
+	            dir: 'ASC'
 	        }
 	    },
 	    creation: {
