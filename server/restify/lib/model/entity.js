@@ -11,6 +11,20 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
 
+var postFn = function(req, item, cb) {
+    var obj = {
+        _id: item._id,
+        projectId: item.projectId._id,
+        name: item.name,
+        slogan: item.slogan,
+        description: item.description,
+        project: item.projectId,
+        createdAt: item.createdAt,
+        updatedAt: item.updatedAt,
+    };
+    cb(null, obj);
+};
+
 module.exports = {
     fields: {
         /**
@@ -33,9 +47,17 @@ module.exports = {
         collection: 'entity',
         versionKey: false,
         timestamps: {},
-        runValidators: false
+        runValidators: false,
+        // toObject: { virtuals: true },
+        // toJSON: { virtuals: true },
     },
     methods: {},
     indexes: {},
-    virtuals: {}
+    virtuals: {},
+    hooks: {},
+    populates: 'projectId',
+    projections: {
+        list: postFn,
+        detail: postFn
+    }
 }

@@ -273,9 +273,8 @@
 	    entity: 'entity',
 	    model: {
 	        _id: { type: 'id' },
-	        projectId: {
-	            type: 'id', ref: 'project',
-	        },
+	        projectId: { type: 'id', ref: 'project' },
+	        project: 'json',
 	        name: { type: 'string', required: true },
 	        slogan: 'string',
 	        description: 'text',
@@ -308,7 +307,7 @@
 	    id: '_id',
 	    default: {
 	        fields: [
-	            'projectId', 'name', 'slogan', 'createdAt'
+	            'projectId', 'name', 'slogan',
 	        ],
 	    },
 	    list: {
@@ -1195,6 +1194,12 @@
 	            type: 'reference',
 	            targetEntity: 'entity',
 	            targetField: 'name',
+	            targetFieldMap: function(value, entry) {
+	                return entry["projectId.name"] + " : " + value;
+	            },
+	            permanentFilters: {
+	                populate: 'projectId',
+	            },
 	            label: 'Entity',
 	            perPage: 100,
 	            sort: {
