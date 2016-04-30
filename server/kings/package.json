@@ -10,6 +10,7 @@
   "author": "Fang Jin",
   "license": "ISC",
   "dependencies": {
+    "config-node": "^1.2.2",
     "kingslanding": "0.0.1"
   }
 }

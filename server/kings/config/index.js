@@ -1,9 +1,19 @@
 module.exports = {
-    port: 8085,
-    mongo: 'mongodb://localhost/test',
+    port: 7929,
+    mongo: 'mongodb://localhost/proture',
+    prefix: '/v1',
     model: __dirname + '/../model',
     controller: __dirname + '/../controller',
     routes: {
-        blog: {}
+        company: {},
+        project: {},
+        update: {},
+        tech: {},
+        showcase: {},
+        entity: {},
+        contact: {},
+        member: {},
+        route: {},
+        task: {},
     }
 }

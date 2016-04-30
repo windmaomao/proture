@@ -1,10 +1,10 @@
 /**
- * Blog controller module
+ * Controller module
  *
  * @module controller
  *
  * @date 4/28/16
- * @author Fang Jin <fang-a.jin@db.com>
+ * @author Fang Jin <windmaomao@gmail.com>
  */
 
 module.exports = {
