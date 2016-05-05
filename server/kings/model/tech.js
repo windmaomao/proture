@@ -34,6 +34,9 @@ module.exports = {
         runValidators: false
     },
     methods: {},
-    indexes: {},
+    indexes: {
+        name: true,
+        parentId: true
+    },
     virtuals: {}
 }

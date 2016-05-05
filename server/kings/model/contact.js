@@ -30,6 +30,8 @@ module.exports = {
         runValidators: false
     },
     methods: {},
-    indexes: {},
+    indexes: {
+        fullname: true
+    },
     virtuals: {}
 }

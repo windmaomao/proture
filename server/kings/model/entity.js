@@ -52,7 +52,10 @@ module.exports = {
         // toJSON: { virtuals: true },
     },
     methods: {},
-    indexes: {},
+    indexes: {
+        projectId: true,
+        name: true
+    },
     virtuals: {},
     hooks: {},
     populates: 'projectId',

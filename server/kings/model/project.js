@@ -43,8 +43,6 @@ module.exports = {
          */
         startYear: Number,
         durationMonth: Number,
-        teamSize: Number,
-        updateCount: Number,
     },
     options: {
         collection: 'project',
@@ -53,6 +51,10 @@ module.exports = {
         runValidators: false
     },
     methods: {},
-    indexes: {},
+    indexes: {
+        companyId: true,
+        name: true,
+        active: true
+    },
     virtuals: {}
 }

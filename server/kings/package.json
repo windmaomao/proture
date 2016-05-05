@@ -11,6 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "config-node": "^1.2.2",
-    "kingslanding": "0.0.1"
+    "kingslanding": "~0.0.6"
   }
 }

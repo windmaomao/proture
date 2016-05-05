@@ -45,6 +45,12 @@ module.exports = {
         runValidators: false
     },
     methods: {},
-    indexes: {},
+    indexes: {
+        projectId: true,
+        contactId: true,
+        completed: true,
+        postponed: true,
+        promoted: true,
+    },
     virtuals: {}
 }

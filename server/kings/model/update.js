@@ -37,6 +37,10 @@ module.exports = {
         runValidators: false
     },
     methods: {},
-    indexes: {},
+    indexes: {
+        projectId: true,
+        techId: true,
+        entityId: true
+    },
     virtuals: {}
 }

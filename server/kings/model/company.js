@@ -27,8 +27,6 @@ module.exports = {
          */
         startYear: Number,
         revenueTotal: Number,
-        projectCount: Number,
-
     },
     options: {
         collection: 'company',
@@ -37,6 +35,9 @@ module.exports = {
         runValidators: false
     },
     methods: {},
-    indexes: {},
+    indexes: {
+        name: true,
+        active: true,
+    },
     virtuals: {}
 }
