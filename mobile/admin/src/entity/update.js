@@ -65,7 +65,7 @@ module.exports = {
                 field: 'name',
                 dir: 'ASC'
             },
-            perPage: 100
+            perPage: 1000
         },
         rating: {
             format: 'rating'

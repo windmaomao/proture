@@ -37,7 +37,7 @@ module.exports = {
             targetEntity: 'tech',
             targetField: 'name',
             label: 'Parent Tech',
-            perPage: 100,
+            perPage: 1000,
             sort: {
                 field: 'name',
                 dir: 'ASC'
