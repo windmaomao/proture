@@ -1,9 +1,9 @@
 /**
- * Project model module
+ * Account model module
  *
  * @module mongo
  *
- * @date 3/22/16
+ * @date 5/5/16
  * @author Fang Jin <windmaomao@gmail.com>
  */
 
@@ -20,29 +20,21 @@ module.exports = {
             type: ObjectId, ref: 'company'
         },
         /**
-         * Tech ids the project tagged with
-         */
-        techIds: [{
-            type: ObjectId, ref: 'tech'
-        }],
-        /**
          * Name, alias, slogan and note
          */
         name: { type: String, required: true },
-        alias: { type: String, required: true },
-        slogan: String,
+        number: String,
+        category: String,
         description: String,
-        url: String,
         /**
          * Attibute
          */
         active: Boolean,
         rating: { type: Number, max: 5 },
         startYear: Number,
-        durationMonth: Number,
     },
     options: {
-        collection: 'project',
+        collection: 'account',
         versionKey: false,
         timestamps: {},
         runValidators: false
@@ -50,7 +42,6 @@ module.exports = {
     methods: {},
     indexes: {
         companyId: true,
-        name: true,
         active: true,
         rating: true,
     },

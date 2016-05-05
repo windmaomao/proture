@@ -15,5 +15,8 @@ module.exports = {
         member: {},
         route: {},
         task: {},
+        account: {},
+        transaction: {},
+        statement: {},
     }
 }
