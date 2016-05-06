@@ -5,6 +5,8 @@
  * @author Fang Jin <windmaomao@gmail.com>
 */
 
+var common = require('./common');
+
 module.exports = {
     entity: 'account',
     model: {
@@ -16,7 +18,6 @@ module.exports = {
         description: 'text',
         active: 'boolean',
         rating: 'integer',
-        // techIds: { type: 'reference_many' },
         transactions: { type: 'referenced_list' },
         statements: { type: 'referenced_list' },
         createdAt: 'datetime',
@@ -74,7 +75,9 @@ module.exports = {
             }
         },
         rating: {
-            format: 'rating'
+            format: 'rating',
+            // type: 'choice',
+            // choices: common.ratings,
         },
         active: {
             label: 'On'
@@ -111,7 +114,7 @@ module.exports = {
         fields: [
             '_id',
             'companyId', 'name', 'number', 'type', 'description',
-            'active', 'rating', 'transactions',
+            'active', 'rating', 'transactions', 'statements',
             'createdAt', 'updatedAt'
         ]
     },

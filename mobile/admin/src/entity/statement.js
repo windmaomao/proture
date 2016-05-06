@@ -5,6 +5,8 @@
  * @author Fang Jin <windmaomao@gmail.com>
 */
 
+var common = require('./common');
+
 module.exports = {
     entity: 'statement',
     model: {
@@ -29,6 +31,15 @@ module.exports = {
         },
         description: {
             type: 'text',
+        },
+        net: {
+            format: '$0,0',
+        },
+        balance: {
+            format: '$0,0',
+        },
+        contribution: {
+            format: '$0,0',
         },
         accountId: {
             field: 'accountId',
@@ -66,6 +77,16 @@ module.exports = {
             },
             perPage: 1000
         },
+        durationType: {
+            label: 'Duration',
+            type: 'choice',
+            choices: common.durationTypes,
+        },
+        durationDate: {
+            label: 'Date',
+            type: 'choice',
+            choices: common.durationDates,
+        },
         createdAt: {
             label: 'Created',
             formatString: 'yyyy-MM-dd'
@@ -74,7 +95,8 @@ module.exports = {
     id: '_id',
     default: {
         fields: [
-            'title', 'net', 'balance', 'contribution', 'durationType', 'durationDate'
+            'accountId', 'durationType', 'durationDate',
+            'net', 'contribution', 'balance',
         ],
     },
     list: {
@@ -86,8 +108,9 @@ module.exports = {
     },
     creation: {
         fields: [
-            'accountId', 'title', 'net', 'balance', 'contribution',
-            'durationType', 'durationDate',
+            'accountId',
+            'title', 'durationType', 'durationDate',
+            'net', 'contribution', 'balance',
         ]
     },
     edition: {},
@@ -95,14 +118,15 @@ module.exports = {
         title: 'title',
         fields: [
             '_id',
-            'accountId', 'title', 'net', 'balance', 'contribution',
-            'durationType', 'durationDate',
+            'accountId',
+            'title', 'durationType', 'durationDate',
+            'net', 'contribution', 'balance',
             'createdAt', 'updatedAt'
         ]
     },
     search: {
         fields: [
-            'accountId',
+            'accountId', 'durationType', 'durationDate'
         ]
     },
 };

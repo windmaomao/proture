@@ -124,6 +124,8 @@
 	var map = {
 		"./account": 15,
 		"./account.js": 15,
+		"./common": 18,
+		"./common.js": 18,
 		"./company": 3,
 		"./company.js": 3,
 		"./contact": 4,
@@ -1263,7 +1265,7 @@
 
 /***/ },
 /* 15 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Account entity module
@@ -1271,6 +1273,8 @@
 	 * @date 5/5/16
 	 * @author Fang Jin <windmaomao@gmail.com>
 	*/
+
+	var common = __webpack_require__(18);
 
 	module.exports = {
 	    entity: 'account',
@@ -1283,7 +1287,6 @@
 	        description: 'text',
 	        active: 'boolean',
 	        rating: 'integer',
-	        // techIds: { type: 'reference_many' },
 	        transactions: { type: 'referenced_list' },
 	        statements: { type: 'referenced_list' },
 	        createdAt: 'datetime',
@@ -1341,7 +1344,9 @@
 	            }
 	        },
 	        rating: {
-	            format: 'rating'
+	            format: 'rating',
+	            // type: 'choice',
+	            // choices: common.ratings,
 	        },
 	        active: {
 	            label: 'On'
@@ -1378,7 +1383,7 @@
 	        fields: [
 	            '_id',
 	            'companyId', 'name', 'number', 'type', 'description',
-	            'active', 'rating', 'transactions',
+	            'active', 'rating', 'transactions', 'statements',
 	            'createdAt', 'updatedAt'
 	        ]
 	    },
@@ -1478,7 +1483,7 @@
 
 /***/ },
 /* 17 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Account statement module
@@ -1486,6 +1491,8 @@
 	 * @date 5/5/16
 	 * @author Fang Jin <windmaomao@gmail.com>
 	*/
+
+	var common = __webpack_require__(18);
 
 	module.exports = {
 	    entity: 'statement',
@@ -1511,6 +1518,15 @@
 	        },
 	        description: {
 	            type: 'text',
+	        },
+	        net: {
+	            format: '$0,0',
+	        },
+	        balance: {
+	            format: '$0,0',
+	        },
+	        contribution: {
+	            format: '$0,0',
 	        },
 	        accountId: {
 	            field: 'accountId',
@@ -1548,6 +1564,16 @@
 	            },
 	            perPage: 1000
 	        },
+	        durationType: {
+	            label: 'Duration',
+	            type: 'choice',
+	            choices: common.durationTypes,
+	        },
+	        durationDate: {
+	            label: 'Date',
+	            type: 'choice',
+	            choices: common.durationDates,
+	        },
 	        createdAt: {
 	            label: 'Created',
 	            formatString: 'yyyy-MM-dd'
@@ -1556,7 +1582,8 @@
 	    id: '_id',
 	    default: {
 	        fields: [
-	            'title', 'net', 'balance', 'contribution', 'durationType', 'durationDate'
+	            'accountId', 'durationType', 'durationDate',
+	            'net', 'contribution', 'balance',
 	        ],
 	    },
 	    list: {
@@ -1568,8 +1595,9 @@
 	    },
 	    creation: {
 	        fields: [
-	            'accountId', 'title', 'net', 'balance', 'contribution',
-	            'durationType', 'durationDate',
+	            'accountId',
+	            'title', 'durationType', 'durationDate',
+	            'net', 'contribution', 'balance',
 	        ]
 	    },
 	    edition: {},
@@ -1577,16 +1605,66 @@
 	        title: 'title',
 	        fields: [
 	            '_id',
-	            'accountId', 'title', 'net', 'balance', 'contribution',
-	            'durationType', 'durationDate',
+	            'accountId',
+	            'title', 'durationType', 'durationDate',
+	            'net', 'contribution', 'balance',
 	            'createdAt', 'updatedAt'
 	        ]
 	    },
 	    search: {
 	        fields: [
-	            'accountId',
+	            'accountId', 'durationType', 'durationDate'
 	        ]
 	    },
+	};
+
+
+/***/ },
+/* 18 */
+/***/ function(module, exports) {
+
+	/**
+	 * Constants settings
+	 *
+	 * @module config
+	 *
+	 * @date 5/6/16
+	 * @author Fang Jin <windmaomao@gmail.com>
+	 */
+
+	module.exports = {
+	    durationTypes: [
+	        { label: 'Monthly', value: 'monthly' },
+	        { label: 'Annually', value: 'annually' },
+	    ],
+	    durationDates: [
+	        { label: '2016', value: '2016' },
+	        { label: '2015', value: '2015' },
+	        { label: '2014', value: '2014' },
+	        { label: '2013', value: '2013' },
+	        { label: '2012', value: '2012' },
+	        { label: 'January', value: 'Jan' },
+	        { label: 'February', value: 'Feb' },
+	        { label: 'March', value: 'Mar' },
+	        { label: 'April', value: 'Apr' },
+	        { label: 'May', value: 'May' },
+	        { label: 'June', value: 'Jun' },
+	        { label: 'July', value: 'Jul' },
+	        { label: 'August', value: 'Aug' },
+	        { label: 'September', value: 'Sep' },
+	        { label: 'October', value: 'Oct' },
+	        { label: 'November', value: 'Nov' },
+	        { label: 'December', value: 'Dec' },
+	    ],
+	    ratings: [
+	        { label: 'Awesome', value: '5' },
+	        { label: 'Great', value: '4' },
+	        { label: 'Good', value: '3' },
+	        { label: 'OK', value: '2' },
+	        { label: 'Not Good', value: '1' },
+	        { label: 'Dislike', value: '0' },
+	        { label: 'No take', value: '-1' },
+	    ],
 	};
 
 

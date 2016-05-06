@@ -45,6 +45,7 @@ module.exports = {
     indexes: {
         accountId: true,
         durationType: true,
+        durationDate: true,
     },
     virtuals: {}
 }
