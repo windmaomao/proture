@@ -24,14 +24,13 @@ module.exports = {
          */
         name: { type: String, required: true },
         number: String,
-        category: String,
+        type: String,
         description: String,
         /**
          * Attibute
          */
         active: Boolean,
         rating: { type: Number, max: 5 },
-        startYear: Number,
     },
     options: {
         collection: 'account',

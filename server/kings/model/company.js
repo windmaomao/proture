@@ -38,6 +38,7 @@ module.exports = {
     indexes: {
         name: true,
         active: true,
+        type: true,
     },
     virtuals: {}
 }

@@ -63,7 +63,7 @@ module.exports = {
         fields: [
             'active',
             'name', 'alias', 'slogan', 'url', 'description',
-            'startYear', 'revenueTotal', 'projectCount', 'rating'
+            'startYear', 'revenueTotal', 'rating'
         ],
     },
     list: {

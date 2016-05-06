@@ -37,6 +37,9 @@ module.exports = {
         member: requireEntity('member'),
         task: requireEntity('task'),
         route: requireEntity('route'),
+        account: requireEntity('account'),
+        transaction: requireEntity('transaction'),
+        statement: requireEntity('statement'),
     },
     routes: false
 };
