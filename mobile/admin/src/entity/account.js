@@ -54,7 +54,6 @@ module.exports = {
                 field: 'name',
                 dir: 'ASC'
             },
-            pinned: true
         },
         subAccounts: {
             type: 'referenced_list',

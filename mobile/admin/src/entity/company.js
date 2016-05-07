@@ -20,6 +20,7 @@ module.exports = {
         revenueTotal: 'integer',
         projectCount: 'integer',
         projects: { type: 'referenced_list' },
+        accounts: { type: 'referenced_list' },
         createdAt: 'date',
         updatedAt: 'date'
     },
@@ -58,6 +59,16 @@ module.exports = {
                 dir: 'DESC'
             }
         },
+        accounts: {
+            type: 'referenced_list',
+            targetEntity: 'account',
+            targetReferenceField: 'companyId',
+            targetFields: ['parentId', 'name', 'number','type', 'rating'],
+            sort: {
+                field: 'parentId',
+                dir: 'ASC'
+            }
+        },
     },
     default: {
         fields: [
@@ -86,7 +97,7 @@ module.exports = {
         fields: [
             '_id', 'active',
             'name', 'alias', 'slogan', 'description', 'url',
-            'rating', 'startYear', 'revenueTotal', 'projects',
+            'rating', 'startYear', 'revenueTotal', 'projects', 'accounts',
             'createdAt', 'updatedAt'
         ]
     },
