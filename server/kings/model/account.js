@@ -14,10 +14,13 @@ var ObjectId = Schema.Types.ObjectId;
 module.exports = {
     fields: {
         /**
-         * Company id the project belongs to
+         * Company and parent account
          */
         companyId: {
             type: ObjectId, ref: 'company'
+        },
+        parentId: {
+            type: ObjectId, ref: 'account'
         },
         /**
          * Name, alias, slogan and note

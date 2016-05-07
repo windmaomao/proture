@@ -16,7 +16,7 @@ module.exports = {
         category: 'string',
         rating: 'integer',
         startYear: 'integer',
-        childTechs: { type: '' },
+        subTechs: { type: '' },
         updates: { type: 'referenced_list' },
         createdAt: 'date',
         updatedAt: 'date'
@@ -54,8 +54,8 @@ module.exports = {
                 dir: 'DESC'
             }
         },
-        childTechs: {
-            label: 'Child Techs',
+        subTechs: {
+            label: 'Sub Techs',
             type: 'referenced_list',
             targetEntity: 'tech',
             targetReferenceField: 'parentId',
@@ -96,7 +96,7 @@ module.exports = {
         title: 'name',
         fields: [
             '_id',
-            'name', 'slogan', 'category', 'parentId', 'childTechs',
+            'name', 'slogan', 'category', 'parentId', 'subTechs',
             'startYear', 'rating', 'updates',
             'createdAt', 'updatedAt'
         ]

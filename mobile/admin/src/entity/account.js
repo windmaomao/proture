@@ -12,12 +12,14 @@ module.exports = {
     model: {
         _id: { type: 'id' },
         companyId: { type: 'id', ref: 'company'},
+        parentId: { type: 'id', ref: 'account'},
         name: { type: 'string', required: true },
         number: 'string',
         type: 'string',
         description: 'text',
         active: 'boolean',
         rating: 'integer',
+        subAccounts: { type: 'referenced_list' },
         transactions: { type: 'referenced_list' },
         statements: { type: 'referenced_list' },
         createdAt: 'datetime',
@@ -41,17 +43,31 @@ module.exports = {
             },
             pinned: true
         },
-        // techIds: {
-        //     field: 'techIds',
-        //     type: 'reference_many',
-        //     label: 'Techs',
-        //     targetEntity: 'tech',
-        //     targetField: 'name',
-        //     sort: {
-        //         field: 'name',
-        //         dir: 'ASC'
-        //     }
-        // },
+        parentId: {
+            field: 'parentId',
+            type: 'reference',
+            targetEntity: 'account',
+            targetField: 'name',
+            label: 'Parent',
+            perPage: 1000,
+            sort: {
+                field: 'name',
+                dir: 'ASC'
+            },
+            pinned: true
+        },
+        subAccounts: {
+            type: 'referenced_list',
+            label: 'Sub Accounts',
+            targetEntity: 'account',
+            targetReferenceField: 'parentId',
+            targetFields: ['name', 'number', 'rating'],
+            sort: {
+                field: 'name',
+                dir: 'ASC'
+            },
+            perPage: 100,
+        },
         transactions: {
             type: 'referenced_list',
             label: 'Transactions',
@@ -91,7 +107,7 @@ module.exports = {
     default: {
         fields: [
             'active',
-            'companyId', 'name', 'type', 'number', 'rating',
+            'companyId', 'parentId', 'name', 'type', 'number', 'rating',
         ],
     },
     list: {
@@ -103,7 +119,8 @@ module.exports = {
     },
     creation: {
         fields: [
-            'companyId', 'name', 'number', 'type',
+            'companyId', 'parentId',
+            'name', 'number', 'type',
             'description', 'active',
             'rating', 'createdAt'
         ]
@@ -113,14 +130,14 @@ module.exports = {
         title: 'name',
         fields: [
             '_id',
-            'companyId', 'name', 'number', 'type', 'description',
-            'active', 'rating', 'transactions', 'statements',
+            'companyId', 'parentId', 'name', 'number', 'type', 'description',
+            'active', 'rating', 'subAccounts', 'transactions', 'statements',
             'createdAt', 'updatedAt'
         ]
     },
     search: {
         fields: [
-            'companyId', 'active', 'rating', 'type'
+            'companyId', 'active', 'rating', 'type', 'parentId',
         ]
     },
 };
