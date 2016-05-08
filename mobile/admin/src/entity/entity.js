@@ -57,7 +57,7 @@ module.exports = {
     id: '_id',
     default: {
         fields: [
-            'projectId', 'parentId', 'name', 'slogan',
+            'projectId', 'name', 'slogan',
         ],
     },
     list: {

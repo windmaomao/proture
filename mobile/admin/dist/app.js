@@ -432,7 +432,7 @@
 	    id: '_id',
 	    default: {
 	        fields: [
-	            'projectId', 'parentId', 'name', 'slogan',
+	            'projectId', 'name', 'slogan',
 	        ],
 	    },
 	    list: {
@@ -1655,8 +1655,8 @@
 	    creation: {
 	        fields: [
 	            'accountId',
-	            'title', 'durationType', 'durationDate',
-	            'net', 'contribution', 'balance',
+	            'durationType', 'durationDate',
+	            'net', 'contribution', 'balance', 'title'
 	        ]
 	    },
 	    edition: {},
@@ -1665,8 +1665,8 @@
 	        fields: [
 	            '_id',
 	            'accountId',
-	            'title', 'durationType', 'durationDate',
-	            'net', 'contribution', 'balance',
+	            'durationType', 'durationDate',
+	            'net', 'contribution', 'balance', 'title',
 	            'createdAt', 'updatedAt'
 	        ]
 	    },

@@ -113,8 +113,8 @@ module.exports = {
     creation: {
         fields: [
             'accountId',
-            'title', 'durationType', 'durationDate',
-            'net', 'contribution', 'balance',
+            'durationType', 'durationDate',
+            'net', 'contribution', 'balance', 'title'
         ]
     },
     edition: {},
@@ -123,8 +123,8 @@ module.exports = {
         fields: [
             '_id',
             'accountId',
-            'title', 'durationType', 'durationDate',
-            'net', 'contribution', 'balance',
+            'durationType', 'durationDate',
+            'net', 'contribution', 'balance', 'title',
             'createdAt', 'updatedAt'
         ]
     },
