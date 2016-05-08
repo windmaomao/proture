@@ -39,13 +39,21 @@ module.exports = {
         collection: 'account',
         versionKey: false,
         timestamps: {},
-        runValidators: false
+        runValidators: false,
+        // toJSON: { virtuals: true },
+        // populate: 'companyId',
     },
     methods: {},
     indexes: {
         companyId: true,
         active: true,
         rating: true,
+        type: true,
     },
-    virtuals: {}
+    virtuals: {},
+    populates: {
+        companyId: 'company'
+    },
+    hooks: {},
+    projections: {}
 }

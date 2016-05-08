@@ -12,8 +12,10 @@ module.exports = {
     model: {
         _id: { type: 'id' },
         companyId: { type: 'id', ref: 'company'},
+        'company.name': 'string',
         parentId: { type: 'id', ref: 'account'},
         name: { type: 'string', required: true },
+        // referenceName: 'string',
         number: 'string',
         type: 'string',
         description: 'text',
@@ -30,6 +32,17 @@ module.exports = {
             type: 'string',
             detailRoute: 'show'
         },
+        'company.name': {
+            label: 'Company',
+        },
+        // referenceName: {
+        //     field: 'name',
+        //     map: function(value, entry) {
+        //         console.log(entry);
+        //         return entry['company.name'] + ': ' +
+        //             entry.name + ' (' + entry.type + ')';
+        //     }
+        // },
         companyId: {
             field: 'companyId',
             type: 'reference',
@@ -131,6 +144,7 @@ module.exports = {
             '_id',
             'companyId', 'parentId', 'name', 'number', 'type', 'description',
             'active', 'rating', 'subAccounts', 'transactions', 'statements',
+            // 'referenceName',
             'createdAt', 'updatedAt'
         ]
     },
