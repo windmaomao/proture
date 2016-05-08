@@ -10,7 +10,7 @@ module.exports = {
     model: {
         _id: { type: 'id' },
         projectId: { type: 'id', ref: 'project' },
-        project: 'json',
+        parentId: { type: 'id', ref: 'entity' },
         name: { type: 'string', required: true },
         slogan: 'string',
         description: 'text',
@@ -23,12 +23,26 @@ module.exports = {
             detailRoute: 'show',
         },
         projectId: {
-            field: 'projectId',
             label: 'Project',
             type: 'reference',
             targetEntity: 'project',
             targetField: 'name',
-            perPage: 100,
+            perPage: 1000,
+            sort: {
+                field: 'name',
+                dir: 'ASC'
+            },
+            pinned: true,
+        },
+        parentId: {
+            label: 'Parent',
+            type: 'reference',
+            targetEntity: 'entity',
+            targetField: 'name',
+            targetFieldMap: function(value, entry) {
+                return entry['project.name'] + ': ' + entry.name;
+            },
+            perPage: 1000,
             sort: {
                 field: 'name',
                 dir: 'ASC'
@@ -43,7 +57,7 @@ module.exports = {
     id: '_id',
     default: {
         fields: [
-            'projectId', 'name', 'slogan',
+            'projectId', 'parentId', 'name', 'slogan',
         ],
     },
     list: {
@@ -54,7 +68,7 @@ module.exports = {
     },
     creation: {
         fields: [
-            'projectId', 'name', 'slogan', 'description', 'createdAt'
+            'projectId', 'parentId', 'name', 'slogan', 'description', 'createdAt'
         ]
     },
     edition: {},
@@ -68,7 +82,7 @@ module.exports = {
     },
     search: {
         fields: [
-            'projectId', 'name'
+            'projectId', 'name', 'parentId'
         ]
     },
 };
