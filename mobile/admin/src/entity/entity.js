@@ -47,7 +47,7 @@ module.exports = {
                 field: 'name',
                 dir: 'ASC'
             },
-            pinned: true,
+            // pinned: true,
         },
         createdAt: {
             label: 'Created',
@@ -57,7 +57,7 @@ module.exports = {
     id: '_id',
     default: {
         fields: [
-            'projectId', 'name', 'slogan',
+            'projectId', 'name', 'slogan', 'createdAt'
         ],
     },
     list: {

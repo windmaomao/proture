@@ -23,6 +23,7 @@ module.exports = {
         techIds: { type: 'reference_many' },
         updates: { type: 'referenced_list' },
         members: { type: 'referenced_list' },
+        entities: { type: 'referenced_list' },
         createdAt: 'datetime',
         updatedAt: 'datetime'
     },
@@ -64,7 +65,7 @@ module.exports = {
             label: 'Updates',
             targetEntity: 'update',
             targetReferenceField: 'projectId',
-            targetFields: ['title', 'techId', 'rating'],
+            targetFields: ['title', 'techId', 'rating', 'createdAt'],
             sort: {
                 field: 'createdAt',
                 dir: 'DESC'
@@ -75,7 +76,17 @@ module.exports = {
             type: 'referenced_list',
             targetEntity: 'member',
             targetReferenceField: 'projectId',
-            targetFields: ['contactId', 'title', 'rating'],
+            targetFields: ['contactId', 'title', 'rating', 'createdAt'],
+            sort: {
+                field: 'createdAt',
+                dir: 'DESC'
+            }
+        },
+        entities: {
+            type: 'referenced_list',
+            targetEntity: 'entity',
+            targetReferenceField: 'projectId',
+            targetFields: ['parentId', 'name', 'slogan', 'createdAt'],
             sort: {
                 field: 'createdAt',
                 dir: 'DESC'
@@ -121,7 +132,7 @@ module.exports = {
         fields: [
             'companyId', 'name', 'alias', 'slogan', 'url',
             'description', 'active', 'techIds',
-            'rating', 'durationMonth', 'teamSize',
+            'rating', 'durationMonth',
             'createdAt', 'startYear'
         ]
     },
@@ -132,7 +143,7 @@ module.exports = {
             '_id',
             'companyId', 'name', 'alias', 'slogan', 'description', 'active',
             'techIds', 'updates',
-            'rating', 'startYear', 'durationMonth', 'teamSize', 'members',
+            'rating', 'startYear', 'durationMonth', 'members', 'entities',
             'createdAt', 'updatedAt'
         ]
     },
