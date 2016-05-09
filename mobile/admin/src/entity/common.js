@@ -40,4 +40,11 @@ module.exports = {
         { label: 'Dislike', value: '0' },
         { label: 'No take', value: '-1' },
     ],
+    methods: [
+        { label: 'GET', value: 'GET' },
+        { label: 'POST', value: 'POST' },
+        { label: 'PUT', value: 'PUT' },
+        { label: 'PATCH', value: 'PATCH' },
+        { label: 'DELETE', value: 'DEL' },
+    ]
 };

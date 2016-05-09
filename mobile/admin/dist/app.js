@@ -373,6 +373,13 @@
 	        { label: 'Dislike', value: '0' },
 	        { label: 'No take', value: '-1' },
 	    ],
+	    methods: [
+	        { label: 'GET', value: 'GET' },
+	        { label: 'POST', value: 'POST' },
+	        { label: 'PUT', value: 'PUT' },
+	        { label: 'PATCH', value: 'PATCH' },
+	        { label: 'DELETE', value: 'DEL' },
+	    ]
 	};
 
 
@@ -941,7 +948,7 @@
 
 /***/ },
 /* 10 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Project route module
@@ -949,6 +956,8 @@
 	 * @date 04/24/16
 	 * @author Fang Jin <windmaomao@gmail.com>
 	*/
+
+	var common = __webpack_require__(4);
 
 	module.exports = {
 	    entity: 'route',
@@ -958,6 +967,7 @@
 	        entityId: { type: 'id', ref: 'entity'},
 	        action: { type: 'string', required: true },
 	        method: 'string',
+	        title: 'string',
 	        description: 'string',
 	        draft: 'boolean',
 	        createdAt: 'datetime',
@@ -967,6 +977,10 @@
 	        action: {
 	            type: 'string',
 	            detailRoute: 'show'
+	        },
+	        method: {
+	            type: 'choice',
+	            choices: common.methods,
 	        },
 	        projectId: {
 	            field: 'projectId',
@@ -1008,7 +1022,7 @@
 	    id: '_id',
 	    default: {
 	        fields: [
-	            'entityId', 'action', 'method', 'description',
+	            'entityId', 'action', 'method', 'title',
 	        ],
 	    },
 	    list: {
@@ -1020,7 +1034,7 @@
 	    },
 	    creation: {
 	        fields: [
-	            'projectId', 'entityId', 'action', 'method', 'description',
+	            'projectId', 'entityId', 'action', 'method', 'title', 'description',
 	            'draft', 'createdAt',
 	        ]
 	    },
@@ -1029,7 +1043,8 @@
 	        title: 'name',
 	        fields: [
 	            '_id',
-	            'projectId', 'entityId', 'action', 'method', 'description', 'draft',
+	            'projectId', 'entityId', 'action', 'method',
+	            'title', 'description', 'draft',
 	            'createdAt', 'updatedAt'
 	        ]
 	    },

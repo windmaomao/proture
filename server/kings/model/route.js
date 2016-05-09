@@ -24,6 +24,7 @@ module.exports = {
         },
         action: { type: String, required: true },
         method: String,
+        title: String,
         description: String,
         /**
          * Attibute

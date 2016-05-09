@@ -5,6 +5,8 @@
  * @author Fang Jin <windmaomao@gmail.com>
 */
 
+var common = require('./common');
+
 module.exports = {
     entity: 'route',
     model: {
@@ -13,6 +15,7 @@ module.exports = {
         entityId: { type: 'id', ref: 'entity'},
         action: { type: 'string', required: true },
         method: 'string',
+        title: 'string',
         description: 'string',
         draft: 'boolean',
         createdAt: 'datetime',
@@ -22,6 +25,10 @@ module.exports = {
         action: {
             type: 'string',
             detailRoute: 'show'
+        },
+        method: {
+            type: 'choice',
+            choices: common.methods,
         },
         projectId: {
             field: 'projectId',
@@ -63,7 +70,7 @@ module.exports = {
     id: '_id',
     default: {
         fields: [
-            'entityId', 'action', 'method', 'description',
+            'entityId', 'action', 'method', 'title',
         ],
     },
     list: {
@@ -75,7 +82,7 @@ module.exports = {
     },
     creation: {
         fields: [
-            'projectId', 'entityId', 'action', 'method', 'description',
+            'projectId', 'entityId', 'action', 'method', 'title', 'description',
             'draft', 'createdAt',
         ]
     },
@@ -84,7 +91,8 @@ module.exports = {
         title: 'name',
         fields: [
             '_id',
-            'projectId', 'entityId', 'action', 'method', 'description', 'draft',
+            'projectId', 'entityId', 'action', 'method',
+            'title', 'description', 'draft',
             'createdAt', 'updatedAt'
         ]
     },
