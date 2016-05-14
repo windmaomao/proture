@@ -113,7 +113,31 @@
 	        transaction: requireEntity('transaction'),
 	        statement: requireEntity('statement'),
 	    },
-	    routes: false
+	    routes: [
+	        // {
+	        //     title: 'User',
+	        //     icon: 'user',
+	        //     items: ['user']
+	        // },
+	        {
+	            title: 'Entity',
+	            icon: 'tower',
+	            items: ['company', 'contact', 'tech']
+	        },
+	        {
+	            title: 'Project',
+	            icon: 'briefcase',
+	            items: [
+	                'project', 'update', 'showcase', 'task',
+	                'member', 'entity', 'route'
+	            ]
+	        },
+	        {
+	            title: 'Account',
+	            icon: 'piggy-bank',
+	            items: ['account', 'statement', 'transaction']
+	        }
+	    ]
 	};
 
 
@@ -467,7 +491,8 @@
 	        ],
 	    },
 	    list: {
-	        title: 'Company List',
+	        title: 'Company',
+	        description: 'Company basic info, such as name, rating, revenue and start year.',
 	        actions: ['edit'],
 	        fields: [
 	            'active',
@@ -560,6 +585,8 @@
 	        ],
 	    },
 	    list: {
+	        title: 'Contact',
+	        description: 'Contact people info, position, phone and rating etc.',
 	        actions: ['edit'],
 	        fields: [
 	            'fullname', 'title', 'phone', 'rating', 'url'
@@ -1474,7 +1501,8 @@
 	        ],
 	    },
 	    list: {
-	        title: 'Tech List',
+	        title: 'Tech',
+	        description: 'Tech that powers projects, with their name, category and rating.',
 	        actions: ['edit'],
 	        sort: {
 	            field: 'name',

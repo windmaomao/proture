@@ -1,22 +1,12 @@
+var routes = require('./route');
+
 module.exports = {
     port: 7929,
+    log: 'info',
+    passport: 'local',
     mongo: 'mongodb://localhost/proture',
     prefix: '/v1',
     model: __dirname + '/../model',
     controller: __dirname + '/../controller',
-    routes: {
-        company: {},
-        project: {},
-        update: {},
-        tech: {},
-        showcase: {},
-        entity: {},
-        contact: {},
-        member: {},
-        route: {},
-        task: {},
-        account: {},
-        transaction: {},
-        statement: {},
-    }
+    routes: routes
 }

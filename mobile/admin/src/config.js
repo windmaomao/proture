@@ -41,5 +41,29 @@ module.exports = {
         transaction: requireEntity('transaction'),
         statement: requireEntity('statement'),
     },
-    routes: false
+    routes: [
+        // {
+        //     title: 'User',
+        //     icon: 'user',
+        //     items: ['user']
+        // },
+        {
+            title: 'Entity',
+            icon: 'tower',
+            items: ['company', 'contact', 'tech']
+        },
+        {
+            title: 'Project',
+            icon: 'briefcase',
+            items: [
+                'project', 'update', 'showcase', 'task',
+                'member', 'entity', 'route'
+            ]
+        },
+        {
+            title: 'Account',
+            icon: 'piggy-bank',
+            items: ['account', 'statement', 'transaction']
+        }
+    ]
 };

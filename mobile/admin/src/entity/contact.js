@@ -56,6 +56,8 @@ module.exports = {
         ],
     },
     list: {
+        title: 'Contact',
+        description: 'Contact people info, position, phone and rating etc.',
         actions: ['edit'],
         fields: [
             'fullname', 'title', 'phone', 'rating', 'url'

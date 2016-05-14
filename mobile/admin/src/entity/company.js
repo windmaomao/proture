@@ -78,7 +78,8 @@ module.exports = {
         ],
     },
     list: {
-        title: 'Company List',
+        title: 'Company',
+        description: 'Company basic info, such as name, rating, revenue and start year.',
         actions: ['edit'],
         fields: [
             'active',
