@@ -14,6 +14,7 @@ var requireEntity = function(name) {
 module.exports = {
     site: 'Proture',
     url: '/v1/',
+    auth: true,
     rest: {
         url: '/v1/',
         filter: 'q',
@@ -40,13 +41,9 @@ module.exports = {
         account: requireEntity('account'),
         transaction: requireEntity('transaction'),
         statement: requireEntity('statement'),
+        user: requireEntity('user'),
     },
     routes: [
-        // {
-        //     title: 'User',
-        //     icon: 'user',
-        //     items: ['user']
-        // },
         {
             title: 'Entity',
             icon: 'tower',
@@ -64,6 +61,11 @@ module.exports = {
             title: 'Account',
             icon: 'piggy-bank',
             items: ['account', 'statement', 'transaction']
-        }
+        },
+        {
+            title: 'User',
+            icon: 'user',
+            items: ['user']
+        },
     ]
 };
