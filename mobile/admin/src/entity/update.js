@@ -86,6 +86,8 @@ module.exports = {
         ],
     },
     list: {
+        title: 'Update',
+        description: 'Project updates on tech, entity or general notes etc.',
         actions: ['edit'],
         sort: {
             field: 'createdAt',

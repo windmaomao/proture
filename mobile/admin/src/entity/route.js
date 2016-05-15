@@ -74,6 +74,8 @@ module.exports = {
         ],
     },
     list: {
+        title: 'Route',
+        description: 'Project routes associating project entity and its actions.',
         actions: ['edit'],
         sort: {
             field: 'entityId',

@@ -61,6 +61,8 @@ module.exports = {
         ],
     },
     list: {
+        title: 'Entity',
+        description: 'Project entity for each project area with short description.',
         sort: {
             field: 'createdAt',
             dir: 'DESC'

@@ -51,6 +51,8 @@ module.exports = {
         ],
     },
     list: {
+        title: 'Showcase',
+        description: 'Project showcase pictures.',
         sort: {
             field: 'createdAt',
             dir: 'DESC'

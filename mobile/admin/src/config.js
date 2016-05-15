@@ -47,25 +47,36 @@ module.exports = {
         {
             title: 'Entity',
             icon: 'tower',
-            items: ['company', 'contact', 'tech']
+            items: [
+                'company',
+                'contact',
+                // 'stock',
+                'tech',
+                'user'
+            ]
         },
         {
             title: 'Project',
             icon: 'briefcase',
             items: [
-                'project', 'update', 'showcase', 'task',
-                'member', 'entity', 'route'
+                'entity',
+                'member',
+                'project',
+                'route',
+                'showcase',
+                'task',
+                'update',
             ]
         },
         {
             title: 'Account',
             icon: 'piggy-bank',
-            items: ['account', 'statement', 'transaction']
-        },
-        {
-            title: 'User',
-            icon: 'user',
-            items: ['user']
+            items: [
+                'account',
+                // 'price',
+                'statement',
+                'transaction'
+            ]
         },
     ]
 };

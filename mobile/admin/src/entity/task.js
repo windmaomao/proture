@@ -69,6 +69,8 @@ module.exports = {
         ],
     },
     list: {
+        title: 'Task',
+        description: 'Project task with title and description etc.',
         actions: ['edit'],
         sort: {
             field: 'createdAt',

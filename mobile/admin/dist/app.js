@@ -119,25 +119,36 @@
 	        {
 	            title: 'Entity',
 	            icon: 'tower',
-	            items: ['company', 'contact', 'tech']
+	            items: [
+	                'company',
+	                'contact',
+	                // 'stock',
+	                'tech',
+	                'user'
+	            ]
 	        },
 	        {
 	            title: 'Project',
 	            icon: 'briefcase',
 	            items: [
-	                'project', 'update', 'showcase', 'task',
-	                'member', 'entity', 'route'
+	                'entity',
+	                'member',
+	                'project',
+	                'route',
+	                'showcase',
+	                'task',
+	                'update',
 	            ]
 	        },
 	        {
 	            title: 'Account',
 	            icon: 'piggy-bank',
-	            items: ['account', 'statement', 'transaction']
-	        },
-	        {
-	            title: 'User',
-	            icon: 'user',
-	            items: ['user']
+	            items: [
+	                'account',
+	                // 'price',
+	                'statement',
+	                'transaction'
+	            ]
 	        },
 	    ]
 	};
@@ -685,6 +696,8 @@
 	        ],
 	    },
 	    list: {
+	        title: 'Entity',
+	        description: 'Project entity for each project area with short description.',
 	        sort: {
 	            field: 'createdAt',
 	            dir: 'DESC'
@@ -786,6 +799,8 @@
 	        ],
 	    },
 	    list: {
+	        title: 'Member',
+	        description: 'Members of project with their titles and ratings.',
 	        actions: ['edit'],
 	        sort: {
 	            field: 'createdAt',
@@ -943,7 +958,8 @@
 	        ],
 	    },
 	    list: {
-	        title: 'Project List',
+	        title: 'Project',
+	        description: 'Company project with name, techs and website info etc.',
 	        actions: ['edit'],
 	        sort: {
 	            field: 'name',
@@ -1057,6 +1073,8 @@
 	        ],
 	    },
 	    list: {
+	        title: 'Route',
+	        description: 'Project routes associating project entity and its actions.',
 	        actions: ['edit'],
 	        sort: {
 	            field: 'entityId',
@@ -1144,6 +1162,8 @@
 	        ],
 	    },
 	    list: {
+	        title: 'Showcase',
+	        description: 'Project showcase pictures.',
 	        sort: {
 	            field: 'createdAt',
 	            dir: 'DESC'
@@ -1385,6 +1405,8 @@
 	        ],
 	    },
 	    list: {
+	        title: 'Task',
+	        description: 'Project task with title and description etc.',
 	        actions: ['edit'],
 	        sort: {
 	            field: 'createdAt',
@@ -1506,7 +1528,7 @@
 	    },
 	    list: {
 	        title: 'Tech',
-	        description: 'Tech that powers projects, with their name, category and rating.',
+	        description: 'Technology software or tool, with name, category and rating etc.',
 	        actions: ['edit'],
 	        sort: {
 	            field: 'name',
@@ -1710,6 +1732,8 @@
 	        ],
 	    },
 	    list: {
+	        title: 'Update',
+	        description: 'Project updates on tech, entity or general notes etc.',
 	        actions: ['edit'],
 	        sort: {
 	            field: 'createdAt',

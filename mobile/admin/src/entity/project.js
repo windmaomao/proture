@@ -121,7 +121,8 @@ module.exports = {
         ],
     },
     list: {
-        title: 'Project List',
+        title: 'Project',
+        description: 'Company project with name, techs and website info etc.',
         actions: ['edit'],
         sort: {
             field: 'name',

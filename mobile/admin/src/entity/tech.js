@@ -84,7 +84,7 @@ module.exports = {
     },
     list: {
         title: 'Tech',
-        description: 'Tech that powers projects, with their name, category and rating.',
+        description: 'Technology software or tool, with name, category and rating etc.',
         actions: ['edit'],
         sort: {
             field: 'name',

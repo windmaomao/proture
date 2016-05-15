@@ -68,6 +68,8 @@ module.exports = {
         ],
     },
     list: {
+        title: 'Member',
+        description: 'Members of project with their titles and ratings.',
         actions: ['edit'],
         sort: {
             field: 'createdAt',
