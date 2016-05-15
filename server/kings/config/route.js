@@ -13,4 +13,6 @@ module.exports = {
     account: {},
     transaction: {},
     statement: {},
+    stock: {},
+    price: {},
 };
