@@ -18,7 +18,8 @@ module.exports = {
          */
         stockId: { type: ObjectId, ref: 'stock' },
         price: Number,
-        title: String
+        title: String,
+        status: String,
     },
     options: {
         collection: 'price',
@@ -29,6 +30,7 @@ module.exports = {
     methods: {},
     indexes: {
         stockId: true,
+        status: true,
     },
     virtuals: {}
 }

@@ -46,5 +46,10 @@ module.exports = {
         { label: 'PUT', value: 'PUT' },
         { label: 'PATCH', value: 'PATCH' },
         { label: 'DELETE', value: 'DEL' },
+    ],
+    priceStatus: [
+        { label: 'Bull ^', value: 'bull' },
+        { label: 'Bear V', value: 'bear' },
+        { label: 'Flat -', value: 'flat' },
     ]
 };

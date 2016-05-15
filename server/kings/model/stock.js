@@ -23,6 +23,7 @@ module.exports = {
         slogan: String,
         description: String,
         startYear: Number,
+        rating: Number,
     },
     options: {
         collection: 'stock',
@@ -35,6 +36,7 @@ module.exports = {
         symbol: true,
         category: true,
         startYear: true,
+        rating: true,
     },
     virtuals: {}
 }

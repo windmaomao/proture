@@ -114,6 +114,8 @@
 	        transaction: requireEntity('transaction'),
 	        statement: requireEntity('statement'),
 	        user: requireEntity('user'),
+	        stock: requireEntity('stock'),
+	        price: requireEntity('price'),
 	    },
 	    routes: [
 	        {
@@ -122,7 +124,7 @@
 	            items: [
 	                'company',
 	                'contact',
-	                // 'stock',
+	                'stock',
 	                'tech',
 	                'user'
 	            ]
@@ -145,7 +147,7 @@
 	            icon: 'piggy-bank',
 	            items: [
 	                'account',
-	                // 'price',
+	                'price',
 	                'statement',
 	                'transaction'
 	            ]
@@ -171,6 +173,8 @@
 		"./entity.js": 7,
 		"./member": 8,
 		"./member.js": 8,
+		"./price": 21,
+		"./price.js": 21,
 		"./project": 9,
 		"./project.js": 9,
 		"./route": 10,
@@ -179,6 +183,8 @@
 		"./showcase.js": 11,
 		"./statement": 12,
 		"./statement.js": 12,
+		"./stock": 20,
+		"./stock.js": 20,
 		"./task": 13,
 		"./task.js": 13,
 		"./tech": 14,
@@ -418,6 +424,11 @@
 	        { label: 'PUT', value: 'PUT' },
 	        { label: 'PATCH', value: 'PATCH' },
 	        { label: 'DELETE', value: 'DEL' },
+	    ],
+	    priceStatus: [
+	        { label: 'Bull ^', value: 'bull' },
+	        { label: 'Bear V', value: 'bear' },
+	        { label: 'Flat -', value: 'flat' },
 	    ]
 	};
 
@@ -1878,6 +1889,161 @@
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"row\">\n    <div class=\"col-lg-12\">\n        <div class=\"page-header\">\n            <h1>Welcome to QPLOT Proture</h1>\n        </div>\n    </div>\n</div>\n\n<div class=\"row\">\n    <div class=\"col-lg-12\">\n        <small>Company, Project and Update</small>\n\n        <h2>Todos</h2>\n        <p>\n            <ul>\n                <li>Add gross income field to company</li>\n                <li>Model payment</li>\n                <li>Add ratings field to company and project</li>\n                <li>Add slogan field to project</li>\n            </ul>\n        </p>\n\n        <h2>Company</h2>\n\n        <p>\n        List of companies in the past, including .\n        </p>\n\n        <p>\n        The rest service should be highly scalable and always available (meaning load balanced and likely running on a couple of machines).\n\n        </p>\n\n        <h2>Project</h2>\n\n        <p>\n        As a developer, I want to evaluate events, identifying start and end points, creating notifications when an end point is reached. The event evaluator will correlate events using the app/subsystem/event name /correlation id (key) by running a mongo aggregation script that will poll the database looking for sets of correlated events that are not 'complete'.\n        </p>\n        <p>\n        The standard evaluation process will be setup as a pipeline of evaluators (probably derived from a standard class). Each evaluator in the pipeline will look at event and optionally emit a notification and  pass the event on to the next evaluator if the event is not fully handed by this evaluator.\n        </p>\n        <p>\n        At the end of the pipeline, a default evaluator will handle any event not handled by an upstream evaluator. The default evaluator will look for end points and when found will emit a default notification (sample below) and mark all correlated events in mongo as 'complete'.\n        </p>\n\n        <h2>Update:</h2>\n\n        <p>\n        As a user I've used the subscription UI to subscribe to certain notifications and have specified way to deliver the notification.\n        </p>\n        <p>\n        To determine if a notification has subscriptions and needs to be published, the subscription process will scan for new notifications i.e. have been saved since the last scan. For each new notification found the subscription process will scan the subscriptions collection and if a match is found write the notification to a separate collection -  subscriptedNotifications so they can be shown on the UI and optionally published to a user's email, etc.\n        </p>\n        <p>\n        The docs in the subscriptedNotifications collection will contain the base notification information along with the user id of the subscribed user. (We might be able to save an array of subscribed user ids and save some inserts for popular notifications. It will depend on how we are able to search arrays).\n        </p>\n\n    </div>\n</div>\n"
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Stock entity module
+	 *
+	 * @date 5/15/16
+	 * @author Fang Jin <windmaomao@gmail.com>
+	*/
+
+	var common = __webpack_require__(4);
+
+	module.exports = {
+	    entity: 'stock',
+	    model: {
+	        _id: { type: 'id' },
+	        name: { type: 'string', detailRoute: 'show' },
+	        symbol: 'string',
+	        sector: 'string',
+	        category: 'string',
+	        slogan: 'string',
+	        description: 'string',
+	        startYear: 'integer',
+	        rating: { type: 'integer', format: 'rating' },
+	        createdAt: { type: 'datetime', formatString: 'yyyy-MM-dd' },
+	        updatedAt: 'datetime'
+	    },
+	    fields: {
+	        createdAt: {
+	            label: 'Created',
+	        }
+	    },
+	    id: '_id',
+	    default: {
+	        fields: [
+	            'name', 'symbol', 'sector', 'category', 'slogan', 'startYear', 'rating',
+	        ],
+	    },
+	    list: {
+	        title: 'Stock',
+	        description: 'Stock in collection with name, sector and category etc.',
+	        actions: ['edit'],
+	        sort: {
+	            field: 'name',
+	            dir: 'ASC'
+	        }
+	    },
+	    creation: {
+	        fields: [
+	            'name', 'symbol', 'sector', 'category',
+	            'slogan', 'description',
+	            'startYear', 'rating',
+	            'createdAt'
+	        ]
+	    },
+	    edition: {},
+	    show: {
+	        title: 'name',
+	        fields: [
+	            '_id',
+	            'name', 'symbol', 'sector', 'category',
+	            'slogan', 'description',
+	            'startYear', 'rating',
+	            'createdAt', 'updatedAt'
+	        ]
+	    },
+	    search: {
+	        fields: [
+	            'name', 'symbol', 'sector', 'category',
+	            'startYear', 'rating',
+	        ]
+	    },
+	};
+
+
+/***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Stock price entity module
+	 *
+	 * @date 05/15/16
+	 * @author Fang Jin <windmaomao@gmail.com>
+	*/
+
+	var common = __webpack_require__(4);
+
+	module.exports = {
+	    entity: 'price',
+	    model: {
+	        _id: { type: 'id' },
+	        stockId: { type: 'id', ref: 'stock'},
+	        price: { type: 'number', format: '$0,0.00' },
+	        title: { type: 'string', detailRoute: 'show' },
+	        status: 'string',
+	        createdAt: { type: 'datetime', formatString: 'yyyy-MM-dd' },
+	        updatedAt: 'datetime'
+	    },
+	    fields: {
+	        stockId: {
+	            field: 'stockId',
+	            type: 'reference',
+	            targetEntity: 'stock',
+	            targetField: 'name',
+	            label: 'Stock',
+	            perPage: 1000,
+	            sort: {
+	                field: 'name',
+	                dir: 'ASC'
+	            },
+	            pinned: true
+	        },
+	        status: {
+	            type: 'choice',
+	            choices: common.priceStatus,
+	        },
+	        title: {
+	            label: 'Notes'
+	        },
+	    },
+	    id: '_id',
+	    default: {
+	        fields: [
+	            'stockId', 'price', 'status', 'title', 'createdAt',
+	        ],
+	    },
+	    list: {
+	        title: 'Price',
+	        description: 'Stock price with price and note.',
+	        actions: ['edit'],
+	        sort: {
+	            field: 'createdAt',
+	            dir: 'DESC'
+	        }
+	    },
+	    creation: {},
+	    edition: {},
+	    show: {
+	        title: 'title',
+	        fields: [
+	            '_id',
+	            'stockId', 'price', 'status', 'title', 'createdAt',
+	            'createdAt', 'updatedAt'
+	        ]
+	    },
+	    search: {
+	        fields: [
+	            'stockId', 'status',
+	        ]
+	    },
+	};
+
 
 /***/ }
 /******/ ]);

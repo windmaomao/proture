@@ -42,6 +42,8 @@ module.exports = {
         transaction: requireEntity('transaction'),
         statement: requireEntity('statement'),
         user: requireEntity('user'),
+        stock: requireEntity('stock'),
+        price: requireEntity('price'),
     },
     routes: [
         {
@@ -50,7 +52,7 @@ module.exports = {
             items: [
                 'company',
                 'contact',
-                // 'stock',
+                'stock',
                 'tech',
                 'user'
             ]
@@ -73,7 +75,7 @@ module.exports = {
             icon: 'piggy-bank',
             items: [
                 'account',
-                // 'price',
+                'price',
                 'statement',
                 'transaction'
             ]
