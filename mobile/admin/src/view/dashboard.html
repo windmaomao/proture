@@ -1,59 +1,103 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="page-header">
-            <h1>Welcome to QPLOT Proture</h1>
+            <h1>Proture <small>QPLOT Knowledgebase</small> </h1>
+            <p class="lead">
+                <span>
+                    Centralize company information in organized way.
+                </span>
+            </p>
         </div>
     </div>
 </div>
 
 <div class="row">
     <div class="col-lg-12">
-        <small>Company, Project and Update</small>
+        <div class="col-lg-4 col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                  <b>New item this week</b>
+              </div>
+              <div class="panel-body list-group">
+                    <li class="list-group-item">
+                      <span class="badge">2</span>
+                      Company
+                    </li>
 
-        <h2>Todos</h2>
-        <p>
-            <ul>
-                <li>Add gross income field to company</li>
-                <li>Model payment</li>
-                <li>Add ratings field to company and project</li>
-                <li>Add slogan field to project</li>
-            </ul>
-        </p>
+                    <li class="list-group-item">
+                      <span class="badge">8</span>
+                      Contact
+                    </li>
+              </div>
+            </div>
+        </div>
 
-        <h2>Company</h2>
+        <div class="col-lg-4 col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                  <b>Total items</b>
+              </div>
+              <div class="panel-body list-group">
+                    <li class="list-group-item">
+                      <span class="badge">2</span>
+                      Company
+                    </li>
 
-        <p>
-        List of companies in the past, including .
-        </p>
+                    <li class="list-group-item">
+                      <span class="badge">8</span>
+                      Contact
+                    </li>
 
-        <p>
-        The rest service should be highly scalable and always available (meaning load balanced and likely running on a couple of machines).
+                    <li class="list-group-item">
+                      <span class="badge">2</span>
+                      Stock
+                    </li>
 
-        </p>
+              </div>
+            </div>
+        </div>
 
-        <h2>Project</h2>
+        <div class="col-lg-4 col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                  <b>Top items</b>
+              </div>
+              <div class="panel-body">
+                  <table class="table table-hover">
+                      <!-- <thead>
+                        <tr>
+                          <th></th>
+                          <th>Items</th>
+                        </tr>
+                      </thead> -->
+                      <tbody>
+                        <tr>
+                          <td>Company</td>
+                          <td>
+                              <span class="label label-default">QPLOT</span>
+                              <span class="label label-default">PeopleDesigns</span>
+                              <span class="label label-default">Design Hammer</span>
+                          </td>
+                        </tr>
+                        <tr>
+                            <td>Contact</td>
+                            <td>
+                                <span class="label label-default">Fang Jin</span>
+                                <span class="label label-default">Zhengzheng Hu</span>
+                                <span class="label label-default">Design Hammer</span>
+                            </td>
+                        </tr>
+                        <tr>
+                          <td>July</td>
+                          <td>Dooley</td>
+                        </tr>
+                      </tbody>
+                    </table>
 
-        <p>
-        As a developer, I want to evaluate events, identifying start and end points, creating notifications when an end point is reached. The event evaluator will correlate events using the app/subsystem/event name /correlation id (key) by running a mongo aggregation script that will poll the database looking for sets of correlated events that are not 'complete'.
-        </p>
-        <p>
-        The standard evaluation process will be setup as a pipeline of evaluators (probably derived from a standard class). Each evaluator in the pipeline will look at event and optionally emit a notification and  pass the event on to the next evaluator if the event is not fully handed by this evaluator.
-        </p>
-        <p>
-        At the end of the pipeline, a default evaluator will handle any event not handled by an upstream evaluator. The default evaluator will look for end points and when found will emit a default notification (sample below) and mark all correlated events in mongo as 'complete'.
-        </p>
-
-        <h2>Update:</h2>
-
-        <p>
-        As a user I've used the subscription UI to subscribe to certain notifications and have specified way to deliver the notification.
-        </p>
-        <p>
-        To determine if a notification has subscriptions and needs to be published, the subscription process will scan for new notifications i.e. have been saved since the last scan. For each new notification found the subscription process will scan the subscriptions collection and if a match is found write the notification to a separate collection -  subscriptedNotifications so they can be shown on the UI and optionally published to a user's email, etc.
-        </p>
-        <p>
-        The docs in the subscriptedNotifications collection will contain the base notification information along with the user id of the subscribed user. (We might be able to save an array of subscribed user ids and save some inserts for popular notifications. It will depend on how we are able to search arrays).
-        </p>
-
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12">
     </div>
 </div>
