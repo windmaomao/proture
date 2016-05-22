@@ -8,5 +8,9 @@ module.exports = {
     prefix: '/v1',
     model: __dirname + '/../model',
     controller: __dirname + '/../controller',
-    routes: routes
+    scheduler: __dirname + '/../scheduler',
+    routes: routes,
+    schedules: {
+        hello: '1 minutes'
+    }
 }
