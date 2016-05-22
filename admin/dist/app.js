@@ -54,7 +54,7 @@
 	*/
 
 	var options = __webpack_require__(1);
-	var directive = __webpack_require__(18);
+	var directive = __webpack_require__(20);
 
 	angular
 	    .module('myApp', ['ng-admin-restify'])
@@ -173,28 +173,28 @@
 		"./entity.js": 7,
 		"./member": 8,
 		"./member.js": 8,
-		"./price": 21,
-		"./price.js": 21,
-		"./project": 9,
-		"./project.js": 9,
-		"./route": 10,
-		"./route.js": 10,
-		"./showcase": 11,
-		"./showcase.js": 11,
-		"./statement": 12,
-		"./statement.js": 12,
-		"./stock": 20,
-		"./stock.js": 20,
-		"./task": 13,
-		"./task.js": 13,
-		"./tech": 14,
-		"./tech.js": 14,
-		"./transaction": 15,
-		"./transaction.js": 15,
-		"./update": 16,
-		"./update.js": 16,
-		"./user": 17,
-		"./user.js": 17
+		"./price": 9,
+		"./price.js": 9,
+		"./project": 10,
+		"./project.js": 10,
+		"./route": 11,
+		"./route.js": 11,
+		"./showcase": 12,
+		"./showcase.js": 12,
+		"./statement": 13,
+		"./statement.js": 13,
+		"./stock": 14,
+		"./stock.js": 14,
+		"./task": 15,
+		"./task.js": 15,
+		"./tech": 16,
+		"./tech.js": 16,
+		"./transaction": 17,
+		"./transaction.js": 17,
+		"./update": 18,
+		"./update.js": 18,
+		"./user": 19,
+		"./user.js": 19
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -844,6 +844,85 @@
 
 /***/ },
 /* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Stock price entity module
+	 *
+	 * @date 05/15/16
+	 * @author Fang Jin <windmaomao@gmail.com>
+	*/
+
+	var common = __webpack_require__(4);
+
+	module.exports = {
+	    entity: 'price',
+	    model: {
+	        _id: { type: 'id' },
+	        stockId: { type: 'id', ref: 'stock'},
+	        price: { type: 'number', format: '$0,0.00' },
+	        title: { type: 'string', detailRoute: 'show' },
+	        status: 'string',
+	        createdAt: { type: 'datetime', formatString: 'yyyy-MM-dd' },
+	        updatedAt: 'datetime'
+	    },
+	    fields: {
+	        stockId: {
+	            field: 'stockId',
+	            type: 'reference',
+	            targetEntity: 'stock',
+	            targetField: 'name',
+	            label: 'Stock',
+	            perPage: 1000,
+	            sort: {
+	                field: 'name',
+	                dir: 'ASC'
+	            },
+	            pinned: true
+	        },
+	        status: {
+	            type: 'choice',
+	            choices: common.priceStatus,
+	        },
+	        title: {
+	            label: 'Notes'
+	        },
+	    },
+	    id: '_id',
+	    default: {
+	        fields: [
+	            'stockId', 'price', 'status', 'title', 'createdAt',
+	        ],
+	    },
+	    list: {
+	        title: 'Price',
+	        description: 'Stock price with price and note.',
+	        actions: ['edit'],
+	        sort: {
+	            field: 'createdAt',
+	            dir: 'DESC'
+	        }
+	    },
+	    creation: {},
+	    edition: {},
+	    show: {
+	        title: 'title',
+	        fields: [
+	            '_id',
+	            'stockId', 'price', 'status', 'title', 'createdAt',
+	            'createdAt', 'updatedAt'
+	        ]
+	    },
+	    search: {
+	        fields: [
+	            'stockId', 'status',
+	        ]
+	    },
+	};
+
+
+/***/ },
+/* 10 */
 /***/ function(module, exports) {
 
 	/**
@@ -1005,7 +1084,7 @@
 
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1117,7 +1196,7 @@
 
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports) {
 
 	/**
@@ -1200,7 +1279,7 @@
 
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1342,7 +1421,83 @@
 
 
 /***/ },
-/* 13 */
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Stock entity module
+	 *
+	 * @date 5/15/16
+	 * @author Fang Jin <windmaomao@gmail.com>
+	*/
+
+	var common = __webpack_require__(4);
+
+	module.exports = {
+	    entity: 'stock',
+	    model: {
+	        _id: { type: 'id' },
+	        name: { type: 'string', detailRoute: 'show' },
+	        symbol: 'string',
+	        sector: 'string',
+	        category: 'string',
+	        slogan: 'string',
+	        description: 'string',
+	        startYear: 'integer',
+	        rating: { type: 'integer', format: 'rating' },
+	        createdAt: { type: 'datetime', formatString: 'yyyy-MM-dd' },
+	        updatedAt: 'datetime'
+	    },
+	    fields: {
+	        createdAt: {
+	            label: 'Created',
+	        }
+	    },
+	    id: '_id',
+	    default: {
+	        fields: [
+	            'name', 'symbol', 'sector', 'category', 'slogan', 'startYear', 'rating',
+	        ],
+	    },
+	    list: {
+	        title: 'Stock',
+	        description: 'Stock in collection with name, sector and category etc.',
+	        actions: ['edit'],
+	        sort: {
+	            field: 'name',
+	            dir: 'ASC'
+	        }
+	    },
+	    creation: {
+	        fields: [
+	            'name', 'symbol', 'sector', 'category',
+	            'slogan', 'description',
+	            'startYear', 'rating',
+	            'createdAt'
+	        ]
+	    },
+	    edition: {},
+	    show: {
+	        title: 'name',
+	        fields: [
+	            '_id',
+	            'name', 'symbol', 'sector', 'category',
+	            'slogan', 'description',
+	            'startYear', 'rating',
+	            'createdAt', 'updatedAt'
+	        ]
+	    },
+	    search: {
+	        fields: [
+	            'name', 'symbol', 'sector', 'category',
+	            'startYear', 'rating',
+	        ]
+	    },
+	};
+
+
+/***/ },
+/* 15 */
 /***/ function(module, exports) {
 
 	/**
@@ -1450,7 +1605,7 @@
 
 
 /***/ },
-/* 14 */
+/* 16 */
 /***/ function(module, exports) {
 
 	/**
@@ -1566,7 +1721,7 @@
 
 
 /***/ },
-/* 15 */
+/* 17 */
 /***/ function(module, exports) {
 
 	/**
@@ -1652,7 +1807,7 @@
 
 
 /***/ },
-/* 16 */
+/* 18 */
 /***/ function(module, exports) {
 
 	/**
@@ -1776,7 +1931,7 @@
 
 
 /***/ },
-/* 17 */
+/* 19 */
 /***/ function(module, exports) {
 
 	/**
@@ -1846,7 +2001,7 @@
 
 
 /***/ },
-/* 18 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1856,7 +2011,7 @@
 	 * @author Fang Jin <windmaomao@gmail.com>
 	*/
 
-	var dashboardDirectiveTemplate = __webpack_require__(19);
+	var dashboardDirectiveTemplate = __webpack_require__(21);
 
 	var directive = {};
 
@@ -1885,165 +2040,10 @@
 
 
 /***/ },
-/* 19 */
+/* 21 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"row\">\n    <div class=\"col-lg-12\">\n        <div class=\"page-header\">\n            <h1>Proture <small>QPLOT Knowledgebase</small> </h1>\n            <p class=\"lead\">\n                <span>\n                    Centralize company information in organized way.\n                </span>\n            </p>\n        </div>\n    </div>\n</div>\n\n<div class=\"row\">\n    <div class=\"col-lg-12\">\n        <div class=\"col-lg-4 col-md-6\">\n            <div class=\"panel panel-default\">\n              <div class=\"panel-heading\">\n                  <b>New item this week</b>\n              </div>\n              <div class=\"panel-body list-group\">\n                    <li class=\"list-group-item\">\n                      <span class=\"badge\">2</span>\n                      Company\n                    </li>\n\n                    <li class=\"list-group-item\">\n                      <span class=\"badge\">8</span>\n                      Contact\n                    </li>\n              </div>\n            </div>\n        </div>\n\n        <div class=\"col-lg-4 col-md-6\">\n            <div class=\"panel panel-default\">\n              <div class=\"panel-heading\">\n                  <b>Total items</b>\n              </div>\n              <div class=\"panel-body list-group\">\n                    <li class=\"list-group-item\">\n                      <span class=\"badge\">2</span>\n                      Company\n                    </li>\n\n                    <li class=\"list-group-item\">\n                      <span class=\"badge\">8</span>\n                      Contact\n                    </li>\n\n                    <li class=\"list-group-item\">\n                      <span class=\"badge\">2</span>\n                      Stock\n                    </li>\n\n              </div>\n            </div>\n        </div>\n\n        <div class=\"col-lg-4 col-md-6\">\n            <div class=\"panel panel-default\">\n              <div class=\"panel-heading\">\n                  <b>Top items</b>\n              </div>\n              <div class=\"panel-body\">\n                  <table class=\"table table-hover\">\n                      <!-- <thead>\n                        <tr>\n                          <th></th>\n                          <th>Items</th>\n                        </tr>\n                      </thead> -->\n                      <tbody>\n                        <tr>\n                          <td>Company</td>\n                          <td>\n                              <span class=\"label label-default\">QPLOT</span>\n                              <span class=\"label label-default\">PeopleDesigns</span>\n                              <span class=\"label label-default\">Design Hammer</span>\n                          </td>\n                        </tr>\n                        <tr>\n                            <td>Contact</td>\n                            <td>\n                                <span class=\"label label-default\">Fang Jin</span>\n                                <span class=\"label label-default\">Zhengzheng Hu</span>\n                                <span class=\"label label-default\">Design Hammer</span>\n                            </td>\n                        </tr>\n                        <tr>\n                          <td>July</td>\n                          <td>Dooley</td>\n                        </tr>\n                      </tbody>\n                    </table>\n\n              </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"col-lg-12\">\n    </div>\n</div>\n"
-
-/***/ },
-/* 20 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Stock entity module
-	 *
-	 * @date 5/15/16
-	 * @author Fang Jin <windmaomao@gmail.com>
-	*/
-
-	var common = __webpack_require__(4);
-
-	module.exports = {
-	    entity: 'stock',
-	    model: {
-	        _id: { type: 'id' },
-	        name: { type: 'string', detailRoute: 'show' },
-	        symbol: 'string',
-	        sector: 'string',
-	        category: 'string',
-	        slogan: 'string',
-	        description: 'string',
-	        startYear: 'integer',
-	        rating: { type: 'integer', format: 'rating' },
-	        createdAt: { type: 'datetime', formatString: 'yyyy-MM-dd' },
-	        updatedAt: 'datetime'
-	    },
-	    fields: {
-	        createdAt: {
-	            label: 'Created',
-	        }
-	    },
-	    id: '_id',
-	    default: {
-	        fields: [
-	            'name', 'symbol', 'sector', 'category', 'slogan', 'startYear', 'rating',
-	        ],
-	    },
-	    list: {
-	        title: 'Stock',
-	        description: 'Stock in collection with name, sector and category etc.',
-	        actions: ['edit'],
-	        sort: {
-	            field: 'name',
-	            dir: 'ASC'
-	        }
-	    },
-	    creation: {
-	        fields: [
-	            'name', 'symbol', 'sector', 'category',
-	            'slogan', 'description',
-	            'startYear', 'rating',
-	            'createdAt'
-	        ]
-	    },
-	    edition: {},
-	    show: {
-	        title: 'name',
-	        fields: [
-	            '_id',
-	            'name', 'symbol', 'sector', 'category',
-	            'slogan', 'description',
-	            'startYear', 'rating',
-	            'createdAt', 'updatedAt'
-	        ]
-	    },
-	    search: {
-	        fields: [
-	            'name', 'symbol', 'sector', 'category',
-	            'startYear', 'rating',
-	        ]
-	    },
-	};
-
-
-/***/ },
-/* 21 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Stock price entity module
-	 *
-	 * @date 05/15/16
-	 * @author Fang Jin <windmaomao@gmail.com>
-	*/
-
-	var common = __webpack_require__(4);
-
-	module.exports = {
-	    entity: 'price',
-	    model: {
-	        _id: { type: 'id' },
-	        stockId: { type: 'id', ref: 'stock'},
-	        price: { type: 'number', format: '$0,0.00' },
-	        title: { type: 'string', detailRoute: 'show' },
-	        status: 'string',
-	        createdAt: { type: 'datetime', formatString: 'yyyy-MM-dd' },
-	        updatedAt: 'datetime'
-	    },
-	    fields: {
-	        stockId: {
-	            field: 'stockId',
-	            type: 'reference',
-	            targetEntity: 'stock',
-	            targetField: 'name',
-	            label: 'Stock',
-	            perPage: 1000,
-	            sort: {
-	                field: 'name',
-	                dir: 'ASC'
-	            },
-	            pinned: true
-	        },
-	        status: {
-	            type: 'choice',
-	            choices: common.priceStatus,
-	        },
-	        title: {
-	            label: 'Notes'
-	        },
-	    },
-	    id: '_id',
-	    default: {
-	        fields: [
-	            'stockId', 'price', 'status', 'title', 'createdAt',
-	        ],
-	    },
-	    list: {
-	        title: 'Price',
-	        description: 'Stock price with price and note.',
-	        actions: ['edit'],
-	        sort: {
-	            field: 'createdAt',
-	            dir: 'DESC'
-	        }
-	    },
-	    creation: {},
-	    edition: {},
-	    show: {
-	        title: 'title',
-	        fields: [
-	            '_id',
-	            'stockId', 'price', 'status', 'title', 'createdAt',
-	            'createdAt', 'updatedAt'
-	        ]
-	    },
-	    search: {
-	        fields: [
-	            'stockId', 'status',
-	        ]
-	    },
-	};
-
 
 /***/ }
 /******/ ]);
