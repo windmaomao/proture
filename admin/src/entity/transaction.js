@@ -33,6 +33,9 @@ module.exports = {
             type: 'reference',
             targetEntity: 'account',
             targetField: 'name',
+            targetFieldMap: function(value, entry) {
+                return entry["company.name"] + " " + value;
+            },
             perPage: 100,
             sort: {
                 field: 'name',

@@ -49,7 +49,7 @@ module.exports = {
             targetEntity: 'entity',
             targetField: 'name',
             targetFieldMap: function(value, entry) {
-                return entry["project.name"] + " / " + value;
+                return entry["project.name"] + " " + value;
             },
             label: 'Entity',
             perPage: 100,

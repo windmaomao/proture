@@ -35,14 +35,6 @@ module.exports = {
         'company.name': {
             label: 'Company',
         },
-        // referenceName: {
-        //     field: 'name',
-        //     map: function(value, entry) {
-        //         console.log(entry);
-        //         return entry['company.name'] + ': ' +
-        //             entry.name + ' (' + entry.type + ')';
-        //     }
-        // },
         companyId: {
             field: 'companyId',
             type: 'reference',
@@ -61,6 +53,9 @@ module.exports = {
             type: 'reference',
             targetEntity: 'account',
             targetField: 'name',
+            targetFieldMap: function(value, entry) {
+                return entry["company.name"] + " / " + value;
+            },
             label: 'Parent',
             perPage: 1000,
             sort: {

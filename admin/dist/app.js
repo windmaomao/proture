@@ -251,14 +251,6 @@
 	        'company.name': {
 	            label: 'Company',
 	        },
-	        // referenceName: {
-	        //     field: 'name',
-	        //     map: function(value, entry) {
-	        //         console.log(entry);
-	        //         return entry['company.name'] + ': ' +
-	        //             entry.name + ' (' + entry.type + ')';
-	        //     }
-	        // },
 	        companyId: {
 	            field: 'companyId',
 	            type: 'reference',
@@ -277,6 +269,9 @@
 	            type: 'reference',
 	            targetEntity: 'account',
 	            targetField: 'name',
+	            targetFieldMap: function(value, entry) {
+	                return entry["company.name"] + " / " + value;
+	            },
 	            label: 'Parent',
 	            perPage: 1000,
 	            sort: {
@@ -1138,7 +1133,7 @@
 	            targetEntity: 'entity',
 	            targetField: 'name',
 	            targetFieldMap: function(value, entry) {
-	                return entry["project.name"] + " / " + value;
+	                return entry["project.name"] + " " + value;
 	            },
 	            label: 'Entity',
 	            perPage: 100,
@@ -1759,6 +1754,9 @@
 	            type: 'reference',
 	            targetEntity: 'account',
 	            targetField: 'name',
+	            targetFieldMap: function(value, entry) {
+	                return entry["company.name"] + " " + value;
+	            },
 	            perPage: 100,
 	            sort: {
 	                field: 'name',

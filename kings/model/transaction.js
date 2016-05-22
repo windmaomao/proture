@@ -37,5 +37,8 @@ module.exports = {
     indexes: {
         accountId: true,
     },
-    virtuals: {}
+    virtuals: {},
+    populates: {
+        accountId: 'account'
+    },
 }
