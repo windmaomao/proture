@@ -1,16 +1,16 @@
 {
   "name": "proture",
   "version": "0.0.1",
-  "description": "",
+  "description": "QPLOT Proture",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "author": "Fang Jin",
   "license": "ISC",
   "dependencies": {
     "config-node": "^1.2.2",
-    "kingslanding": "~0.0.6"
+    "kingslanding": "0.0.15",
+    "mongoose": "^4.4.19"
   }
 }
