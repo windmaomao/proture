@@ -1,8 +1,10 @@
 var routes = require('./route');
+var schedules = require('./schedule');
+// var stat = require('./stat');
 
 module.exports = {
     port: 7929,
-    log: 'info',
+    log: 'verbose',
     passport: 'local',
     mongo: 'mongodb://localhost/proture',
     prefix: '/v1',
@@ -10,7 +12,8 @@ module.exports = {
     controller: __dirname + '/../controller',
     scheduler: __dirname + '/../scheduler',
     routes: routes,
-    schedules: {
-        hello: '1 minutes'
-    }
+    schedules: schedules,
+    // plugins: {
+    //     stat: stat
+    // }
 }

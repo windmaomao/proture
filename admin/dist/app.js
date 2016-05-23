@@ -2062,7 +2062,7 @@
 	    entity: 'stat',
 	    model: {
 	        _id: { type: 'id' },
-	        entity: 'string',
+	        name: 'string',
 	        total: 'integer',
 	        newTotal: 'integer',
 	        createdAt: 'datetime',
@@ -2077,7 +2077,7 @@
 	    id: '_id',
 	    default: {
 	        fields: [
-	            'entity', 'total', 'newTotal', 'createdAt'
+	            'name', 'total', 'newTotal', 'createdAt'
 	        ],
 	    },
 	    list: {
@@ -2093,7 +2093,7 @@
 	    show: {
 	        fields: [
 	            '_id',
-	            'entity', 'total', 'newTotal',
+	            'name', 'total', 'newTotal',
 	            'createdAt', 'updatedAt'
 	        ]
 	    },
