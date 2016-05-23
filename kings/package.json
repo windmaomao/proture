@@ -11,7 +11,7 @@
   "dependencies": {
     "async": "^2.0.0-rc.5",
     "config-node": "^1.2.2",
-    "kingslanding": "0.0.15",
+    "kingslanding": "0.0.16",
     "moment": "^2.13.0",
     "mongoose": "^4.4.19"
   }
