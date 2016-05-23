@@ -54,7 +54,7 @@
 	*/
 
 	var options = __webpack_require__(1);
-	var directive = __webpack_require__(20);
+	var directive = __webpack_require__(21);
 
 	angular
 	    .module('myApp', ['ng-admin-restify'])
@@ -154,6 +154,21 @@
 	                'transaction'
 	            ]
 	        },
+	    ],
+	    dashboard: [
+	        {
+	            title: 'Site updates',
+	            name: 'stat_latest',
+	            entity: 'stat',
+	            fields: ['name', 'total'],
+	            perPage: 5,
+	            sort: {
+	                field: 'total',
+	                dir: 'DESC'
+	            },
+	            actions: [],
+	            order: 0
+	        }
 	    ]
 	};
 
@@ -183,22 +198,22 @@
 		"./route.js": 11,
 		"./showcase": 12,
 		"./showcase.js": 12,
-		"./stat": 22,
-		"./stat.js": 22,
-		"./statement": 13,
-		"./statement.js": 13,
-		"./stock": 14,
-		"./stock.js": 14,
-		"./task": 15,
-		"./task.js": 15,
-		"./tech": 16,
-		"./tech.js": 16,
-		"./transaction": 17,
-		"./transaction.js": 17,
-		"./update": 18,
-		"./update.js": 18,
-		"./user": 19,
-		"./user.js": 19
+		"./stat": 13,
+		"./stat.js": 13,
+		"./statement": 14,
+		"./statement.js": 14,
+		"./stock": 15,
+		"./stock.js": 15,
+		"./task": 16,
+		"./task.js": 16,
+		"./tech": 17,
+		"./tech.js": 17,
+		"./transaction": 18,
+		"./transaction.js": 18,
+		"./update": 19,
+		"./update.js": 19,
+		"./user": 20,
+		"./user.js": 20
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -1279,6 +1294,64 @@
 
 /***/ },
 /* 13 */
+/***/ function(module, exports) {
+
+	/**
+	 * Stat entity module
+	 *
+	 * @date 05/21/16
+	 * @author Fang Jin <windmaomao@gmail.com>
+	*/
+
+	module.exports = {
+	    entity: 'stat',
+	    model: {
+	        _id: { type: 'id' },
+	        name: 'string',
+	        total: 'integer',
+	        newTotal: 'integer',
+	        createdAt: 'datetime',
+	        updatedAt: 'datetime'
+	    },
+	    fields: {
+	        createdAt: {
+	            label: 'Created',
+	            formatString: 'yyyy-MM-dd'
+	        }
+	    },
+	    id: '_id',
+	    default: {
+	        fields: [
+	            'name', 'total', 'newTotal', 'createdAt'
+	        ],
+	    },
+	    list: {
+	        title: 'Stat',
+	        description: 'Stats for all entities.',
+	        sort: {
+	            field: 'createdAt',
+	            dir: 'DESC'
+	        }
+	    },
+	    creation: {},
+	    edition: {},
+	    show: {
+	        fields: [
+	            '_id',
+	            'name', 'total', 'newTotal',
+	            'createdAt', 'updatedAt'
+	        ]
+	    },
+	    search: {
+	        fields: [
+	            'name'
+	        ]
+	    },
+	};
+
+
+/***/ },
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1420,7 +1493,7 @@
 
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1496,7 +1569,7 @@
 
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports) {
 
 	/**
@@ -1604,7 +1677,7 @@
 
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports) {
 
 	/**
@@ -1720,7 +1793,7 @@
 
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports) {
 
 	/**
@@ -1809,7 +1882,7 @@
 
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports) {
 
 	/**
@@ -1933,7 +2006,7 @@
 
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports) {
 
 	/**
@@ -2003,7 +2076,7 @@
 
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2013,7 +2086,7 @@
 	 * @author Fang Jin <windmaomao@gmail.com>
 	*/
 
-	var dashboardDirectiveTemplate = __webpack_require__(21);
+	var dashboardDirectiveTemplate = __webpack_require__(22);
 
 	var directive = {};
 
@@ -2042,68 +2115,10 @@
 
 
 /***/ },
-/* 21 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"row\">\n    <div class=\"col-lg-12\">\n        <div class=\"page-header\">\n            <h1>Proture <small>QPLOT Knowledgebase</small> </h1>\n            <p class=\"lead\">\n                <span>\n                    Centralize company information in organized way.\n                </span>\n            </p>\n        </div>\n    </div>\n</div>\n\n<div class=\"row\">\n    <div class=\"col-lg-12\">\n        <div class=\"col-lg-4 col-md-6\">\n            <div class=\"panel panel-default\">\n              <div class=\"panel-heading\">\n                  <b>New item this week</b>\n              </div>\n              <div class=\"panel-body list-group\">\n                    <li class=\"list-group-item\">\n                      <span class=\"badge\">2</span>\n                      Company\n                    </li>\n\n                    <li class=\"list-group-item\">\n                      <span class=\"badge\">8</span>\n                      Contact\n                    </li>\n              </div>\n            </div>\n        </div>\n\n        <div class=\"col-lg-4 col-md-6\">\n            <div class=\"panel panel-default\">\n              <div class=\"panel-heading\">\n                  <b>Total items</b>\n              </div>\n              <div class=\"panel-body list-group\">\n                    <li class=\"list-group-item\">\n                      <span class=\"badge\">2</span>\n                      Company\n                    </li>\n\n                    <li class=\"list-group-item\">\n                      <span class=\"badge\">8</span>\n                      Contact\n                    </li>\n\n                    <li class=\"list-group-item\">\n                      <span class=\"badge\">2</span>\n                      Stock\n                    </li>\n\n              </div>\n            </div>\n        </div>\n\n        <div class=\"col-lg-4 col-md-6\">\n            <div class=\"panel panel-default\">\n              <div class=\"panel-heading\">\n                  <b>Top items</b>\n              </div>\n              <div class=\"panel-body\">\n                  <table class=\"table table-hover\">\n                      <!-- <thead>\n                        <tr>\n                          <th></th>\n                          <th>Items</th>\n                        </tr>\n                      </thead> -->\n                      <tbody>\n                        <tr>\n                          <td>Company</td>\n                          <td>\n                              <span class=\"label label-default\">QPLOT</span>\n                              <span class=\"label label-default\">PeopleDesigns</span>\n                              <span class=\"label label-default\">Design Hammer</span>\n                          </td>\n                        </tr>\n                        <tr>\n                            <td>Contact</td>\n                            <td>\n                                <span class=\"label label-default\">Fang Jin</span>\n                                <span class=\"label label-default\">Zhengzheng Hu</span>\n                                <span class=\"label label-default\">Design Hammer</span>\n                            </td>\n                        </tr>\n                        <tr>\n                          <td>July</td>\n                          <td>Dooley</td>\n                        </tr>\n                      </tbody>\n                    </table>\n\n              </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"col-lg-12\">\n    </div>\n</div>\n"
-
-/***/ },
 /* 22 */
 /***/ function(module, exports) {
 
-	/**
-	 * Stat entity module
-	 *
-	 * @date 05/21/16
-	 * @author Fang Jin <windmaomao@gmail.com>
-	*/
-
-	module.exports = {
-	    entity: 'stat',
-	    model: {
-	        _id: { type: 'id' },
-	        name: 'string',
-	        total: 'integer',
-	        newTotal: 'integer',
-	        createdAt: 'datetime',
-	        updatedAt: 'datetime'
-	    },
-	    fields: {
-	        createdAt: {
-	            label: 'Created',
-	            formatString: 'yyyy-MM-dd'
-	        }
-	    },
-	    id: '_id',
-	    default: {
-	        fields: [
-	            'name', 'total', 'newTotal', 'createdAt'
-	        ],
-	    },
-	    list: {
-	        title: 'Stat',
-	        description: 'Stats for all entities.',
-	        sort: {
-	            field: 'createdAt',
-	            dir: 'DESC'
-	        }
-	    },
-	    creation: {},
-	    edition: {},
-	    show: {
-	        fields: [
-	            '_id',
-	            'name', 'total', 'newTotal',
-	            'createdAt', 'updatedAt'
-	        ]
-	    },
-	    search: {
-	        fields: [
-	            'name'
-	        ]
-	    },
-	};
-
+	module.exports = "<div class=\"row\">\n    <div class=\"col-lg-12\">\n        <div class=\"page-header\">\n            <h1>Proture <small>QPLOT Knowledgebase</small> </h1>\n            <p class=\"lead\">\n                <span>\n                    Centralize company information in organized way.\n                </span>\n            </p>\n        </div>\n    </div>\n</div>\n\n<div class=\"row\">\n    <div class=\"col-lg-12\">\n        <div class=\"col-lg-4 col-md-6\">\n            <div class=\"panel panel-default\">\n              <div class=\"panel-heading\">\n                  <b>New item this week</b>\n              </div>\n              <div class=\"panel-body list-group\">\n                    <li class=\"list-group-item\">\n                      <span class=\"badge\">2</span>\n                      Company\n                    </li>\n\n                    <li class=\"list-group-item\">\n                      <span class=\"badge\">8</span>\n                      Contact\n                    </li>\n              </div>\n            </div>\n        </div>\n\n        <div class=\"col-lg-4 col-md-6\">\n            <div class=\"panel panel-default\">\n              <div class=\"panel-heading\">\n                  <b>Total items</b>\n              </div>\n              <div class=\"panel-body list-group\">\n                    <li class=\"list-group-item\">\n                      <span class=\"badge\">2</span>\n                      Company\n                    </li>\n\n                    <li class=\"list-group-item\">\n                      <span class=\"badge\">8</span>\n                      Contact\n                    </li>\n\n                    <li class=\"list-group-item\">\n                      <span class=\"badge\">2</span>\n                      Stock\n                    </li>\n\n              </div>\n            </div>\n        </div>\n\n        <div class=\"col-lg-4 col-md-6\">\n            <div class=\"panel panel-default\">\n              <div class=\"panel-heading\">\n                  <b>Top items</b>\n              </div>\n              <div class=\"panel-body\">\n                  <table class=\"table table-hover\">\n                      <!-- <thead>\n                        <tr>\n                          <th></th>\n                          <th>Items</th>\n                        </tr>\n                      </thead> -->\n                      <tbody>\n                        <tr>\n                          <td>Company</td>\n                          <td>\n                              <span class=\"label label-default\">QPLOT</span>\n                              <span class=\"label label-default\">PeopleDesigns</span>\n                              <span class=\"label label-default\">Design Hammer</span>\n                          </td>\n                        </tr>\n                        <tr>\n                            <td>Contact</td>\n                            <td>\n                                <span class=\"label label-default\">Fang Jin</span>\n                                <span class=\"label label-default\">Zhengzheng Hu</span>\n                                <span class=\"label label-default\">Design Hammer</span>\n                            </td>\n                        </tr>\n                        <tr>\n                          <td>July</td>\n                          <td>Dooley</td>\n                        </tr>\n                      </tbody>\n                    </table>\n\n              </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"col-lg-12\">\n    </div>\n</div>\n"
 
 /***/ }
 /******/ ]);

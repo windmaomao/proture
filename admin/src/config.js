@@ -82,5 +82,20 @@ module.exports = {
                 'transaction'
             ]
         },
+    ],
+    dashboard: [
+        {
+            title: 'Site updates',
+            name: 'stat_latest',
+            entity: 'stat',
+            fields: ['name', 'total'],
+            perPage: 5,
+            sort: {
+                field: 'total',
+                dir: 'DESC'
+            },
+            actions: [],
+            order: 0
+        }
     ]
 };
