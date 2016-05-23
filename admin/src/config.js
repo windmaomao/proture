@@ -44,6 +44,7 @@ module.exports = {
         user: requireEntity('user'),
         stock: requireEntity('stock'),
         price: requireEntity('price'),
+        stat: requireEntity('stat'),
     },
     routes: [
         {
@@ -54,7 +55,8 @@ module.exports = {
                 'contact',
                 'stock',
                 'tech',
-                'user'
+                'user',
+                'stat'
             ]
         },
         {

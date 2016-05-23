@@ -15,4 +15,5 @@ module.exports = {
     statement: {},
     stock: {},
     price: {},
+    stat: {},
 };
