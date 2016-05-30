@@ -86,7 +86,7 @@
 	module.exports = {
 	    site: 'Proture',
 	    url: '/v1/',
-	    auth: true,
+	    // auth: true,
 	    rest: {
 	        url: '/v1/',
 	        filter: 'q',
@@ -1057,7 +1057,7 @@
 	    default: {
 	        fields: [
 	            'active',
-	            'name', 'companyId', 'slogan', 'techIds',
+	            'name', 'companyId',
 	            'createdAt', 'startYear', 'rating', 'url'
 	        ],
 	    },
@@ -1528,7 +1528,7 @@
 	    id: '_id',
 	    default: {
 	        fields: [
-	            'name', 'symbol', 'sector', 'category', 'rating',
+	            'name', 'symbol', 'sector', 'rating',
 	        ],
 	    },
 	    list: {
@@ -1969,7 +1969,7 @@
 	    id: '_id',
 	    default: {
 	        fields: [
-	            'projectId', 'title', 'techId', 'rating', 'createdAt', 'url'
+	            'projectId', 'title', 'techId', 'rating', 'url'
 	        ],
 	    },
 	    list: {

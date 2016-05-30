@@ -82,7 +82,7 @@ module.exports = {
     id: '_id',
     default: {
         fields: [
-            'projectId', 'title', 'techId', 'rating', 'createdAt', 'url'
+            'projectId', 'title', 'techId', 'rating', 'url'
         ],
     },
     list: {

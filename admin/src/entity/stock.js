@@ -30,7 +30,7 @@ module.exports = {
     id: '_id',
     default: {
         fields: [
-            'name', 'symbol', 'sector', 'category', 'rating',
+            'name', 'symbol', 'sector', 'rating',
         ],
     },
     list: {

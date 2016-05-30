@@ -14,7 +14,7 @@ var requireEntity = function(name) {
 module.exports = {
     site: 'Proture',
     url: '/v1/',
-    auth: true,
+    // auth: true,
     rest: {
         url: '/v1/',
         filter: 'q',

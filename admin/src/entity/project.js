@@ -116,7 +116,7 @@ module.exports = {
     default: {
         fields: [
             'active',
-            'name', 'companyId', 'slogan', 'techIds',
+            'name', 'companyId',
             'createdAt', 'startYear', 'rating', 'url'
         ],
     },
