@@ -44,6 +44,6 @@ module.exports = {
     },
     virtuals: {},
     plugins: {
-        'passport': {}
+        // 'passport': {}
     }
 }

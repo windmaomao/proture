@@ -1,19 +1,24 @@
+var path = require('path');
 var routes = require('./route');
 var schedules = require('./schedule');
-// var stat = require('./stat');
+
+var _path = function(name) {
+    return path.join(__dirname, '../', name);
+};
 
 module.exports = {
     port: 7929,
-    log: 'verbose',
+    debug: 'verbose',
     passport: 'local',
     mongo: 'mongodb://localhost/proture',
     prefix: '/v1',
-    model: __dirname + '/../model',
-    controller: __dirname + '/../controller',
-    scheduler: __dirname + '/../scheduler',
+    model: _path('model'),
+    controller: _path('controller'),
+    scheduler: _path('scheduler'),
     routes: routes,
     schedules: schedules,
-    // plugins: {
-    //     stat: stat
-    // }
-}
+    plugger: _path('plugin'),
+    plugins: {
+        stat: {}
+    }
+};

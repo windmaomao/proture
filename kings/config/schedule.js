@@ -1,4 +1,3 @@
 module.exports = {
-    hello: '1 minutes',
-    statUpdate: '5 minutes',
+    // hello: '1 minutes',
 };
