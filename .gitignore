@@ -3,3 +3,5 @@ node_modules
 log
 info
 verbose
+bower_components
+.tmp
