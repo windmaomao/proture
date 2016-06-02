@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.test', [
+        .module('app.pages.subscribe', [
 
         ]);
 })();

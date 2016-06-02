@@ -1,0 +1,35 @@
+<div layout="column" layout-align="center center">
+    <h1 class="font-weight-100 font-size-8 margin-top-40 text-light" translate>Subscribe Now</h1>
+    <div layout="row" layout-align="center center">
+        <p flex="110"  flex-xs="90" class="md-headline font-weight-300 text-center text-light" translate>
+            Subscribe and then get notified when we have new release!
+        </p>
+    </div>
+
+    <div flex layout="row" layout-align="center center" layout-fill>
+
+        <md-card class="margin-top-100 margin-bottom-200" flex="70" flex-xs="90">
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2 translate>Fill in the form below to subscribe</h2>
+                </div>
+            </md-toolbar>
+            <md-card-content>
+                <form name="githubForm">
+                    <md-input-container class="md-block">
+                        <label translate>Email</label>
+                        <input name="purchaseCode" ng-model="vm.data.purchaseCode" required>
+                        <div ng-messages="githubForm.purchaseCode.$error">
+                            <div ng-message when="required"><span translate>Enter a valid email</span></div>
+                        </div>
+                    </md-input-container>
+                </form>
+
+                <div class="margin-top-40" layout="row" layout-align="end center">
+                    <md-button class="md-primary" ng-disabled="githubForm.$invalid" ng-click="vm.register()" translate="Subscribe" aria-label="{{'Subscribe' | triTranslate}}"></md-button>
+                </div>
+
+            </md-card-content>
+        </md-card>
+    </div>
+</div>
