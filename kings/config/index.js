@@ -4,20 +4,21 @@ var schedules = require('./schedule');
 var plugins = require('./plugin');
 
 var _path = function(name) {
+    name = name || '';
     return path.join(__dirname, '../', name);
 };
 
 module.exports = {
     port: 7929,
-    debug: 'verbose',
-    passport: 'local',
+    debug: 'info',
     mongo: 'mongodb://localhost/proture',
+    app: _path(),
+    model: '/model',
+    controller: '/controller',
+    scheduler: '/scheduler',
+    plugger: '/plugin',
     prefix: '/v1',
-    model: _path('model'),
-    controller: _path('controller'),
-    scheduler: _path('scheduler'),
     routes: routes,
     schedules: schedules,
-    plugger: _path('plugin'),
     plugins: plugins
 };

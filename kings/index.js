@@ -9,8 +9,8 @@
 var config = require('config-node')({
     env: process.env.NODE_ENV || 'index'
 });
-var landing = global.Landing = require('kingslanding');
+var landing = require('kingslanding');
 
 landing.lift(config, function() {
-    console.log('Server lifted.');
+    global.landing = landing;
 });
