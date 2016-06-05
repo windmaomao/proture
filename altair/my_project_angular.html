@@ -1,7 +1,7 @@
 <!doctype html>
 <!--[if lte IE 9]> <html class="lte-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 9]><!-->
-<html lang="en" ng-app="app">
+<html lang="en">
 <!--<![endif]-->
 
 <head>
@@ -39,7 +39,7 @@
         <link rel="stylesheet" href="assets/css/ie.css" media="all">
     <![endif]-->
 </head>
-<body class=" sidebar_main_open sidebar_main_swipe">
+<body class=" sidebar_main_open sidebar_main_swipe" ng-app="app">
     <!-- main header -->
     <header id="header_main">
         <div class="header_main_content">
@@ -304,7 +304,7 @@
     </aside><!-- main sidebar end -->
 
     <div id="page_content">
-        <div id="page_content_inner">
+        <div id="page_content_inner" ng-controller="ProjectCtrl">
             <div class="uk-grid" data-uk-grid-margin data-uk-grid-match id="user_profile">
                 <div class="uk-width-large-7-10">
                     <div class="md-card">
@@ -321,43 +321,50 @@
                             <div class="user_heading_avatar">
                                 <div class="thumbnail">
                                     <!-- <img src="assets/img/avatars/avatar_11.png" alt="user avatar"/> -->
-                                    <i class="material-icons" style="font-size: 64px; padding: 5px 7px; color: #bbb">&#xE532;</i>
+                                    <i class="material-icons"
+                                        style="font-size: 64px; padding: 5px 7px; color: #bbb" ng-bind="project.icon">
+                                    </i>
                                 </div>
                             </div>
                             <div class="user_heading_content">
                                 <h2 class="heading_b uk-margin-bottom">
                                     <span class="uk-text-truncate">
-                                        PREPARE
+                                        <span ng-bind="project.name"></span>
                                         <span>
-                                            <i class="material-icons" style="color: white; font-size: 13px;">star</i>
-                                            <i class="material-icons" style="color: white; font-size: 14px;">star</i>
-                                            <i class="material-icons" style="color: white; font-size: 15px;">star</i>
+                                            <i ng-repeat="i in [].constructor(project.rating) track by $index"
+                                                class="material-icons"
+                                                style="color: white; font-size: {{ 13 + $index }}px;">star</i>
                                         </span>
                                     </span>
-                                    <span class="sub-heading">Prepare for your end of life decision</span>
+                                    <span class="sub-heading" ng-bind="project.slogan"></span>
                                 </h2>
                                 <ul class="user_stats">
                                     <li>
-                                        <h4 class="heading_a">143 <span class="sub-heading">Updates</span></h4>
+                                        <h4 class="heading_a"><span ng-bind="project.updatesCount"></span> <span class="sub-heading">Updates</span></h4>
                                     </li>
                                     <li>
-                                        <h4 class="heading_a">25 <span class="sub-heading">Techs</span></h4>
+                                        <h4 class="heading_a"><span ng-bind="project.techsCount"></span> <span class="sub-heading">Techs</span></h4>
                                     </li>
                                     <li>
-                                        <h4 class="heading_a">15 <span class="sub-heading">Entities</span></h4>
+                                        <h4 class="heading_a"><span ng-bind="project.entitiesCount"></span> <span class="sub-heading">Entities</span></h4>
                                     </li>
                                 </ul>
                             </div>
-                            <a class="md-fab md-fab-small md-fab-accent" href="page_user_edit.html">
+                            <a class="md-fab md-fab-small md-fab-accent" href="my_project_edit.html">
                                 <i class="material-icons">&#xE150;</i>
                             </a>
                             <p>
-                                <span class="uk-badge uk-badge-danger">MySQL</span>
-                                <span class="uk-badge uk-badge-warning">NProgress</span>
+                                <span ng-repeat="tech in project.techs track by $index"
+                                    class="uk-badge" style="margin-left: 4px;"
+                                    ng-class="{
+                                        'uk-badge-warning': tech.category == 'Front-end',
+                                        'uk-badge-success': tech.category == 'Server'
+                                    }" ng-bind="tech.name"></span>
+                                <!-- <span class="uk-badge uk-badge-warning">NProgress</span>
                                 <span class="uk-badge uk-badge-primary">Laravel</span>
                                 <span class="uk-badge uk-badge-primary">PDFtk</span>
                                 <span class="uk-badge uk-badge-primary">JPlayer</span>
-                                <span class="uk-badge uk-badge-info">HTML</span>
+                                <span class="uk-badge uk-badge-info">HTML</span> -->
                             </p>
 
                         </div>
@@ -370,8 +377,7 @@
                             <ul id="user_profile_tabs_content" class="uk-switcher uk-margin">
                                 <li>
                                     <div class="uk-width-large-1-1">
-                                    <p>PREPARE is a website that uses videos and stories to teach people how to identify their values and goals for medical care and to make medical decisions. PREPARE also creates a Summary of My Wishes that can be shared with medical providers, family and friends.</p>
-                                    <p>PREPARE was designed with and for people from diverse backgrounds to be easy to use. It is available in English and Spanish, written at a 5th grade reading level, and includes voice-overs of all text and closed captioning of all videos.</p>
+                                    <div ng-bind="project.description"></div>
                                     <div class="uk-grid uk-margin-medium-top uk-margin-large-bottom" data-uk-grid-margin>
                                         <div class="uk-width-large-1-2">
                                             <h4 class="heading_c uk-margin-small-bottom">Websit Info</h4>
@@ -532,8 +538,8 @@
                                             <i class="md-list-addon-icon material-icons uk-text-info">&#xE88F;</i>
                                         </div>
                                         <div class="md-list-content">
-                                            <span class="md-list-heading">Started at July 2015</span>
-                                            <span class="uk-text-small uk-text-muted uk-text-truncate">Active</span>
+                                            <span class="md-list-heading" ng-bind="project.createdAt">July 2015</span>
+                                            <span class="uk-text-small uk-text-muted uk-text-truncate" ng-bind="project.active"></span>
                                         </div>
                                     </li>
                                     <li>
@@ -822,6 +828,25 @@
 
 
         });
+    </script>
+
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/lodash/2.1.0/lodash.compat.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/restangular/1.3.1/restangular.min.js"></script>
+
+    <script>
+        angular
+            .module('app', ['restangular'])
+            .config(function(RestangularProvider) {
+                RestangularProvider.setBaseUrl('/v1');
+            })
+            .controller('ProjectCtrl', function($scope, Restangular) {
+                var Project = Restangular.one('project', '5738b0dfa28d088f0d6b84a7');
+                Project.get().then(function(project) {
+                    $scope.project = project;
+                });
+            })
+        ;
     </script>
 </body>
 </html>
