@@ -327,7 +327,10 @@
                                         <span class="sub-heading" id="user_edit_position"><small>Peopledesign</small> PREPARE</span>
                                     </h2>
                                 </div>
-                                <div class="md-fab-wrapper">
+                                <a class="md-fab md-fab-small md-fab-accent" href="my_project.html">
+                                    <i class="material-icons">&#xE161;</i>
+                                </a>
+                                <!-- <div class="md-fab-wrapper">
                                     <div class="md-fab md-fab-toolbar md-fab-small md-fab-accent">
                                         <i class="material-icons">&#xE8BE;</i>
                                         <div class="md-fab-toolbar-actions">
@@ -335,10 +338,10 @@
                                             <button id="user_edit_save" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}" title="Save">
                                                 <i class="material-icons md-color-white">&#xE161;</i>
                                             </button>
-                                            <!-- <button type="submit" id="user_edit_print" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}" title="Print"><i class="material-icons md-color-white">&#xE555;</i></button> -->
+                                            <button type="submit" id="user_edit_print" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}" title="Print"><i class="material-icons md-color-white">&#xE555;</i></button>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="user_content">
                                 <ul id="user_edit_tabs" class="uk-tab" data-uk-tab="{connect:'#user_edit_tabs_content'}">
@@ -349,9 +352,9 @@
                                 <ul id="user_edit_tabs_content" class="uk-switcher uk-margin">
                                     <li>
                                         <div class="uk-margin-top">
-                                            <h3 class="full_width_in_card heading_c">
+                                            <!-- <h3 class="full_width_in_card heading_c">
                                                 General info
-                                            </h3>
+                                            </h3> -->
                                             <div class="uk-grid" data-uk-grid-margin>
                                                 <div class="uk-width-medium-1-2">
                                                     <label for="user_edit_uname_control">Project name</label>
@@ -365,13 +368,33 @@
                                             <div class="uk-grid">
                                                 <div class="uk-width-1-1">
                                                     <label for="user_edit_personal_info_control">Description</label>
-                                                    <textarea class="md-input" name="user_edit_personal_info_control" id="user_edit_personal_info_control" cols="30" rows="4">
+                                                    <textarea class="md-input" name="user_edit_personal_info_control" id="user_edit_personal_info_control" cols="30" rows="10">
 PREPARE is a website that uses videos and stories to teach people how to identify their values and goals for medical care and to make medical decisions. PREPARE also creates a Summary of My Wishes that can be shared with medical providers, family and friends.
 
 PREPARE was designed with and for people from diverse backgrounds to be easy to use. It is available in English and Spanish, written at a 5th grade reading level, and includes voice-overs of all text and closed captioning of all videos.</textarea>
                                                 </div>
                                             </div>
-                                            <h3 class="full_width_in_card heading_c">
+                                            <div class="uk-grid" data-uk-grid-margin>
+                                                <div class="uk-width-medium-1-2">
+                                                    <label for="user_edit_uname_control">Launch Date</label>
+                                                    <input class="md-input" type="text" id="user_edit_uname_control" name="user_edit_uname_control" value="2016-03-15" />
+                                                </div>
+                                                <div class="uk-width-medium-1-2">
+                                                    <label for="user_edit_position_control">Site URL</label>
+                                                    <input class="md-input" type="text" id="user_edit_position_control" name="user_edit_position_control" value="http://prepareforyourcare.org" />
+                                                </div>
+                                            </div>
+
+
+                                            <!-- <div class="uk-grid" data-uk-grid-margin>
+                                                <div class="uk-width-medium-1-2">
+                                                    <div class="uk-input-group">
+                                                        <span class="uk-input-group-addon"><i class="uk-input-group-icon uk-icon-calendar"></i></span>
+                                                        <div class="md-input-wrapper md-input-filled"><label for="uk_dp_1">Project started</label><input class="md-input" type="text" id="uk_dp_1" data-uk-datepicker="{format:'YYYY-MM-DD'}"><span class="md-input-bar "></span></div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <!-- <h3 class="full_width_in_card heading_c">
                                                 Languages
                                             </h3>
                                             <div class="uk-grid" data-uk-grid-margin>
@@ -382,8 +405,8 @@ PREPARE was designed with and for people from diverse backgrounds to be easy to 
                                                         <option value="fr" selected>French</option>
                                                     </select>
                                                 </div>
-                                            </div>
-                                            <h3 class="full_width_in_card heading_c">
+                                            </div> -->
+                                            <!-- <h3 class="full_width_in_card heading_c">
                                                 Contact info
                                             </h3>
                                             <div class="uk-grid">
@@ -445,7 +468,7 @@ PREPARE was designed with and for people from diverse backgrounds to be easy to 
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </li>
                                     <li>
@@ -788,7 +811,7 @@ PREPARE was designed with and for people from diverse backgrounds to be easy to 
                                 </div>
                                 <hr class="md-hr">
                                 <div class="uk-form-row">
-                                    <label class="uk-form-label" for="user_edit_role">Company</label>
+                                    <label class="uk-form-label" for="user_edit_role">Sponsored by Company</label>
                                     <select data-md-selectize>
                                         <option value="">Select...</option>
                                         <option value="admin">QPLOT</option>
@@ -799,6 +822,16 @@ PREPARE was designed with and for people from diverse backgrounds to be easy to 
                                     </select>
                                 </div>
                                 <div class="uk-form-row">
+                                    <label class="uk-form-label" for="user_edit_role">Project started since</label>
+                                    <div class="uk-input-group">
+                                        <span class="uk-input-group-addon"><i class="uk-input-group-icon uk-icon-calendar"></i></span>
+                                        <div class="md-input-wrapper md-input-filled">
+                                            <input class="md-input" type="text" id="uk_dp_1" data-uk-datepicker="{format:'YYYY-MM-DD'}" value="2015-02-01">
+                                            <span class="md-input-bar "></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="uk-form-row">
                                     <label class="uk-form-label" for="user_edit_role">Icon</label>
                                     <div class="uk-button-dropdown" data-uk-dropdown="" aria-haspopup="true" aria-expanded="false">
                                         <button class="md-btn">Selected: <i class="material-icons">wc</i></button>
@@ -809,7 +842,7 @@ PREPARE was designed with and for people from diverse backgrounds to be easy to 
                                             </ul>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
