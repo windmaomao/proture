@@ -7,5 +7,4 @@
  * @author Fang Jin <windmaomao@gmail.com>
  */
 
-module.exports = {
-};
+var ctrl = module.exports = {};

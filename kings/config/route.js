@@ -1,5 +1,5 @@
 module.exports = {
-    user: {},
+    // user: {},
     company: {},
     project: {},
     update: {},

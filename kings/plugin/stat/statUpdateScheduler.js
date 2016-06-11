@@ -58,7 +58,7 @@ var countEntity = function(data, done) {
                 newTotal: 0,
                 createdAt: data.asOfDate
             });
-            logger.verbose(entities[i] + ' count', results[i]);
+            logger.debug(entities[i] + ' count', results[i]);
         };
 
         data.pool.StatCreate = inserts;
