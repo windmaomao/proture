@@ -1,7 +1,5 @@
 .DS_Store
 node_modules
-log
-info
-verbose
+.log
 bower_components
 .tmp

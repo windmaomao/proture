@@ -10,6 +10,7 @@ var _path = function(name) {
 
 module.exports = {
     port: 7929,
+    log: 'kings.log',
     debug: 'verbose',
     mongo: 'mongodb://localhost/proture',
     app: _path(),

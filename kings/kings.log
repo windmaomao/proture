@@ -1,0 +1,51 @@
+2016-06-11T16:15:05.216Z - info: [35mLog[39m On
+2016-06-11T16:15:05.222Z - verbose: [35mPlugin[39m [32mstat[39m matches plugger path
+2016-06-11T16:15:05.224Z - info: [35mPlugin[39m stat
+2016-06-11T16:15:05.224Z - verbose: [35mPlugin[39m [32msubscription[39m matches plugger path
+2016-06-11T16:15:05.226Z - info: [35mPlugin[39m subscription
+2016-06-11T16:15:05.226Z - info: [35mMongo[39m On
+2016-06-11T16:15:05.431Z - verbose: [35mRoute[39m [32m[REST] [39m /v1/user
+2016-06-11T16:15:05.437Z - verbose: [35mRoute[39m [32m[REST] [39m /v1/company
+2016-06-11T16:15:05.443Z - verbose: [35mRoute[39m [32m[REST] [39m /v1/project
+2016-06-11T16:15:05.446Z - verbose: [35mRoute[39m [32m[REST] [39m /v1/update
+2016-06-11T16:15:05.449Z - verbose: [35mRoute[39m [32m[REST] [39m /v1/tech
+2016-06-11T16:15:05.452Z - verbose: [35mRoute[39m [32m[REST] [39m /v1/showcase
+2016-06-11T16:15:05.456Z - verbose: [35mRoute[39m [32m[REST] [39m /v1/entity
+2016-06-11T16:15:05.459Z - verbose: [35mRoute[39m [32m[REST] [39m /v1/contact
+2016-06-11T16:15:05.462Z - verbose: [35mRoute[39m [32m[REST] [39m /v1/member
+2016-06-11T16:15:05.465Z - verbose: [35mRoute[39m [32m[REST] [39m /v1/route
+2016-06-11T16:15:05.469Z - verbose: [35mRoute[39m [32m[REST] [39m /v1/task
+2016-06-11T16:15:05.473Z - verbose: [35mRoute[39m [32m[REST] [39m /v1/account
+2016-06-11T16:15:05.476Z - verbose: [35mRoute[39m [32m[REST] [39m /v1/transaction
+2016-06-11T16:15:05.483Z - verbose: [35mRoute[39m [32m[REST] [39m /v1/statement
+2016-06-11T16:15:05.486Z - verbose: [35mRoute[39m [32m[REST] [39m /v1/stock
+2016-06-11T16:15:05.491Z - verbose: [35mRoute[39m [32m[REST] [39m /v1/price
+2016-06-11T16:15:05.492Z - verbose: [35mRoute[39m [32m [GET] [39m /v1/project/:id/more
+2016-06-11T16:15:05.495Z - verbose: [35mRoute[39m [32m[REST] [39m /v1/stat
+2016-06-11T16:15:05.499Z - verbose: [35mRoute[39m [32m[REST] [39m /v1/subscription
+2016-06-11T16:15:05.500Z - verbose: [35mRoute[39m [32m [GET] [39m /v1/subscribe
+2016-06-11T16:15:05.501Z - info: [35mRoute[39m On
+2016-06-11T16:15:05.560Z - info: [35mRestify[39m 7929
+2016-06-11T16:15:05.664Z - verbose: [35mSchedule[39m [32mstatUpdate[39m every 5 minutes
+2016-06-11T16:15:05.664Z - info: [35mSchedule[39m On
+2016-06-11T16:15:05.700Z - verbose: entities 18
+2016-06-11T16:15:05.713Z - verbose: user count 1
+2016-06-11T16:15:05.713Z - verbose: company count 1
+2016-06-11T16:15:05.714Z - verbose: project count 1
+2016-06-11T16:15:05.714Z - verbose: update count 1
+2016-06-11T16:15:05.714Z - verbose: tech count 1
+2016-06-11T16:15:05.714Z - verbose: showcase count 0
+2016-06-11T16:15:05.714Z - verbose: entity count 1
+2016-06-11T16:15:05.714Z - verbose: contact count 0
+2016-06-11T16:15:05.714Z - verbose: member count 0
+2016-06-11T16:15:05.714Z - verbose: route count 1
+2016-06-11T16:15:05.714Z - verbose: task count 0
+2016-06-11T16:15:05.715Z - verbose: account count 1
+2016-06-11T16:15:05.715Z - verbose: transaction count 1
+2016-06-11T16:15:05.715Z - verbose: statement count 0
+2016-06-11T16:15:05.715Z - verbose: stock count 1
+2016-06-11T16:15:05.715Z - verbose: price count 1
+2016-06-11T16:15:05.715Z - verbose: stat count 301
+2016-06-11T16:15:05.716Z - verbose: subscription count 1
+2016-06-11T16:15:05.757Z - verbose: stat deleted 18
+2016-06-11T16:15:05.757Z - verbose: stat created 18
