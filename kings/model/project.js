@@ -16,18 +16,11 @@ module.exports = {
         /**
          * Company id the project belongs to
          */
-        companyId: {
-            type: ObjectId, ref: 'company'
-        },
-        /**
-         * Tech ids the project tagged with
-         */
-        techIds: [{
-            type: ObjectId, ref: 'tech'
-        }],
+        companyId: { type: ObjectId, ref: 'company' },
         /**
          * Name, alias, slogan and note
          */
+        icon: String,
         name: { type: String, required: true },
         alias: { type: String, required: true },
         slogan: String,
@@ -38,8 +31,19 @@ module.exports = {
          */
         active: Boolean,
         rating: { type: Number, max: 5 },
-        startYear: Number,
+        startYear: Number,      // used as launchYear
         durationMonth: Number,
+        /**
+         * Populated attributes
+         */
+        //  updatesCount: Number,
+        //  techsCount: Number,
+        //  entitiesCount: Number,
+        //  membersCount: Number,
+        //  updates: [],
+        //  techs: [],
+        //  entities: [],
+        //  members: [],
     },
     options: {
         collection: 'project',

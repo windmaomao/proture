@@ -7,5 +7,9 @@
  * @author Fang Jin <windmaomao@gmail.com>
  */
 
-module.exports = {
+var controller = module.exports = {};
+
+controller.more = function(req, res, next) {
+    res.send({ result: 123 });
+    return next();
 };

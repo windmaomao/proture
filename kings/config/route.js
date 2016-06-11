@@ -15,4 +15,10 @@ module.exports = {
     statement: {},
     stock: {},
     price: {},
+
+    projectMore: {
+        path: '/project/:id/more',
+        controller: 'project',
+        GET: 'more',
+    }
 };
